@@ -1,6 +1,7 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
+#include "utilfn.h"
 #include <pnew.cpp>//library weirdness
 // #include <lcdostream>
 #include "ui.h"
@@ -65,11 +66,21 @@ void callback1(menucallbackinfo_t info) {
 	else if (info == SELECT) tone(8, 800, 50);
 	else if (info == LEFT) tone(8, 1600, 50);
 }
+void drawcallback(menucallbackinfo_t info) {
+	static Timer timer;
+	static int delay = 60;
+	if(timer.Check((unsigned long) delay))
+	{
+		ClearSection(0,0,16,ui.lcd);
+		ui.lcd.print(F("callback draw"));
+		ui.lcd.print(delay);
+	}
+	else if (info == RIGHT) delay++;
+	else if (info == SELECT) tone(8, 800, 50);
+	else if (info == LEFT) delay--;
+}
 void lcdTest () {
-	//LiquidCrystal lcd(11,10,5,4,3,2);
-	//lcd.begin(16,2);
-	
-
+	ui.PushItem(F("Bean Firmware"), drawcallback);
 	ui.PushItem(F("A label"), F("Beep on select"), callback1);
 	ui.PushItem(F("Another label"), F("This does nothing"));
 
