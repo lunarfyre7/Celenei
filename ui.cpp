@@ -49,7 +49,7 @@ void UI::Task() {
 		if (lastButtonState == none){
 			//Menu item navigation
 			if (button == up) {
-				currentMenuItem--;
+				currentMenuItem = currentMenuItem == 0 ? menu.size() -1 : currentMenuItem - 1;
 			} else if (button == down) {
 				currentMenuItem++;
 			}
