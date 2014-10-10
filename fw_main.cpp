@@ -60,7 +60,10 @@ UI ui(16, 2);
 void uitask() {ui.Task();};
 void callback1(menucallbackinfo_t info) {
 	static Timer timer;
-	if (info == NEW || info == LEFT || info == RIGHT || info == SELECT) beep();
+	if (info == NEW) beep();
+	else if (info == RIGHT) tone(8, 400, 50);
+	else if (info == SELECT) tone(8, 800, 50);
+	else if (info == LEFT) tone(8, 1600, 50);
 }
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
@@ -68,7 +71,7 @@ void lcdTest () {
 	
 
 	ui.PushItem("A label", "Beep on select", callback1);
-	ui.PushItem("Another label", "Mute");
+	ui.PushItem("Another label", "This does nothing");
 
 	Spin::RegisterTask(uitask);
 }
