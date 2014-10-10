@@ -60,7 +60,7 @@ UI ui(16, 2);
 void uitask() {ui.Task();};
 void callback1(menucallbackinfo_t info) {
 	static Timer timer;
-	if (info == NEW) beep();
+	if (info == NEW || info == LEFT || info == RIGHT || info == SELECT) beep();
 }
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
