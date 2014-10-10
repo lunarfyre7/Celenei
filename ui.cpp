@@ -1,16 +1,9 @@
 #include "ui.h"
 
-enum btndir {
-	up,
-	down, 
-	left,
-	right,
-	center,
-	none
-};
+using namespace BEAN;
 
 #ifdef RESISTOR_BUTTON_MULTIPLEX
-btndir DPad() {
+btndir_t DPad() {
   //0 = no buttons pressed
   //1 = up
   //2 = down
@@ -18,7 +11,7 @@ btndir DPad() {
   //4 = right
   //5 = center
   int reading = analogRead(BUTTONPIN);
-  btndir val;
+  btndir_t val;
   if (reading < 1000) val = up;
   if (reading < 720) val = left;
   if (reading < 620) val = center;
@@ -42,18 +35,24 @@ UI::UI(uint8_t X, uint8_t Y)
 		// std::olcdstream lcdout(lcd);
 }
 void UI::Task() {
-	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {
+	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
 		lcd.clear();
+		lcd.print(menu[currentMenuItem].Info);
+		lcd.setCursor(0, 1);
 		lcd.print(menu[currentMenuItem].Label);
 	}
-	if(buttonTimer.Check(BUTTONCHECK_TIME)) {
-		btndir button = DPad();
-		if (button == up) {
-			currentMenuItem--;
-		} else if (button == down) {
-			currentMenuItem++;
+	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
+		btndir_t button = DPad();
+
+		if (lastButtonState == none){
+			if (button == up) {
+				currentMenuItem--;
+			} else if (button == down) {
+				currentMenuItem++;
+			}
+			currentMenuItem = currentMenuItem % menu.size(); //limit the index of currentmenuitem
 		}
-		currentMenuItem = currentMenuItem % menu.size(); //limit the index of currentmenuitem
+		lastButtonState = button;
 	}
 }
 void UI::PushItem(const char* Label, const char* Info) {

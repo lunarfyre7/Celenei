@@ -62,8 +62,8 @@ void lcdTest () {
 	//lcd.begin(16,2);
 	
 
-	ui.PushItem("a label", "some info");
-	ui.PushItem("another label", "some other info");
+	ui.PushItem("A label", "some info");
+	ui.PushItem("Another label", "some other info");
 
 	Spin::RegisterTask(uitask);
 }

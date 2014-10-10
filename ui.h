@@ -7,13 +7,24 @@
 #include <vector>
 #include "timer.h"
 
-enum menucallbackinfo_t {
-	NOTHING,
-	SELECT,
-	LEFT,
-	RIGHT
-};
-typedef void(*MenuItemCallback)(menucallbackinfo_t);
+namespace BEAN {
+	enum menucallbackinfo_t {
+		NOTHING,
+		SELECT,
+		LEFT,
+		RIGHT
+	};
+	enum btndir_t {
+		up,
+		down, 
+		left,
+		right,
+		center,
+		none
+	};
+}
+
+typedef void(*MenuItemCallback)(BEAN::menucallbackinfo_t);
 struct MenuItem{
 	const char* Label;
 	const char* Info;
@@ -35,6 +46,7 @@ private:
 	unsigned int currentMenuItem;
 	Timer dispRefreshTimer;
 	Timer buttonTimer;
+	BEAN::btndir_t lastButtonState;
 };
 
 #endif
