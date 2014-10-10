@@ -83,9 +83,6 @@ void lcdTest () {
 	ui.PushItem(F("Bean Firmware"), drawcallback);
 	ui.PushItem(F("A label"), F("Beep on select"), callback1);
 	ui.PushItem(F("Another label"), F("This does nothing"));
-	ui.PushItem(F("Cake"), F("Is a lie"));
-	ui.PushItem(F("Pinkie Pie"), F("Cupcakes!"));
-	ui.PushItem(F("Ghigli"), F("Type: cat"));
 
 	Spin::RegisterTask(uitask);
 }
