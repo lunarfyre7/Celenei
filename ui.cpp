@@ -37,7 +37,7 @@ void UI::Task() {
 			ClearSection(0,0,16, lcd); //CHANGEME
 			lcd.print(menu[currentMenuItem].Info);
 		//} 
-		lcd.clear();
+		//lcd.clear();
 		//lcd.print(strnlen_PF(menu[currentMenuItem].Info));
 		ClearSection(0,1,16, lcd); //CHANGEME
 		lcd.print(menu[currentMenuItem].Label);
