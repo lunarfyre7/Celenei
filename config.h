@@ -2,9 +2,7 @@
 #define GUARD_cfg
 
 #include "arduino.h"
-#include <LiquidCrystal.h>
 #include "utilfn.h"
-
 //+++++++++++++++++++++++++++
 //SCREEN / UI
 //+++++++++++++++++++++++++++
