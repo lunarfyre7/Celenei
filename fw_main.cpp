@@ -12,6 +12,8 @@
 ###########Test Functions#############
 --------------------------------------
 */
+using namespace BEAN;
+
 void beep() {//todo: Add recursion
 	// const uint8_t tone1len = 30;
 	// const uint8_t tone2len = 20;
@@ -56,14 +58,17 @@ void beepTest() {
 }
 UI ui(16, 2);
 void uitask() {ui.Task();};
-
+void callback1(menucallbackinfo_t info) {
+	static Timer timer;
+	if (timer.Check(2000)) beep();
+}
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
 	//lcd.begin(16,2);
 	
 
-	ui.PushItem("A label", "some info");
-	ui.PushItem("Another label", "some other info");
+	ui.PushItem("A label", "Beeping sounds", callback1);
+	ui.PushItem("Another label", "No beeping sounds!");
 
 	Spin::RegisterTask(uitask);
 }

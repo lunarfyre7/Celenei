@@ -9,9 +9,10 @@
 
 namespace BEAN {
 	enum menucallbackinfo_t {
-		NOTHING,
-		SELECT,
-		LEFT,
+		NEW, //menu entry has just been selected
+		NOTHING, //no buttons pressed
+		SELECT, //user has just eaten cake
+		LEFT, 
 		RIGHT
 	};
 	enum btndir_t {
@@ -28,6 +29,7 @@ typedef void(*MenuItemCallback)(BEAN::menucallbackinfo_t);
 struct MenuItem{
 	const char* Label;
 	const char* Info;
+	MenuItemCallback callback;
 };
 class UI {
 public:
@@ -37,6 +39,7 @@ public:
 	
 	//data manipulation and stuff
 	void PushItem(const char* Label, const char* Info);
+	void PushItem(const char* Label, const char* Info, MenuItemCallback);
 	
 private:
 	uint8_t sizeX, sizeY;

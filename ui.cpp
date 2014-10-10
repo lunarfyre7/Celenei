@@ -22,7 +22,7 @@ btndir_t DPad() {
 }
 #endif
 
-void BlankCallback(){};
+void BlankCallback(menucallbackinfo_t info){};
 
 UI::UI(uint8_t X, uint8_t Y) 
  :sizeX(X)
@@ -40,6 +40,9 @@ void UI::Task() {
 		lcd.print(menu[currentMenuItem].Info);
 		lcd.setCursor(0, 1);
 		lcd.print(menu[currentMenuItem].Label);
+		//callback handling TODO give callback ways to manipulate info
+		menucallbackinfo_t info = NOTHING; //HACK FOR TESTING
+		(*menu[currentMenuItem].callback)(info);
 	}
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
 		btndir_t button = DPad();
@@ -59,5 +62,13 @@ void UI::PushItem(const char* Label, const char* Info) {
 	MenuItem item;
 	item.Label =  Label;
 	item.Info  =  Info;
+	item.callback = BlankCallback;
+	menu.push_back(item);
+}
+void UI::PushItem(const char* Label, const char* Info, MenuItemCallback callback) {
+	MenuItem item; //Yes, this is copy and paste code.
+	item.Label =  Label;
+	item.Info  =  Info;
+	item.callback = callback;
 	menu.push_back(item);
 }
