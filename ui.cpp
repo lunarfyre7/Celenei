@@ -28,6 +28,7 @@ UI::UI(uint8_t X, uint8_t Y)
  :sizeX(X)
  ,sizeY(Y)
  ,currentMenuItem(0)
+ ,lastMenuItem(0)
  ,lcd(11,10,5,4,3,2)
 {
 		// LiquidCrystal lcd(11,10,5,4,3,2);
@@ -40,22 +41,34 @@ void UI::Task() {
 		lcd.print(menu[currentMenuItem].Info);
 		lcd.setCursor(0, 1);
 		lcd.print(menu[currentMenuItem].Label);
-		//callback handling TODO give callback ways to manipulate info
-		menucallbackinfo_t info = NOTHING; //HACK FOR TESTING
-		(*menu[currentMenuItem].callback)(info);
 	}
+	menucallbackinfo_t cbInfo = NOTHING;//not the best place for this I think
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
 		btndir_t button = DPad();
 
 		if (lastButtonState == none){
+			//Menu item navigation
 			if (button == up) {
 				currentMenuItem--;
 			} else if (button == down) {
 				currentMenuItem++;
 			}
 			currentMenuItem = currentMenuItem % menu.size(); //limit the index of currentmenuitem
+			//callback buttons
+			if (lastMenuItem != currentMenuItem) {
+				cbInfo = NEW;
+			} else if (button == left) {
+				cbInfo = LEFT;
+			} else if (button == right) {
+				cbInfo = RIGHT;
+			} else if (button == center) {
+				cbInfo = SELECT;
+			}
+			lastMenuItem = currentMenuItem;
 		}
 		lastButtonState = button;
+		//callback calling. TODO give callback ways to manipulate info
+		(*menu[currentMenuItem].callback)(cbInfo);
 	}
 }
 void UI::PushItem(const char* Label, const char* Info) {

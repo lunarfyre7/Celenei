@@ -60,15 +60,15 @@ UI ui(16, 2);
 void uitask() {ui.Task();};
 void callback1(menucallbackinfo_t info) {
 	static Timer timer;
-	if (timer.Check(2000)) beep();
+	if (info == NEW) beep();
 }
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
 	//lcd.begin(16,2);
 	
 
-	ui.PushItem("A label", "Beeping sounds", callback1);
-	ui.PushItem("Another label", "No beeping sounds!");
+	ui.PushItem("A label", "Beep on select", callback1);
+	ui.PushItem("Another label", "Mute");
 
 	Spin::RegisterTask(uitask);
 }

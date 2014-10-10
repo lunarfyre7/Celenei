@@ -50,6 +50,7 @@ private:
 	Timer dispRefreshTimer;
 	Timer buttonTimer;
 	BEAN::btndir_t lastButtonState;
+	unsigned int lastMenuItem;
 };
 
 #endif
