@@ -1,15 +1,10 @@
 #include "ui.h"
+//#include <avr/pgmspace.h>
 
 using namespace BEAN;
 
 #ifdef RESISTOR_BUTTON_MULTIPLEX
 btndir_t DPad() {
-  //0 = no buttons pressed
-  //1 = up
-  //2 = down
-  //3 = left
-  //4 = right
-  //5 = center
   int reading = analogRead(BUTTONPIN);
   btndir_t val;
   if (reading < 1000) val = up;
@@ -32,14 +27,19 @@ UI::UI(uint8_t X, uint8_t Y)
  ,lcd(11,10,5,4,3,2)
 {
 		// LiquidCrystal lcd(11,10,5,4,3,2);
-		lcd.begin(16,2);
+		lcd.begin(16,2);//CHANGEME
 		// std::olcdstream lcdout(lcd);
 }
 void UI::Task() {
+	//TODO reduce refresh amount
 	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
+		//if (menu[currentMenuItem].Info)  {
+			ClearSection(0,0,16, lcd); //CHANGEME
+			lcd.print(menu[currentMenuItem].Info);
+		//} 
 		lcd.clear();
-		lcd.print(menu[currentMenuItem].Info);
-		lcd.setCursor(0, 1);
+		//lcd.print(strnlen_PF(menu[currentMenuItem].Info));
+		ClearSection(0,1,16, lcd); //CHANGEME
 		lcd.print(menu[currentMenuItem].Label);
 	}
 	menucallbackinfo_t cbInfo = NOTHING;//not the best place for this I think
@@ -72,14 +72,13 @@ void UI::Task() {
 	}
 }
 void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
-	MenuItem item;
-	item.Label =  Label;
-	item.Info  =  Info;
-	item.callback = BlankCallback;
-	menu.push_back(item);
+	PushItem(Label, Info, BlankCallback);
+}
+void UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
+	PushItem(Label, F(""), BlankCallback);
 }
 void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback callback) {
-	MenuItem item; //Yes, this is copy and paste code.
+	MenuItem item;
 	item.Label =  Label;
 	item.Info  =  Info;
 	item.callback = callback;
