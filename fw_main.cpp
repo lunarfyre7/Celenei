@@ -70,8 +70,8 @@ void lcdTest () {
 	//lcd.begin(16,2);
 	
 
-	ui.PushItem("A label", "Beep on select", callback1);
-	ui.PushItem("Another label", "This does nothing");
+	ui.PushItem(F("A label"), F("Beep on select"), callback1);
+	ui.PushItem(F("Another label"), F("This does nothing"));
 
 	Spin::RegisterTask(uitask);
 }

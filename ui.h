@@ -27,8 +27,8 @@ namespace BEAN {
 
 typedef void(*MenuItemCallback)(BEAN::menucallbackinfo_t);
 struct MenuItem{
-	const char* Label;
-	const char* Info;
+	const __FlashStringHelper* Label;
+	const __FlashStringHelper* Info;
 	MenuItemCallback callback;
 };
 class UI {
@@ -38,9 +38,8 @@ public:
 	void Task();//start this as a task
 	
 	//data manipulation and stuff
-	void PushItem(const char* Label, const char* Info);
-	void PushItem(const char* Label, const char* Info, MenuItemCallback);
-	
+	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
+	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 private:
 	uint8_t sizeX, sizeY;
 	LiquidCrystal lcd;

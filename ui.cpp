@@ -71,14 +71,14 @@ void UI::Task() {
 		(*menu[currentMenuItem].callback)(cbInfo);
 	}
 }
-void UI::PushItem(const char* Label, const char* Info) {
+void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
 	MenuItem item;
 	item.Label =  Label;
 	item.Info  =  Info;
 	item.callback = BlankCallback;
 	menu.push_back(item);
 }
-void UI::PushItem(const char* Label, const char* Info, MenuItemCallback callback) {
+void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback callback) {
 	MenuItem item; //Yes, this is copy and paste code.
 	item.Label =  Label;
 	item.Info  =  Info;
