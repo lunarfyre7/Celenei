@@ -38,10 +38,11 @@ UI::UI(uint8_t X, uint8_t Y)
 }
 void UI::Task() {
 	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
-		if (strlen_P(reinterpret_cast<const prog_char*> (menu[currentMenuItem].Info)) > 0)  {
+		if (strlen_P(reinterpret_cast<const prog_char*> (menu[currentMenuItem].Info)))  {
 			ClearSection(0,0,16, lcd); //CHANGEME
 			lcd.print(menu[currentMenuItem].Info);
 		} 
+		lcd.setCursor(15, 0);
 		ClearSection(0,1,16, lcd); //CHANGEME
 		lcd.print(menu[currentMenuItem].Label);
 	}
@@ -52,7 +53,8 @@ void UI::Task() {
 		if (lastButtonState == none){
 			//Menu item navigation
 			if (button == up) {
-				currentMenuItem--;
+				//currentMenuItem--;
+				currentMenuItem = currentMenuItem == 0 ? menu.size() : currentMenuItem - 1;
 			} else if (button == down) {
 				currentMenuItem++;
 			}
@@ -73,6 +75,9 @@ void UI::Task() {
 		//callback calling. TODO give callback ways to manipulate info
 		(*menu[currentMenuItem].callback)(cbInfo);
 	}
+}
+void UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
+	PushItem(Label, F(""), callback);
 }
 void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
 	PushItem(Label, Info, BlankCallback);

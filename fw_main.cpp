@@ -73,7 +73,7 @@ void drawcallback(menucallbackinfo_t info) {
 		ClearSection(0,0,16,ui.lcd);
 		ui.lcd.print(F("callback draw"));
 	}
-	else if (info == SELECT) tone(8, 800, 50);
+	if (info == SELECT) tone(8, 800, 50);
 }
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
