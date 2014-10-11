@@ -48,6 +48,7 @@ void UI::Task() {
 			lcd.print(menu[currentMenuItem].Info);
 		} 
 		ClearSection(0,1,16, lcd); //CHANGEME
+		lcd.setCursor((16 - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
 		lcd.print(menu[currentMenuItem].Label);
 	}
 	menucallbackinfo_t cbInfo = NOTHING;//not the best place for this I think
