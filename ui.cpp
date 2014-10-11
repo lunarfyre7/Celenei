@@ -1,5 +1,5 @@
 #include "ui.h"
-//#include <avr/pgmspace.h>
+#include <avr/pgmspace.h>
 
 using namespace BEAN;
 
@@ -33,12 +33,10 @@ UI::UI(uint8_t X, uint8_t Y)
 void UI::Task() {
 	//TODO reduce refresh amount
 	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
-		//if (menu[currentMenuItem].Info)  {
+		if (strlen_P(reinterpret_cast<const prog_char*> (menu[currentMenuItem].Info)) > 0)  {
 			ClearSection(0,0,16, lcd); //CHANGEME
 			lcd.print(menu[currentMenuItem].Info);
-		//} 
-		//lcd.clear();
-		//lcd.print(strnlen_PF(menu[currentMenuItem].Info));
+		} 
 		ClearSection(0,1,16, lcd); //CHANGEME
 		lcd.print(menu[currentMenuItem].Label);
 	}

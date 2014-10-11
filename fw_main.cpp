@@ -68,16 +68,12 @@ void callback1(menucallbackinfo_t info) {
 }
 void drawcallback(menucallbackinfo_t info) {
 	static Timer timer;
-	static int delay = 60;
-	if(timer.Check((unsigned long) delay))
+	if(timer.Check(60))
 	{
 		ClearSection(0,0,16,ui.lcd);
 		ui.lcd.print(F("callback draw"));
-		ui.lcd.print(delay);
 	}
-	else if (info == RIGHT) delay++;
 	else if (info == SELECT) tone(8, 800, 50);
-	else if (info == LEFT) delay--;
 }
 void lcdTest () {
 	ui.PushItem(F("Bean Firmware"), drawcallback);
