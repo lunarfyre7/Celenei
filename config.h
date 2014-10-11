@@ -6,7 +6,7 @@
 //+++++++++++++++++++++++++++
 //SCREEN / UI
 //+++++++++++++++++++++++++++
-#define LCD_16X2
+#define LCD_16X2 //Doesn't do anything ATM; Only 2 row LCDs are supported currently
 #define LCD_REFRESH_TIME 60 //millis between screen refreshes
 
 

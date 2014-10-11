@@ -41,6 +41,9 @@ public:
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
 	void PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
+	
+	void UpdateScreen();
+
 	LiquidCrystal lcd;
 private:
 	uint8_t sizeX, sizeY;
@@ -51,6 +54,10 @@ private:
 	Timer buttonTimer;
 	BEAN::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
+	bool updateScreen;
+
+	//methods
+	bool DoUpdateScreen();
 };
 
 #endif

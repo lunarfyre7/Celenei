@@ -23,6 +23,8 @@ btndir_t DPad() {
 }
 #endif
 
+int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
+
 void BlankCallback(menucallbackinfo_t info){};
 
 UI::UI(uint8_t X, uint8_t Y) 
@@ -31,19 +33,20 @@ UI::UI(uint8_t X, uint8_t Y)
  ,currentMenuItem(0)
  ,lastMenuItem(0)
  ,lcd(11,10,5,4,3,2)
+ ,updateScreen(false)
 {
 		// LiquidCrystal lcd(11,10,5,4,3,2);
 		lcd.begin(16,2);
 		// std::olcdstream lcdout(lcd);
+		UpdateScreen();
 }
 void UI::Task() {
-	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
-		if (strlen_P(reinterpret_cast<const prog_char*> (menu[currentMenuItem].Info)))  {
+	// if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
+	if(DoUpdateScreen()) {//handle display
+		if (Pstrlen(menu[currentMenuItem].Info) > 0)  {
 			ClearSection(0,0,16, lcd); //CHANGEME
 			lcd.print(menu[currentMenuItem].Info);
 		} 
-		Serial.println(strlen_P(reinterpret_cast<const PROGMEM char *> (menu[currentMenuItem].Info)));//DEBUG
-		lcd.setCursor(15, 0);
 		ClearSection(0,1,16, lcd); //CHANGEME
 		lcd.print(menu[currentMenuItem].Label);
 	}
@@ -62,6 +65,7 @@ void UI::Task() {
 			currentMenuItem = currentMenuItem % menu.size(); //limit the index of currentmenuitem
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
+				UpdateScreen();
 				cbInfo = NEW;
 			} else if (button == left) {
 				cbInfo = LEFT;
@@ -89,4 +93,16 @@ void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* I
 	item.Info  =  Info;
 	item.callback = callback;
 	menu.push_back(item);
+}
+
+void UI::UpdateScreen() {
+	updateScreen = true;
+}
+bool UI::DoUpdateScreen() {
+	if (updateScreen) {
+		updateScreen = false;
+		return true;
+	} else	{
+		return false;
+	}
 }
