@@ -68,12 +68,27 @@ void callback1(menucallbackinfo_t info) {
 }
 void drawcallback(menucallbackinfo_t info) {
 	static Timer timer;
-	if(timer.Check(60))
+	static int8_t pos = 0;
+	static bool up = true;
+	if(timer.Check(200))
 	{
 		ClearSection(0,0,16,ui.lcd);
-		ui.lcd.print(F("callback draw"));
+		ui.lcd.setCursor(pos, 0);
+		if (up) {
+			if (++pos > 15) {
+				--pos;
+				up = false;
+			}
+		}
+		else {
+			if (--pos < 0) {
+				++pos;
+				up = true;
+			}
+		}
+		ui.lcd.write(B11111111);
 	}
-	if (info == SELECT) tone(8, 800, 50);
+	if (info == SELECT) tone(8, 1000*pos, 20);
 }
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
