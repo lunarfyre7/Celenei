@@ -41,7 +41,6 @@ public:
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
 	void PushItem(const __FlashStringHelper* Label, MenuItemCallback);
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
-
 	LiquidCrystal lcd;
 private:
 	uint8_t sizeX, sizeY;

@@ -1,10 +1,10 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
-#include "utilfn.h"
 #include <pnew.cpp>//library weirdness
 // #include <lcdostream>
 #include "ui.h"
+#include "utilfn.h"
 
 
 
@@ -76,12 +76,13 @@ void drawcallback(menucallbackinfo_t info) {
 	else if (info == SELECT) tone(8, 800, 50);
 }
 void lcdTest () {
-	ui.PushItem(F("Bean Firmware"), drawcallback);
+	//LiquidCrystal lcd(11,10,5,4,3,2);
+	//lcd.begin(16,2);
+	
+
+	ui.PushItem(F("BEAN FW"), drawcallback);
 	ui.PushItem(F("A label"), F("Beep on select"), callback1);
 	ui.PushItem(F("Another label"), F("This does nothing"));
-	ui.PushItem(F("Cake"), F("Is a lie"));
-	ui.PushItem(F("Pinkie Pie"), F("Cupcakes!"));
-	ui.PushItem(F("Ghigli"), F("Type: cat"));
 
 	Spin::RegisterTask(uitask);
 }

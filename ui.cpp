@@ -5,6 +5,12 @@ using namespace BEAN;
 
 #ifdef RESISTOR_BUTTON_MULTIPLEX
 btndir_t DPad() {
+  //0 = no buttons pressed
+  //1 = up
+  //2 = down
+  //3 = left
+  //4 = right
+  //5 = center
   int reading = analogRead(BUTTONPIN);
   btndir_t val;
   if (reading < 1000) val = up;
@@ -27,11 +33,10 @@ UI::UI(uint8_t X, uint8_t Y)
  ,lcd(11,10,5,4,3,2)
 {
 		// LiquidCrystal lcd(11,10,5,4,3,2);
-		lcd.begin(16,2);//CHANGEME
+		lcd.begin(16,2);
 		// std::olcdstream lcdout(lcd);
 }
 void UI::Task() {
-	//TODO reduce refresh amount
 	if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
 		if (strlen_P(reinterpret_cast<const prog_char*> (menu[currentMenuItem].Info)) > 0)  {
 			ClearSection(0,0,16, lcd); //CHANGEME
@@ -47,7 +52,7 @@ void UI::Task() {
 		if (lastButtonState == none){
 			//Menu item navigation
 			if (button == up) {
-				currentMenuItem = currentMenuItem == 0 ? menu.size() -1 : currentMenuItem - 1;
+				currentMenuItem--;
 			} else if (button == down) {
 				currentMenuItem++;
 			}
@@ -72,11 +77,8 @@ void UI::Task() {
 void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
 	PushItem(Label, Info, BlankCallback);
 }
-void UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
-	PushItem(Label, F(""), BlankCallback);
-}
 void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback callback) {
-	MenuItem item;
+	MenuItem item; //Yes, this is copy and paste code.
 	item.Label =  Label;
 	item.Info  =  Info;
 	item.callback = callback;
