@@ -5,6 +5,7 @@
 // #include <lcdostream>
 #include "ui.h"
 #include "utilfn.h"
+#include "modulemanifest.h"
 
 
 
@@ -48,9 +49,9 @@ void beep() {//todo: Add recursion
 void beepTest() {
 	static uint8_t counter;
 	static Timer _timer;
-	if (_timer.Check(100)) {
+	if (_timer.Check(60)) {
 		beep();
-		if (counter++ == 5) {
+		if (counter++ == 3) {
 			Spin::KillTask();
 		}
 	}
@@ -90,14 +91,35 @@ void drawcallback(menucallbackinfo_t info) {
 	}
 	if (info == SELECT) tone(8, 1000*pos, 20);
 }
+void toneGenCallback(menucallbackinfo_t info) {
+	static Timer timer;
+	static unsigned int freq = 5000;
+	switch (info) {
+		case RIGHT:
+			freq += 500;
+			break;
+		case LEFT:
+			freq -= 500;
+			break;
+	}
+	if (timer.Check(50)) {
+		ClearSection(0,0,16,ui.lcd);
+		ui.lcd.print(freq);
+		tone(8, freq, 50);
+	}
+}
 void lcdTest () {
 	//LiquidCrystal lcd(11,10,5,4,3,2);
 	//lcd.begin(16,2);
 	
-
-	ui.PushItem(F("BEAN FW"), drawcallback);
+	//MOVE THESE TO THEIR OWN MODULE
+	ui.PushItem(F("BEAN FW UI Test"), drawcallback);
+	ui.PushItem(F("tone gen"), toneGenCallback);
 	ui.PushItem(F("A label"), F("Beep on select"), callback1);
 	ui.PushItem(F("Another label"), F("This does nothing"));
+
+	//Better
+	InitModules();
 
 	Spin::RegisterTask(uitask);
 }

@@ -1,4 +1,5 @@
 #include "ui.h"
+#include "config.h"
 #include <avr/pgmspace.h>
 
 using namespace BEAN;

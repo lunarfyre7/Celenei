@@ -3,12 +3,12 @@
 
 #include "arduino.h"
 #include "utilfn.h"
+
 //+++++++++++++++++++++++++++
 //SCREEN / UI
 //+++++++++++++++++++++++++++
 #define LCD_16X2 //Doesn't do anything ATM; Only 2 row LCDs are supported currently
 #define LCD_REFRESH_TIME 60 //millis between screen refreshes
-
 
 //controls
 #define RESISTOR_BUTTON_MULTIPLEX

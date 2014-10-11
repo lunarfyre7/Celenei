@@ -3,6 +3,8 @@
 
 #include "arduino.h"
 #include "config.h"
+#include "ui.h"
+extern UI ui;
 
 
 #endif
