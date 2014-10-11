@@ -42,6 +42,7 @@ void UI::Task() {
 			ClearSection(0,0,16, lcd); //CHANGEME
 			lcd.print(menu[currentMenuItem].Info);
 		} 
+		Serial.println(strlen_P(reinterpret_cast<const PROGMEM char *> (menu[currentMenuItem].Info)));//DEBUG
 		lcd.setCursor(15, 0);
 		ClearSection(0,1,16, lcd); //CHANGEME
 		lcd.print(menu[currentMenuItem].Label);
@@ -54,7 +55,7 @@ void UI::Task() {
 			//Menu item navigation
 			if (button == up) {
 				//currentMenuItem--;
-				currentMenuItem = currentMenuItem == 0 ? menu.size() : currentMenuItem - 1;
+				currentMenuItem = currentMenuItem == 0 ? menu.size() -1 : currentMenuItem - 1;
 			} else if (button == down) {
 				currentMenuItem++;
 			}

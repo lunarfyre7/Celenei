@@ -39,7 +39,7 @@ public:
 	
 	//data manipulation and stuff
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
-	void PushItem(const __FlashStringHelper* Label, MenuItemCallback);
+	void PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 	LiquidCrystal lcd;
 private:
