@@ -1,2 +1,4 @@
 #include "ui.h"
-void sometask(BEAN::menucallbackinfo_t);
+void Callback1(UI_t::menucallbackinfo_t);
+void DrawCallback(UI_t::menucallbackinfo_t);
+void ToneGenCallback(UI_t::menucallbackinfo_t);

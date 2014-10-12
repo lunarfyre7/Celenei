@@ -2,16 +2,11 @@
 #include "config.h"
 #include <avr/pgmspace.h>
 
-using namespace BEAN;
+using namespace UI_t;
 
 #ifdef RESISTOR_BUTTON_MULTIPLEX
 btndir_t DPad() {
-  //0 = no buttons pressed
-  //1 = up
-  //2 = down
-  //3 = left
-  //4 = right
-  //5 = center
+
   int reading = analogRead(BUTTONPIN);
   btndir_t val;
   if (reading < 1000) val = up;
@@ -49,6 +44,7 @@ void UI::Task() {
 			lcd.print(menu[currentMenuItem].Info);
 		} 
 		ClearSection(0,1,16, lcd); //CHANGEME
+		//TODO add text scrolling for large labels
 		lcd.setCursor((16 - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
 		lcd.print(menu[currentMenuItem].Label);
 	}

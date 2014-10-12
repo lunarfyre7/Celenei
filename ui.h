@@ -7,7 +7,7 @@
 #include <vector>
 #include "timer.h"
 
-namespace BEAN {
+namespace UI_t {
 	enum menucallbackinfo_t {
 		NEW, //menu entry has just been selected
 		NOTHING, //no buttons pressed
@@ -25,7 +25,7 @@ namespace BEAN {
 	};
 }
 
-typedef void(*MenuItemCallback)(BEAN::menucallbackinfo_t);
+typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t);
 struct MenuItem{
 	const __FlashStringHelper* Label;
 	const __FlashStringHelper* Info;
@@ -52,7 +52,7 @@ private:
 	unsigned int currentMenuItem;
 	Timer dispRefreshTimer;
 	Timer buttonTimer;
-	BEAN::btndir_t lastButtonState;
+	UI_t::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
 	bool updateScreen;
 
