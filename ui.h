@@ -34,7 +34,7 @@ struct MenuItem{
 class UI {
 public:
 	//Constructor
-	UI(uint8_t X, uint8_t Y);
+	UI(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
 	void Task();//start this as a task
 	
 	//data manipulation and stuff
@@ -42,6 +42,9 @@ public:
 	void PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
 	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 	
+	//screen
+	//Must be called before task is started!
+	void InitLCD(uint8_t X, uint8_t Y);
 	void UpdateScreen();
 
 	LiquidCrystal lcd;

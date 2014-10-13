@@ -28,7 +28,7 @@ void TripleBeep() {
 		}
 	}
 }
-UI ui(16, 2);
+UI ui(11,10,5,4,3,2);
 void uitask() {ui.Task();};
 
 /*
@@ -40,6 +40,7 @@ void uitask() {ui.Task();};
 void setup() {
 	Serial.begin(9600);
 	Serial.println(F("BEAN: start"));
+	ui.InitLCD(16, 2);
 	InitModules();
 
 	Spin::RegisterTask(uitask);

@@ -7,7 +7,7 @@ using namespace UI_t;
 #ifdef RESISTOR_BUTTON_MULTIPLEX
 btndir_t DPad() {
 
-  int reading = analogRead(BUTTONPIN);
+  int reading = analogRead(BUTTON_PIN);
   btndir_t val;
   if (reading < 1000) val = up;
   if (reading < 720) val = left;
@@ -23,18 +23,22 @@ int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_
 
 void BlankCallback(menucallbackinfo_t info){};
 
-UI::UI(uint8_t X, uint8_t Y) 
- :sizeX(X)
- ,sizeY(Y)
+UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
+ :sizeX(0)
+ ,sizeY(0)
  ,currentMenuItem(0)
  ,lastMenuItem(0)
- ,lcd(11,10,5,4,3,2)
+ ,lcd(rs, en, d4, d5, d6, d7)
  ,updateScreen(false)
 {
-		// LiquidCrystal lcd(11,10,5,4,3,2);
-		lcd.begin(16,2);
+		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
 		UpdateScreen();
+}
+void UI::InitLCD(uint8_t X, uint8_t Y) {
+	sizeX = X;
+	sizeY = Y;
+	lcd.begin(X,Y);
 }
 void UI::Task() {
 	// if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display

@@ -5,15 +5,32 @@
 #include "utilfn.h"
 
 //+++++++++++++++++++++++++++
-//SCREEN / UI
+//General/Misc.
 //+++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++
+//Module enable/disable
+//+++++++++++++++++++++++++++
+#define EN_TEST_MODULE
+
+//+++++++++++++++++++++++++++
+//SCREEN
+//+++++++++++++++++++++++++++
+#define LCD_PINS 11, 10, 5, 4, 3, 2
+// #define LCD_I2C_PINS
+// #define LCD_I2C
 #define LCD_16X2 //Doesn't do anything ATM; Only 2 row LCDs are supported currently
 #define LCD_REFRESH_TIME 60 //millis between screen refreshes
 
-//controls
+
+//+++++++++++++++++++++++++++
+//Controls
+//+++++++++++++++++++++++++++
 #define RESISTOR_BUTTON_MULTIPLEX
-#define BUTTONPIN A0
+#define BUTTON_PIN A0
 #define BUTTONCHECK_TIME 10 
+
+
 //+++++++++++++++++++++++++++
 //SOUND 
 //+++++++++++++++++++++++++++

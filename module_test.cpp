@@ -6,9 +6,9 @@ extern UI ui;
 void Callback1(menucallbackinfo_t info) {
 	static Timer timer;
 	if (info == NEW) beep();
-	else if (info == RIGHT) tone(8, 400, 50);
-	else if (info == SELECT) tone(8, 800, 50);
-	else if (info == LEFT) tone(8, 1600, 50);
+	else if (info == RIGHT) tone(SPEAKER_PIN, 400, 50);
+	else if (info == SELECT) tone(SPEAKER_PIN, 800, 50);
+	else if (info == LEFT) tone(SPEAKER_PIN, 1600, 50);
 }
 void DrawCallback(menucallbackinfo_t info) {
 	static Timer timer;
@@ -32,7 +32,7 @@ void DrawCallback(menucallbackinfo_t info) {
 		}
 		ui.lcd.write(B11111111);
 	}
-	if (info == SELECT) tone(8, 1000*pos, 20);
+	if (info == SELECT) tone(SPEAKER_PIN, 1000*pos, 20);
 }
 void ToneGenCallback(menucallbackinfo_t info) {
 	static Timer timer;
@@ -48,6 +48,6 @@ void ToneGenCallback(menucallbackinfo_t info) {
 	if (timer.Check(50)) {
 		ClearSection(0,0,16,ui.lcd);
 		ui.lcd.print(freq);
-		tone(8, freq, 50);
+		tone(SPEAKER_PIN, freq, 50);
 	}
 }
