@@ -1,4 +1,6 @@
 #include "config.h"
+#include "ui.h"//redundant
+#include "spin.h"
 /*
 ###################################################
 #                Module Manifest                  #
@@ -18,15 +20,17 @@ void InitModules() {
 	extern UI ui;
 	//#############################################
 	//This is where the main menu is defined.
-	//Add menu items here.
+	//Add menu items and init calls here.
 
 	//#############################################
 	//standard modules
 	#ifdef EN_TEST_MODULE	
-		ui.PushItem(F("Sequence"), F("single shift"), SequenceTest);
+		ui.PushItem(F("Sequence"), F("< = 1, > = 2"), SequenceTest);
 		ui.PushItem(F("Callback draw"), DrawCallback);
 		ui.PushItem(F("tone gen"), ToneGenCallback);
 		ui.PushItem(F("A label"), F("Beep on select"), Callback1);
 		ui.PushItem(F("Another label"), F("This does nothing"));
+	
+		Spin::RegisterTask(SequenceTestTask);
 	#endif
 }

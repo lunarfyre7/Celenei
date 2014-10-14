@@ -13,6 +13,11 @@ void ClearSection(uint8_t X, uint8_t Y, uint8_t len, LiquidCrystal lcd) {
 	lcd.setCursor(X, Y);
 }
 
+// void beep() {
+// 	//simple beep
+// 	tone (SPEAKER_PIN, 1000, 20);
+// }
+
 void beep() {//todo: Add recursion
 	// const uint8_t tone1len = 30;
 	// const uint8_t tone2len = 20;

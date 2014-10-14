@@ -10,10 +10,12 @@ public:
 	bool CheckInterval();//checks the interval set by SetInterval
 	bool Check(unsigned long); //TODO: change name to Every()
 	bool StaticCheck(unsigned long time);//checks if time has elapsed since last reset
+	bool First(); //is this the first check? It returns true only once.
 private:
 	//FunctionPointer function;
 	unsigned long lastTime;
 	unsigned long interval;
+	bool first;
 };
 
 #endif

@@ -2,9 +2,14 @@
 #include "arduino.h" //used for millis(), should be replace with something else
 
 
-Timer::Timer() {
-	lastTime = millis();
-	interval = 0;
+Timer::Timer()
+	:lastTime(millis())
+	,interval(0)
+	,first(true)
+{
+	// lastTime = millis();
+	// interval = 0;
+	// first = true;
 }
 Timer Timer::SetInterval(unsigned long interval) {
 	this->interval = interval;
@@ -19,6 +24,7 @@ bool Timer::CheckInterval() {
 }
 bool Timer::Check(unsigned long time) {
 	bool isGo = false;
+	first = false;
 
 	isGo = lastTime + time < millis();
 	if (isGo) {
@@ -27,5 +33,11 @@ bool Timer::Check(unsigned long time) {
 	return isGo;
 }
 bool Timer::StaticCheck(unsigned long time) {
+	first = false;
 	return lastTime + time < millis();
+}
+bool Timer::First() {
+	bool val = first;
+	first = false;
+	return val;
 }
