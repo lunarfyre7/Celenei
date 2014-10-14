@@ -23,6 +23,7 @@ void InitModules() {
 	//#############################################
 	//standard modules
 	#ifdef EN_TEST_MODULE	
+		ui.PushItem(F("Sequence"), F("single shift"), SequenceTest);
 		ui.PushItem(F("Callback draw"), DrawCallback);
 		ui.PushItem(F("tone gen"), ToneGenCallback);
 		ui.PushItem(F("A label"), F("Beep on select"), Callback1);

@@ -16,7 +16,8 @@
 //+++++++++++++++++++++++++++
 //SCREEN
 //+++++++++++++++++++++++++++
-#define LCD_PINS 11, 10, 5, 4, 3, 2
+//#define LCD_PINS 11, 10, 5, 4, 3, 2
+#define LCD_PINS 7, 6, 5, 4, 3, 2
 // #define LCD_I2C_PINS
 // #define LCD_I2C
 #define LCD_16X2 //Doesn't do anything ATM; Only 2 row LCDs are supported currently
@@ -35,6 +36,14 @@
 //SOUND 
 //+++++++++++++++++++++++++++
 #define SPEAKER_PIN 8
+
+//+++++++++++++++++++++++++++
+//Valves
+//+++++++++++++++++++++++++++
+	//TODO add abstraction for valves
+#define VALVE_PIN_1 12
+#define VALVE_PIN_2 11
+#define VALVE_PIN_3 10
 
 
 #endif

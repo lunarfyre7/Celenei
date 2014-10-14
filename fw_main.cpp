@@ -28,7 +28,7 @@ void TripleBeep() {
 		}
 	}
 }
-UI ui(11,10,5,4,3,2);
+UI ui(LCD_PINS);
 void uitask() {ui.Task();};
 
 /*
@@ -42,6 +42,9 @@ void setup() {
 	Serial.println(F("BEAN: start"));
 	ui.InitLCD(16, 2);
 	InitModules();
+	pinMode(VALVE_PIN_1, OUTPUT);
+	pinMode(VALVE_PIN_2, OUTPUT);
+	pinMode(VALVE_PIN_3, OUTPUT);
 
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TripleBeep);
