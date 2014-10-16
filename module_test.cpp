@@ -65,12 +65,12 @@ void SequenceTest(menucallbackinfo_t info) {
 			valveEN = 0b1;
 		break;
 	}
-	if (t.First() || t.Check(100)) {
-		ClearSection(0,0,16,ui.lcd);
-		for (uint8_t i=0; i!=numOfValves; ++i) {
-			ui.lcd.print(valveEN >> i & 0b1);
-		}
-	}
+	// if (t.First() || t.Check(100)) {
+	// 	ClearSection(0,0,16,ui.lcd);
+	// 	for (uint8_t i=0; i!=numOfValves; ++i) {
+	// 		ui.lcd.print(valveEN >> i & 0b1);
+	// 	}
+	// }
 }
 void SequenceTestTask() {
 	const uint8_t valvePins[] = {
