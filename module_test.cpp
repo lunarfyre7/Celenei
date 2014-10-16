@@ -53,9 +53,9 @@ void ToneGenCallback(menucallbackinfo_t info) {
 }
 
 uint8_t valveEN = 0b00000001;
-
+uint8_t numOfValves;
 void SequenceTest(menucallbackinfo_t info) {
-
+	static Timer t;
 
 	switch(info) {
 		case RIGHT:
@@ -65,8 +65,12 @@ void SequenceTest(menucallbackinfo_t info) {
 			valveEN = 0b1;
 		break;
 	}
-
-
+	if (t.First() || t.Check(100)) {
+		ClearSection(0,0,16,ui.lcd);
+		for (uint8_t i=0; i!=numOfValves; ++i) {
+			ui.lcd.print(valveEN >> i & 0b1);
+		}
+	}
 }
 void SequenceTestTask() {
 	const uint8_t valvePins[] = {
@@ -75,7 +79,7 @@ void SequenceTestTask() {
 			VALVE_PIN_3
 		};
 	// static uint8_t valveEN = 0b00000001;
-	const uint8_t numOfValves = sizeof(valvePins) / sizeof(valvePins[0]);
+	numOfValves = sizeof(valvePins) / sizeof(valvePins[0]);
 
 	//const uint32_t Interval = 15 * 60 * 1000;
 	const int Interval =  1000;
@@ -84,7 +88,7 @@ void SequenceTestTask() {
 
 	if (timer.First() || timer.Check(Interval)) {
 		//////Byte check (number >> position) & 1
-		beep();
+		//beep();
 		// if ((valveEN >> numOfValves) & 1) { //reset position if past limit
 		// 	valveEN = 1;
 		// }

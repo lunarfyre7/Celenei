@@ -30,6 +30,7 @@ UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7)
  ,lastMenuItem(0)
  ,lcd(rs, en, d4, d5, d6, d7)
  ,updateScreen(false)
+ ,beepOnChange(true)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -68,6 +69,7 @@ void UI::Task() {
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
 				UpdateScreen();
+				if (beepOnChange) beep();
 				cbInfo = NEW;
 			} else if (button == left) {
 				cbInfo = LEFT;

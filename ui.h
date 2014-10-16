@@ -48,6 +48,9 @@ public:
 	void UpdateScreen();
 
 	LiquidCrystal lcd;
+
+	//pub vars
+	bool beepOnChange;
 private:
 	uint8_t sizeX, sizeY;
 	// std::olcdstream lcdout;
