@@ -14,7 +14,7 @@ btndir_t DPad() {
   if (reading < 620) val = center;
   if (reading < 350) val = down;
   if (reading < 200) val = right;
-  if (reading < 5) val = none;
+  if (reading < 50) val = none;
   return val;
 }
 #endif
