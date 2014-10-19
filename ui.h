@@ -46,8 +46,8 @@ public:
 	UI& PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
 	UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 	
-	void SetParent(int name); //both take multi character literals, e.g., 'abc'
-	void SetAsParent(int name);
+	UI& SetParent(int name); //both take multi character literals, e.g., 'abc'
+	UI& LinkTo(int name);
 
 	//screen
 	void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
@@ -58,6 +58,7 @@ public:
 	//pub vars
 	bool beepOnChange;
 private:
+
 	uint8_t sizeX, sizeY;
 	// std::olcdstream lcdout;
 	std::vector<MenuItem> menu;
@@ -71,6 +72,7 @@ private:
 
 	//methods
 	bool DoUpdateScreen();
+	void RefreshMenu(); //called after changing menu level
 };
 
 #endif

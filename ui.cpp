@@ -72,20 +72,21 @@ void UI::Task() {
 			} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
-				UpdateScreen();
-				if (beepOnChange) beep();
 				cbInfo = NEW;
-			} else if (button == left) {
-				cbInfo = LEFT;
-			} else if (button == right) {
-				cbInfo = RIGHT;
-			} else if (button == center) {
-				cbInfo = SELECT;
-				//goto another menu
-				if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
-					menuLevel = menu[currentMenuItem].asParent;
-					//do something to refresh menu here
+				if (beepOnChange) beep();
+				if (button == left) {
+					cbInfo = LEFT;
+				} else if (button == right) {
+					cbInfo = RIGHT;
+				} else if (button == center) {
+					cbInfo = SELECT;
+					//goto another menu
+					if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
+						menuLevel = menu[currentMenuItem].asParent;
+						//RefreshMenu();
+					}
 				}
+				UpdateScreen();
 			}
 			lastMenuItem = currentMenuItem;
 		}
@@ -112,13 +113,14 @@ UI& UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* In
 	menu.push_back(item);
 	return *this;
 }
-void UI::SetParent(int name) {
+UI& UI::SetParent(int name) {
 	menu.back().parent = name;
-	menu.back().link = true;
+	return *this;
 }
-void UI::SetAsParent(int name) {
+UI& UI::LinkTo(int name) {
 	menu.back().asParent = name;
 	menu.back().link = true;
+	return *this;
 }
 void UI::UpdateScreen() {
 	updateScreen = true;
@@ -130,4 +132,10 @@ bool UI::DoUpdateScreen() {
 	} else	{
 		return false;
 	}
+}
+void UI::RefreshMenu() {
+	currentMenuItem = 0;
+	do {//find first element of the current menu level
+		currentMenuItem++;
+	} while(menu[currentMenuItem].parent != menuLevel || currentMenuItem < menu.size());
 }
