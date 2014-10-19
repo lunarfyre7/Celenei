@@ -31,8 +31,9 @@ struct MenuItem{
 	const __FlashStringHelper* Info;
 	MenuItemCallback callback;
 
-	const __FlashStringHelper* parent;
-	const __FlashStringHelper* asParent;
+	int parent;
+	int asParent;
+	bool link;
 };
 class UI {
 public:
@@ -40,17 +41,16 @@ public:
 	UI(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
 	void Task();//start this as a task
 	
-	//data manipulation and stuff
-	UI PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
-	UI PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
-	UI PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
+	//Menu insertion & manipulation
+	UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
+	UI& PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
+	UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 	
-	void SetParent(const __FlashStringHelper*);
-	void SetAsParent(const __FlashStringHelper*);
+	void SetParent(int name); //both take multi character literals, e.g., 'abc'
+	void SetAsParent(int name);
 
 	//screen
-	//Must be called before task is started!
-	void InitLCD(uint8_t X, uint8_t Y);
+	void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
 	void UpdateScreen();
 
 	LiquidCrystal lcd;
@@ -61,13 +61,13 @@ private:
 	uint8_t sizeX, sizeY;
 	// std::olcdstream lcdout;
 	std::vector<MenuItem> menu;
-	unsigned int currentMenuItem;
+	unsigned int currentMenuItem; //current menu item index
 	Timer dispRefreshTimer;
 	Timer buttonTimer;
 	UI_t::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
-	int lastInsertedMenuItem;
-	bool updateScreen;
+	int menuLevel; //current menu parent
+	bool updateScreen; //true if screen needs update
 
 	//methods
 	bool DoUpdateScreen();
