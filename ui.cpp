@@ -20,6 +20,7 @@ btndir_t DPad() {
 #endif
 
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
+bool StrinF(const char * s1, const __FlashStringHelper * fstr) {return (strstr_P(s1, reinterpret_cast<const PROGMEM char *> (fstr)) != NULL);}
 
 void BlankCallback(menucallbackinfo_t info){};
 
@@ -31,6 +32,7 @@ UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7)
  ,lcd(rs, en, d4, d5, d6, d7)
  ,updateScreen(false)
  ,beepOnChange(true)
+ ,lastInsertedMenuItem(-1)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -85,20 +87,30 @@ void UI::Task() {
 		(*menu[currentMenuItem].callback)(cbInfo);
 	}
 }
-void UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
-	PushItem(Label, F(""), callback);
+UI UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) { //TODO make "Label" lowercase
+	return PushItem(Label, F(""), callback);
 }
-void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
-	PushItem(Label, Info, BlankCallback);
+UI UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
+	return PushItem(Label, Info, BlankCallback);
 }
-void UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback callback) {
-	MenuItem item; //Yes, this is copy and paste code.
+UI UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback callback) {
+	
+	MenuItem item;
 	item.Label =  Label;
 	item.Info  =  Info;
 	item.callback = callback;
+	item.parent = F("_N_"); //set these with null flag
+	item.asParent = F("_N_");
 	menu.push_back(item);
+	lastInsertedMenuItem = menu.size() -1;
+	return *this;
 }
-
+void UI::SetParent(const __FlashStringHelper* str) {
+	menu[lastInsertedMenuItem].parent = str;
+}
+void UI::SetAsParent(const __FlashStringHelper* str) {
+	menu[lastInsertedMenuItem].asParent = str;
+}
 void UI::UpdateScreen() {
 	updateScreen = true;
 }

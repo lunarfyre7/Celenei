@@ -30,6 +30,9 @@ struct MenuItem{
 	const __FlashStringHelper* Label;
 	const __FlashStringHelper* Info;
 	MenuItemCallback callback;
+
+	const __FlashStringHelper* parent;
+	const __FlashStringHelper* asParent;
 };
 class UI {
 public:
@@ -38,10 +41,13 @@ public:
 	void Task();//start this as a task
 	
 	//data manipulation and stuff
-	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
-	void PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
-	void PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
+	UI PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
+	UI PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
+	UI PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 	
+	void SetParent(const __FlashStringHelper*);
+	void SetAsParent(const __FlashStringHelper*);
+
 	//screen
 	//Must be called before task is started!
 	void InitLCD(uint8_t X, uint8_t Y);
@@ -60,6 +66,7 @@ private:
 	Timer buttonTimer;
 	UI_t::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
+	int lastInsertedMenuItem;
 	bool updateScreen;
 
 	//methods
