@@ -43,7 +43,7 @@ void uitask() {ui.Task();};
 void setup() {
 	wdt_enable(WDTO_2S);
 	wdt_reset();
-	Serial.begin(9600);
+	Serial.begin(115200);
 	Serial.println(F("BEAN: start"));
 	ui.InitLCD(16, 2);
 	InitModules();

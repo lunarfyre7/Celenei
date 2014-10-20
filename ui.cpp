@@ -59,7 +59,7 @@ void UI::Task() {
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
 		btndir_t button = DPad();
 
-		if (lastButtonState == none && button != none){
+		if (lastButtonState == none){
 			//Menu item navigation
 			do {
 				if (button == up) {
@@ -69,24 +69,22 @@ void UI::Task() {
 					currentMenuItem++;
 					currentMenuItem = currentMenuItem % menu.size(); //limit the index
 				}
-			} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level
+			} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level. could get stuck
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
-				cbInfo = NEW;
-				if (beepOnChange) beep();
-				if (button == left) {
-					cbInfo = LEFT;
-				} else if (button == right) {
-					cbInfo = RIGHT;
-				} else if (button == center) {
-					cbInfo = SELECT;
-					//goto another menu
-					if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
-						menuLevel = menu[currentMenuItem].asParent;
-						//RefreshMenu();
-					}
-				}
 				UpdateScreen();
+				if (beepOnChange) beep();
+				cbInfo = NEW;
+			} else if (button == left) {
+				cbInfo = LEFT;
+			} else if (button == right) {
+				cbInfo = RIGHT;
+			} else if (button == center) {
+				cbInfo = SELECT;
+				if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
+						menuLevel = menu[currentMenuItem].asParent;
+						RefreshMenu();
+					}
 			}
 			lastMenuItem = currentMenuItem;
 		}
@@ -135,7 +133,8 @@ bool UI::DoUpdateScreen() {
 }
 void UI::RefreshMenu() {
 	currentMenuItem = 0;
-	do {//find first element of the current menu level
+	while(menu[currentMenuItem].parent != menuLevel && currentMenuItem < menu.size()) {
 		currentMenuItem++;
-	} while(menu[currentMenuItem].parent != menuLevel || currentMenuItem < menu.size());
+	}
+	UpdateScreen();
 }
