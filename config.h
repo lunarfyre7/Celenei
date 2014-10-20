@@ -30,6 +30,8 @@
 #define RESISTOR_BUTTON_MULTIPLEX
 #define BUTTON_PIN A0
 #define BUTTONCHECK_TIME 10 
+#define SCROLL_THRESHHOLD 750
+#define SCROLL_STEP 200
 
 
 //+++++++++++++++++++++++++++

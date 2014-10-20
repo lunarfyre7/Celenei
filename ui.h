@@ -70,6 +70,7 @@ private:
 	UI_t::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
 	int menuLevel; //current menu parent
+	unsigned long buttonScrollTimer;
 	bool lineScrolling[2];
 	bool updateScreen; //true if screen needs update
 	char ** buffer;
