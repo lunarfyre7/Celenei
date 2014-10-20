@@ -48,7 +48,7 @@ void ToneGenCallback(menucallbackinfo_t info) {
 	if (timer.Check(50)) {
 		ClearSection(0,0,16,ui.lcd);
 		ui.lcd.print(freq);
-		tone(SPEAKER_PIN, freq, 50);
+		tone(SPEAKER_PIN, freq);
 	}
 }
 
