@@ -36,7 +36,11 @@ UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
+		InitBuffer();
 		UpdateScreen();
+}
+UI::~UI() {
+	DestroyBuffer();
 }
 void UI::InitLCD(uint8_t X, uint8_t Y) {
 	sizeX = X;
@@ -54,9 +58,14 @@ void UI::Task() {
 		//TODO add text scrolling for large labels
 		lcd.setCursor((sizeX - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
 		lcd.print(menu[currentMenuItem].Label);
+		lineScrolling[0] = Pstrlen(menu[currentMenuItem].Label) > sizeX;
+		lineScrolling[1] = Pstrlen(menu[currentMenuItem].Info) > sizeX;
 	}
-	menucallbackinfo_t cbInfo = NOTHING;//not the best place for this I think
+	if (scrollTimer.Check(400)) {//basic scrolling
+		lcd.scrollDisplayLeft();
+	}
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
+		menucallbackinfo_t cbInfo = NOTHING;
 		btndir_t button = DPad();
 
 		if (lastButtonState == none){
@@ -137,4 +146,18 @@ void UI::RefreshMenu() {
 		currentMenuItem++;
 	}
 	UpdateScreen();
+}
+void UI::InitBuffer() {
+	buffer = new char* [sizeX];
+	for (int i = 0; i < sizeX; ++i)
+	{
+		buffer[i] = new char[sizeY];
+	}
+}
+void UI::DestroyBuffer() {
+	for (int i = 0; i < sizeX; ++i)
+	{
+		delete buffer[i];
+	}
+	delete buffer;
 }

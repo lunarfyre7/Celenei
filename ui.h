@@ -39,6 +39,7 @@ class UI {
 public:
 	//Constructor
 	UI(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
+	~UI();
 	void Task();//start this as a task
 	
 	//Menu insertion & manipulation
@@ -60,19 +61,24 @@ public:
 private:
 
 	uint8_t sizeX, sizeY;
+	Timer dispRefreshTimer;
+	Timer buttonTimer;
+	Timer scrollTimer;
 	// std::olcdstream lcdout;
 	std::vector<MenuItem> menu;
 	unsigned int currentMenuItem; //current menu item index
-	Timer dispRefreshTimer;
-	Timer buttonTimer;
 	UI_t::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
 	int menuLevel; //current menu parent
+	bool lineScrolling[2];
 	bool updateScreen; //true if screen needs update
+	char ** buffer;
 
 	//methods
 	bool DoUpdateScreen();
 	void RefreshMenu(); //called after changing menu level
+	void InitBuffer();
+	void DestroyBuffer();
 };
 
 #endif
