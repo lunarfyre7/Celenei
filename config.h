@@ -17,9 +17,9 @@
 //SCREEN
 //+++++++++++++++++++++++++++
 //#define LCD_PINS 11, 10, 5, 4, 3, 2
-#define LCD_PINS 7, 6, 5, 4, 3, 2
-// #define LCD_I2C_PINS
-// #define LCD_I2C
+//#define LCD_PINS 7, 6, 5, 4, 3, 2
+#define LCD_I2C_ADDR 0x27
+
 #define LCD_16X2 //Doesn't do anything ATM; Only 2 row LCDs are supported currently
 #define LCD_REFRESH_TIME 60 //millis between screen refreshes
 

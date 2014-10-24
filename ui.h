@@ -1,7 +1,8 @@
 #ifndef GUARD_ui
 #define GUARD_ui
 #include "config.h"
-#include <LiquidCrystal.h>
+#include <LiquidCrystal_I2C.h>
+#include <LCD.h>
 #include <lcdostream>
 #include <iterator>
 #include <vector>
@@ -38,7 +39,8 @@ struct MenuItem{
 class UI {
 public:
 	//Constructor
-	UI(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
+	//UI(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
+	UI(int);
 	~UI();
 	void Task();//start this as a task
 	
@@ -54,7 +56,7 @@ public:
 	void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
 	void UpdateScreen();
 
-	LiquidCrystal lcd;
+	LiquidCrystal_I2C lcd;
 
 	//pub vars
 	bool beepOnChange;

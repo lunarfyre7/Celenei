@@ -39,10 +39,10 @@ void ToneGenCallback(menucallbackinfo_t info) {
 	static unsigned int freq = 5000;
 	switch (info) {
 		case RIGHT:
-			freq += 500;
+			freq += freq*0.14285;
 			break;
 		case LEFT:
-			freq -= 500;
+			freq -= freq*0.125;
 			break;
 	}
 	if (timer.Check(50)) {

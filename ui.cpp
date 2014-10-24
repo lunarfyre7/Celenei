@@ -2,6 +2,7 @@
 #include "config.h"
 #include <avr/pgmspace.h>
 
+
 using namespace UI_t;
 
 #ifdef RESISTOR_BUTTON_MULTIPLEX
@@ -25,12 +26,14 @@ int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_
 
 void BlankCallback(menucallbackinfo_t info){};
 
-UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
+//UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
+UI::UI(int addr) 
  :sizeX(0)
  ,sizeY(0)
  ,currentMenuItem(0)
  ,lastMenuItem(0)
- ,lcd(rs, en, d4, d5, d6, d7)
+ // ,lcd(addr)
+ ,lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE) //HACK !!! XXX
  ,updateScreen(false)
  ,beepOnChange(true)
  ,menuLevel(-1)
@@ -87,7 +90,7 @@ void UI::Task() {
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
 				UpdateScreen();
-				if (beepOnChange) beep();
+				if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
 				cbInfo = NEW;
 			} else if (button == left) {
 				cbInfo = LEFT;

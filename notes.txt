@@ -1,0 +1,20 @@
+Roadmap/todo (in no particular order)
+
+* create text scrolling class
+* add auto return entries to submenus
+* create network interface base class
+* create ethernet and wifi interface modules
+* look into creating a event driven system
+* create persistent storage framework
+* create basic aquaponic valve sequencing module
+* create sensor monitoring framework
+* add a clean way of sharing data across modules (like events)
+* create user settings module
+* create server api
+* create web ui
+
+Done:
+
+*task management
+*basic ui framework
+*modular base system
