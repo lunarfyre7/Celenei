@@ -12,7 +12,7 @@ TextScroller::TextScroller (LiquidCrystal_I2C& lcd)
 	,string(NULL)
 	,buffer(NULL)
 {
-	buffer = new char[];
+	//buffer = new char[];
 }
 TextScroller::~TextScroller () {
 	delete buffer;
