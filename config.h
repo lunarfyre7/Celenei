@@ -17,6 +17,7 @@
 //+++++++++++++++++++++++++++
 //SCREEN
 //+++++++++++++++++++++++++++
+//#define HEADLESS
 //#define LCD_PINS 11, 10, 5, 4, 3, 2
 //#define LCD_PINS 7, 6, 5, 4, 3, 2
 #define LCD_I2C_ADDR 0x27
