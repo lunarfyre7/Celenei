@@ -18,7 +18,6 @@
 //#################################################
 
 void InitModules() {
-#ifndef HEADLESS /// place anything dependent on UI in here
 	using namespace UI_t;
 	extern UI ui;
 	//#############################################
@@ -47,5 +46,4 @@ void InitModules() {
 	ui.PushItem(F("On intv."), OnInterval);
 	ui.PushItem(F("Off intv."), OffInterval);
 	ui.PushItem(F("Overlap"), Overlap);
-#endif
 }

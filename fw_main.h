@@ -3,9 +3,8 @@
 
 #include "arduino.h"
 #include "config.h"
-#ifndef HEADLESS
 #include "ui.h"
 extern UI ui;
-#endif
+
 
 #endif
