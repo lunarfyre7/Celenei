@@ -1,6 +1,7 @@
 #include "ui.h"
 #include "config.h"
 #include <avr/pgmspace.h>
+#include "buffer.h"
 
 
 using namespace UI_t;
