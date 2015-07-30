@@ -8,7 +8,8 @@ public:
 	Timer SetInterval(unsigned long);//set the interval for the timer length
 	Timer Reset();//resets the timer
 	bool CheckInterval();//checks the interval set by SetInterval
-	bool Check(unsigned long); //TODO: change name to Every()
+	bool Check(unsigned long); //checks to see given time has elapses 
+	bool Every(unsigned long);
 	bool StaticCheck(unsigned long time);//checks if time has elapsed since last reset
 	bool First(); //is this the first check? It returns true only once.
 private:

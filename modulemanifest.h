@@ -13,6 +13,8 @@
 #include "module_test.h"
 #endif
 
+#include "module_grow_core.h"
+
 //#################################################
 
 void InitModules() {
@@ -39,4 +41,9 @@ void InitModules() {
 	
 		Spin::RegisterTask(SequenceTestTask);
 	#endif
+	//#######Grow core#######
+	ui.PushItem(F("Status"), StatusDisp);
+	ui.PushItem(F("On intv."), OnInterval);
+	ui.PushItem(F("Off intv."), OffInterval);
+	ui.PushItem(F("Overlap"), Overlap);
 }

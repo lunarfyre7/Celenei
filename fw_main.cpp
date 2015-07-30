@@ -31,7 +31,8 @@ void TripleBeep() {
 void WatchdogReset() {wdt_reset();}
 
 //setup the UI task
-UI ui(LCD_PINS);
+// UI ui(LCD_PINS);
+UI ui(LCD_I2C_ADDR);
 void uitask() {ui.Task();};
 
 /*
