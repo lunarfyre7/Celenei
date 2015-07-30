@@ -46,6 +46,7 @@ public:
 	
 	//Menu insertion & manipulation
 	UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
+	UI& PushItem(const __FlashStringHelper* Label);
 	UI& PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
 	UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 	

@@ -13,7 +13,7 @@ btndir_t DPad() {
   //Serial.print(F("dpad val: ")); Serial.println(reading); //uncomment for recalibration info
   btndir_t val;
   					 val = up;
-  if (reading < 775) val = left;
+  if (reading < 750) val = left;
   if (reading < 655) val = center;
   if (reading < 440) val = down;
   if (reading < 265) val = right;
@@ -111,8 +111,11 @@ void UI::Task() {
 		(*menu[currentMenuItem].callback)(cbInfo);
 	}
 }
-UI& UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) { //TODO make "Label" lowercase
+UI& UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
 	return PushItem(Label, F(""), callback);
+}
+UI& UI::PushItem(const __FlashStringHelper* Label) {
+	return PushItem(Label, F(""));
 }
 UI& UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
 	return PushItem(Label, Info, BlankCallback);

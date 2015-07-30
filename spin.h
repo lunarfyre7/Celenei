@@ -4,7 +4,7 @@
 #include "arduino.h"
 #include "config.h"
 #include <iterator> //TODO: replace <vector> with something with less sram usage.
-#include <vector>
+#include <vector> //TODO: use arrays instead of vectors
 
 /*
 Simplistic task scheduler system

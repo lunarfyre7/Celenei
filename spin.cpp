@@ -1,7 +1,7 @@
 #include "spin.h"
 
 namespace Spin {
-	std::vector<FunctionPointer> tasks; 
+	std::vector<FunctionPointer> tasks;
 	uint8_t currentTask = 0;
 
 	void RegisterTask(FunctionPointer function) {//add task to tasklist

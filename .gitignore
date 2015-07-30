@@ -45,3 +45,7 @@ Temporary Items
 
 #build dirs
 Release/**
+
+#arduino build files and other junk
+.ino.cpp
+

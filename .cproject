@@ -25,6 +25,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Bean_FW/Libraries/Wire/utility}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Bean_FW/Libraries/stl}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Bean_FW/Libraries/LiquidCrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Bean_FW/Libraries/vendor}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.860180727" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>

@@ -27,7 +27,8 @@ void InitModules() {
 	//#############################################
 	//standard modules
 	#ifdef EN_TEST_MODULE	
-		ui.PushItem(F("Sequence"), F("< = 1, > = 2"), SequenceTest);
+//		ui.PushItem(F("Sequence"), F("< = 1, > = 2"), SequenceTest);
+		ui.PushItem(F("Mem"), RamCallback);
 		ui.PushItem(F("Callback draw"), DrawCallback);
 		ui.PushItem(F("tone gen"), ToneGenCallback);
 		ui.PushItem(F("A label"), F("Beep on select"), Callback1);

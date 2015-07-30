@@ -1,5 +1,6 @@
 #include "module_test.h"
 #include "timer.h"
+#include <MemoryFree.h>
 using namespace UI_t;
 extern UI ui;
 
@@ -9,6 +10,21 @@ void Callback1(menucallbackinfo_t info) {
 	else if (info == RIGHT) tone(SPEAKER_PIN, 400, 50);
 	else if (info == SELECT) tone(SPEAKER_PIN, 800, 50);
 	else if (info == LEFT) tone(SPEAKER_PIN, 1600, 50);
+}
+void RamCallback(menucallbackinfo_t info) {
+	int ram;
+	static Timer timer;
+	static bool up = true;
+	if(timer.Check(200))
+	{
+		ram = freeMemory();
+		ClearSection(0,0,16,ui.lcd);
+		ui.lcd.setCursor(0, 0);
+		ui.lcd.print(F("Free ram "));
+		ui.lcd.print(ram);
+		ui.lcd.print("b");
+
+	}
 }
 void DrawCallback(menucallbackinfo_t info) {
 	static Timer timer;
