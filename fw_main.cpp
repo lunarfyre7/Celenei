@@ -1,17 +1,19 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
+//#include <pnew.cpp>//library weirdness
 // #include <lcdostream>
 #include <avr/wdt.h>
 #include "ui.h"
 #include "utilfn.h"
 #include "modulemanifest.h"
 
-//define new for stl
+//hack for pnew.cpp build fail
 void* operator new(size_t size_,void *ptr_)
 {
 	return ptr_;
 }
+
 
 
 
@@ -36,7 +38,8 @@ void TripleBeep() {
 void WatchdogReset() {wdt_reset();}
 
 //setup the UI task
-UI ui(LCD_PINS);
+// UI ui(LCD_PINS);
+UI ui(LCD_I2C_ADDR);
 void uitask() {ui.Task();};
 
 /*

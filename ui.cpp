@@ -1,6 +1,8 @@
 #include "ui.h"
 #include "config.h"
 #include <avr/pgmspace.h>
+#include "buffer.h"
+
 
 using namespace UI_t;
 
@@ -8,13 +10,14 @@ using namespace UI_t;
 btndir_t DPad() {
 
   int reading = analogRead(BUTTON_PIN);
+  //Serial.print(F("dpad val: ")); Serial.println(reading); //uncomment for recalibration info
   btndir_t val;
-  if (reading < 1000) val = up;
-  if (reading < 720) val = left;
-  if (reading < 620) val = center;
-  if (reading < 350) val = down;
-  if (reading < 200) val = right;
-  if (reading < 50) val = none;
+  					 val = up;
+  if (reading < 775) val = left;
+  if (reading < 655) val = center;
+  if (reading < 440) val = down;
+  if (reading < 265) val = right;
+  if (reading < 100) val = none;
   return val;
 }
 #endif
@@ -24,15 +27,18 @@ int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_
 
 void BlankCallback(menucallbackinfo_t info){};
 
-UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
+//UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
+UI::UI(int addr) 
  :sizeX(0)
  ,sizeY(0)
  ,currentMenuItem(0)
  ,lastMenuItem(0)
- ,lcd(rs, en, d4, d5, d6, d7)
+ // ,lcd(addr)
+ ,lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE) //HACK !!! XXX
  ,updateScreen(false)
  ,beepOnChange(true)
  ,menuLevel(-1)
+ ,buttonScrollTimer(0)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -62,13 +68,16 @@ void UI::Task() {
 		lineScrolling[1] = Pstrlen(menu[currentMenuItem].Info) > sizeX;
 	}
 	if (scrollTimer.Check(400)) {//basic scrolling
-		lcd.scrollDisplayLeft();
+		// lcd.scrollDisplayLeft();
 	}
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
 		menucallbackinfo_t cbInfo = NOTHING;
 		btndir_t button = DPad();
-
-		if (lastButtonState == none){
+		if (button == none) {
+			buttonScrollTimer = millis();
+		}
+		if (lastButtonState == none || buttonScrollTimer + SCROLL_THRESHHOLD < millis()){
+			buttonScrollTimer += SCROLL_STEP;
 			//Menu item navigation
 			do {
 				if (button == up) {
@@ -82,7 +91,7 @@ void UI::Task() {
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
 				UpdateScreen();
-				if (beepOnChange) beep();
+				if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
 				cbInfo = NEW;
 			} else if (button == left) {
 				cbInfo = LEFT;
