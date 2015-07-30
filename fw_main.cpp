@@ -1,12 +1,17 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
-#include <pnew.cpp>//library weirdness
 // #include <lcdostream>
 #include <avr/wdt.h>
 #include "ui.h"
 #include "utilfn.h"
 #include "modulemanifest.h"
+
+//define new for stl
+void* operator new(size_t size_,void *ptr_)
+{
+	return ptr_;
+}
 
 
 

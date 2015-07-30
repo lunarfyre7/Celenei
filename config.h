@@ -1,7 +1,7 @@
 #ifndef GUARD_cfg
 #define GUARD_cfg
 
-#include "arduino.h"
+#include "Arduino.h"
 #include "utilfn.h"
 
 //+++++++++++++++++++++++++++
