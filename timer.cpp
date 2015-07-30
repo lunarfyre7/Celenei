@@ -33,7 +33,7 @@ bool Timer::Check(unsigned long time) {
 	return isGo;
 }
 bool Timer::Every(unsigned long time) {
-	return timer.First() || timer.Check(time);
+	return First() || Check(time);
 }
 bool Timer::StaticCheck(unsigned long time) {
 	first = false;//should this be here?

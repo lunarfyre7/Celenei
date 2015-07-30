@@ -11,7 +11,7 @@
 //+++++++++++++++++++++++++++
 //Module enable/disable
 //+++++++++++++++++++++++++++
-// #define EN_TEST_MODULE
+#define EN_TEST_MODULE
 // #define EN_GROW_CORE
 
 //+++++++++++++++++++++++++++
@@ -30,13 +30,13 @@
 //+++++++++++++++++++++++++++
 #define RESISTOR_BUTTON_MULTIPLEX
 #define BUTTON_PIN A0
-#define BUTTONCHECK_TIME 10 
+#define BUTTONCHECK_TIME 10
 #define SCROLL_THRESHHOLD 750
 #define SCROLL_STEP 200
 
 
 //+++++++++++++++++++++++++++
-//SOUND 
+//SOUND
 //+++++++++++++++++++++++++++
 #define SPEAKER_PIN 9
 

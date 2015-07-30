@@ -18,7 +18,7 @@ public:
 	LCD_Buffer(uint8_t X,  uint8_t Y, uint8_t X2, LiquidCrystal);
 	~LCD_Buffer();
 private:
-	
+
 };
 
 #endif
