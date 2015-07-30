@@ -1,12 +1,19 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
-#include <pnew.cpp>//library weirdness
+//#include <pnew.cpp>//library weirdness
 // #include <lcdostream>
 #include <avr/wdt.h>
 #include "ui.h"
 #include "utilfn.h"
 #include "modulemanifest.h"
+
+//hack for pnew.cpp build fail
+void* operator new(size_t size_,void *ptr_)
+{
+	return ptr_;
+}
+
 
 
 

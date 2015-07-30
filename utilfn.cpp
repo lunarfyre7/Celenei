@@ -3,6 +3,7 @@
 #include "timer.h"
 #include "spin.h"
 #include "arduino.h"
+#include <LiquidCrystal_I2C.h>
 
 void ClearSection(uint8_t X, uint8_t Y, uint8_t len, LiquidCrystal_I2C lcd) {
 	lcd.setCursor(X, Y);
