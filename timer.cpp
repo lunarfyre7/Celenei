@@ -32,11 +32,8 @@ bool Timer::Check(unsigned long time) {
 	}
 	return isGo;
 }
-bool Timer::Every(unsigned long time) {
-	return timer.First() || timer.Check(time);
-}
 bool Timer::StaticCheck(unsigned long time) {
-	first = false;//should this be here?
+	first = false;
 	return lastTime + time < millis();
 }
 bool Timer::First() {

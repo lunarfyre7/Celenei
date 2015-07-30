@@ -1,4 +1,3 @@
-#include "config.h"
-#include <Wire.h> 
-#include <LiquidCrystal_I2C.h>
+#include <LiquidCrystal.h>
 #include "fw_main.h"
+//int main();
