@@ -83,6 +83,7 @@ private:
 	void RefreshMenu(); //called after changing menu level
 	void InitBuffer();
 	void DestroyBuffer();
+	int  Bprint();
 };
 
 #endif

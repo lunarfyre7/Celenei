@@ -33,8 +33,7 @@ UI::UI(int addr)
  ,sizeY(0)
  ,currentMenuItem(0)
  ,lastMenuItem(0)
- // ,lcd(addr)
- ,lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE) //HACK !!! XXX
+ ,lcd(LCD_I2C_ADDR, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE)
  ,updateScreen(false)
  ,beepOnChange(true)
  ,menuLevel(-1)
@@ -56,11 +55,11 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 void UI::Task() {
 	// if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
 	if(DoUpdateScreen()) {//handle display
-		if (Pstrlen(menu[currentMenuItem].Info) > 0)  {
-			ClearSection(0,0,sizeX, lcd); //CHANGEME
+		//if (Pstrlen(menu[currentMenuItem].Info) > 0)  {
+			ClearSection(0,0,sizeX, lcd);
 			lcd.print(menu[currentMenuItem].Info);
-		} 
-		ClearSection(0,1,sizeX, lcd); //CHANGEME
+		//}
+		ClearSection(0,sizeY-1,sizeX, lcd); //bottom line
 		//TODO add text scrolling for large labels
 		lcd.setCursor((sizeX - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
 		lcd.print(menu[currentMenuItem].Label);

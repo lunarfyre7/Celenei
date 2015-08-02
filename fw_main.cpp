@@ -6,6 +6,7 @@
 #include "ui.h"
 #include "utilfn.h"
 #include "modulemanifest.h"
+#include <stdio.h>
 
 //fix for pnew.cpp build fail
 void* operator new(size_t size_,void *ptr_)
@@ -52,7 +53,7 @@ void setup() {
 	wdt_reset();
 	Serial.begin(115200);
 	Serial.println(F("BEAN: start"));
-	ui.InitLCD(16, 2);
+	ui.InitLCD(LCD_X, LCD_Y);
 	InitModules();
 	pinMode(VALVE_PIN_1, OUTPUT);
 	pinMode(VALVE_PIN_2, OUTPUT);
@@ -61,6 +62,10 @@ void setup() {
 	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TripleBeep);
+	///TEST DELETE THE FOLLOWING
+	char string[20];
+	sprintf(string, "%d", 5);
+	Serial.println(string);
 }
 
 void loop() {

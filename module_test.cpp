@@ -35,7 +35,7 @@ void DrawCallback(menucallbackinfo_t info) {
 		ClearSection(0,0,16,ui.lcd);
 		ui.lcd.setCursor(pos, 0);
 		if (up) {
-			if (++pos > 15) {
+			if (++pos > LCD_X-1) {
 				--pos;
 				up = false;
 			}
@@ -49,6 +49,42 @@ void DrawCallback(menucallbackinfo_t info) {
 		ui.lcd.write(B11111111);
 	}
 	if (info == SELECT) tone(SPEAKER_PIN, 1000*pos, 20);
+}
+void SpinCallback(menucallbackinfo_t info) {
+	static Timer timer;
+	static int8_t X = 1;
+	static bool init = true;
+	char C;
+	if (init) {
+		//add the stupid backslash for the stupid demo that doesn't matter
+		init = false;
+		byte customChar[8] = {
+			0b00000,
+			0b10000,
+			0b01000,
+			0b00100,
+			0b00010,
+			0b00001,
+			0b00000,
+			0b00000
+		};
+		ui.lcd.createChar(0, customChar);
+	}
+	if(timer.Check(250)) {
+		// / - \ |
+			if(X==0)
+				C='/';
+			if(X==1)
+				C='-';
+			if(X==2)
+				C=0;
+			if(X==3)
+				C='|';
+			ui.lcd.setCursor(0,0);
+			for (uint8_t i=0;i<LCD_X;i++)
+				ui.lcd.write(C);
+		X = (X+1)%3;
+	}
 }
 void ToneGenCallback(menucallbackinfo_t info) {
 	static Timer timer;
