@@ -25,7 +25,7 @@ btndir_t DPad() {
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
 // bool StrinF(const char * s1, const __FlashStringHelper * fstr) {return (strstr_P(s1, reinterpret_cast<const PROGMEM char *> (fstr)) != NULL);}
 
-void blankCallback(menucallbackinfo_t info, char** text){};
+void blankCallback(menucallbackinfo_t &info, char** text){};
 
 //UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
 UI::UI(int addr) 
@@ -53,23 +53,9 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 	lcd.begin(X,Y);
 }
 void UI::Task() {
-	// if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
-	if(DoUpdateScreen()) {//handle display
-		//if (Pstrlen(menu[currentMenuItem].Info) > 0)  {
-//			ClearSection(0,0,sizeX, lcd);
-//			lcd.print(menu[currentMenuItem].Info);
-		//}
-		ClearSection(0,0,sizeX, lcd);
-		lcd.setCursor(0,0);
-		//TODO add text scrolling for large labels
-//		lcd.setCursor((sizeX - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
-		lcd.print(menu[currentMenuItem].Label);
-		lcd.print(menu[currentMenuItem].Info);
-	}
-	if (scrollTimer.Check(400)) {//basic scrolling
-	}
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
-		menucallbackinfo_t cbInfo = NOTHING;
+		menucallbackinfo_t cbInfo;
+		cbInfo.nothing = true;
 		btndir_t button = DPad();
 		if (button == none) {
 			buttonScrollTimer = millis();
@@ -87,15 +73,16 @@ void UI::Task() {
 			} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level. could get stuck
 			//callback buttons
 			if (lastMenuItem != currentMenuItem) {
+				cbInfo.nothing = false;
 				UpdateScreen();
 				if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
-				cbInfo = NEW;
+				cbInfo._new = true;
 			} else if (button == left) {
-				cbInfo = LEFT;
+				cbInfo.left = true;
 			} else if (button == right) {
-				cbInfo = RIGHT;
+				cbInfo.right = true;
 			} else if (button == center) {
-				cbInfo = SELECT;
+				cbInfo.select = true;
 				if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
 						menuLevel = menu[currentMenuItem].asParent;
 						RefreshMenu();
@@ -104,7 +91,20 @@ void UI::Task() {
 			lastMenuItem = currentMenuItem;
 		}
 		lastButtonState = button;
-		(*menu[currentMenuItem].callback)(cbInfo, &menu[currentMenuItem].Info);
+		for (uint8_t y=0;y<LCD_Y;y++) {
+			uint8_t index = (currentMenuItem+y) % menu.size();
+			cbInfo.menuindex = (int)index;
+			(*menu[index].callback)(cbInfo, &(menu[index].Info));
+			if(updateScreen) {//handle display
+				ClearSection(0,y,sizeX, lcd);
+				lcd.setCursor(0,y);
+				lcd.print(index);
+				lcd.print(menu[index].Label);
+				lcd.print(menu[index].Info);
+			}
+		}
+		updateScreen = false;
+
 	}
 }
 UI& UI::PushItem(const __FlashStringHelper* Label) {
@@ -133,14 +133,14 @@ UI& UI::LinkTo(int name) {
 void UI::UpdateScreen() {
 	updateScreen = true;
 }
-bool UI::DoUpdateScreen() {
-	if (updateScreen) {
-		updateScreen = false;
-		return true;
-	} else	{
-		return false;
-	}
-}
+//bool UI::DoUpdateScreen() {
+//	if (updateScreen) {
+//		updateScreen = false;
+//		return true;
+//	} else	{
+//		return false;
+//	}
+//}
 void UI::RefreshMenu() {
 	currentMenuItem = 0;
 	while(menu[currentMenuItem].parent != menuLevel && currentMenuItem < menu.size()) {

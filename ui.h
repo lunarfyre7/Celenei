@@ -9,12 +9,13 @@
 #include "timer.h"
 
 namespace UI_t {
-	enum menucallbackinfo_t {
-		NEW, //menu entry has just been selected
-		NOTHING, //no buttons pressed
-		SELECT, //user has just eaten cake
-		LEFT, 
-		RIGHT
+	struct menucallbackinfo_t {
+		bool _new; //menu entry has just been selected
+		bool nothing; //no buttons pressed
+		bool select; //user has just eaten cake
+		bool left;
+		bool right;
+		int  menuindex;
 	};
 	enum btndir_t {
 		up,
@@ -26,7 +27,7 @@ namespace UI_t {
 	};
 }
 
-typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t, char**);
+typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);
 struct MenuItem{
 	const __FlashStringHelper* Label;
 	char* Info;
@@ -78,7 +79,7 @@ private:
 	char ** buffer;
 
 	//methods
-	bool DoUpdateScreen();
+//	bool DoUpdateScreen();
 	void RefreshMenu(); //called after changing menu level
 	void InitBuffer();
 	void DestroyBuffer();

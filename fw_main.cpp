@@ -25,6 +25,7 @@ void* operator new(size_t size_,void *ptr_)
 void TripleBeep() {
 	static uint8_t counter;
 	static Timer _timer;
+	DebugP(F("triple beep"));
 	if (_timer.Check(60)) {
 		beep();
 		if (counter++ == 3) {
@@ -60,7 +61,7 @@ void setup() {
 
 	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
-	Spin::RegisterTask(TripleBeep);
+//	Spin::RegisterTask(TripleBeep);
 }
 
 void loop() {

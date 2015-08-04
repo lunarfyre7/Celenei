@@ -22,6 +22,7 @@ void ClearSection(uint8_t X, uint8_t Y, uint8_t len, LiquidCrystal_I2C lcd) {
 void beep() {//todo: Add recursion
 	// const uint8_t tone1len = 30;
 	// const uint8_t tone2len = 20;
+	DebugP(F("beep"));
 	const uint8_t tone1len = 30;
 	const uint8_t tone2len = 20;
 	const int tone1 = 500;
