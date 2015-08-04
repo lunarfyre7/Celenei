@@ -49,3 +49,17 @@ void beep() {//todo: Add recursion
 		return;
 	}
 }
+template<typename T>
+void DebugP(T in) {
+#ifdef DEBUG_INFO
+	Serial.print("[debug]");
+	Serial.println(in);
+	return;
+#else
+	return;
+#endif
+}
+template void DebugP<char*>(char*);
+template void DebugP<char const*>(char const*);
+template void DebugP<const __FlashStringHelper *>(const __FlashStringHelper *);
+template void DebugP<int>(int);

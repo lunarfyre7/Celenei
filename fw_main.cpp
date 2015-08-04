@@ -4,7 +4,6 @@
 //#include <pnew.cpp>
 #include <avr/wdt.h>
 #include "ui.h"
-#include "utilfn.h"
 #include "modulemanifest.h"
 #include <stdio.h>
 
@@ -62,10 +61,6 @@ void setup() {
 	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TripleBeep);
-	///TEST DELETE THE FOLLOWING
-	char string[20];
-	sprintf(string, "%d", 5);
-	Serial.println(string);
 }
 
 void loop() {

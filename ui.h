@@ -26,10 +26,10 @@ namespace UI_t {
 	};
 }
 
-typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t);
+typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t, char**);
 struct MenuItem{
 	const __FlashStringHelper* Label;
-	const __FlashStringHelper* Info;
+	char* Info;
 	MenuItemCallback callback;
 
 	int parent;
@@ -74,7 +74,6 @@ private:
 	unsigned int lastMenuItem;
 	int menuLevel; //current menu parent
 	unsigned long buttonScrollTimer;
-	bool lineScrolling[2];
 	bool updateScreen; //true if screen needs update
 	char ** buffer;
 
@@ -83,7 +82,8 @@ private:
 	void RefreshMenu(); //called after changing menu level
 	void InitBuffer();
 	void DestroyBuffer();
-	int  Bprint();
+	template <typename T>
+	int8_t  Bprint(T);
 };
 
 #endif

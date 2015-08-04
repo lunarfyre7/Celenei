@@ -25,7 +25,7 @@ btndir_t DPad() {
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
 // bool StrinF(const char * s1, const __FlashStringHelper * fstr) {return (strstr_P(s1, reinterpret_cast<const PROGMEM char *> (fstr)) != NULL);}
 
-void BlankCallback(menucallbackinfo_t info){};
+void blankCallback(menucallbackinfo_t info, char** text){};
 
 //UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
 UI::UI(int addr) 
@@ -56,18 +56,17 @@ void UI::Task() {
 	// if(dispRefreshTimer.Check(LCD_REFRESH_TIME)) {//handle display
 	if(DoUpdateScreen()) {//handle display
 		//if (Pstrlen(menu[currentMenuItem].Info) > 0)  {
-			ClearSection(0,0,sizeX, lcd);
-			lcd.print(menu[currentMenuItem].Info);
+//			ClearSection(0,0,sizeX, lcd);
+//			lcd.print(menu[currentMenuItem].Info);
 		//}
-		ClearSection(0,sizeY-1,sizeX, lcd); //bottom line
+		ClearSection(0,0,sizeX, lcd);
+		lcd.setCursor(0,0);
 		//TODO add text scrolling for large labels
-		lcd.setCursor((sizeX - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
+//		lcd.setCursor((sizeX - Pstrlen(menu[currentMenuItem].Label))/2, 1);//center label
 		lcd.print(menu[currentMenuItem].Label);
-		lineScrolling[0] = Pstrlen(menu[currentMenuItem].Label) > sizeX;
-		lineScrolling[1] = Pstrlen(menu[currentMenuItem].Info) > sizeX;
+		lcd.print(menu[currentMenuItem].Info);
 	}
 	if (scrollTimer.Check(400)) {//basic scrolling
-		// lcd.scrollDisplayLeft();
 	}
 	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
 		menucallbackinfo_t cbInfo = NOTHING;
@@ -80,7 +79,6 @@ void UI::Task() {
 			//Menu item navigation
 			do {
 				if (button == up) {
-					//currentMenuItem--;
 					currentMenuItem = currentMenuItem == 0 ? menu.size() -1 : currentMenuItem - 1;//loop it around from the beginning, would be easier to use signed int.
 				} else if (button == down) {
 					currentMenuItem++;
@@ -106,24 +104,16 @@ void UI::Task() {
 			lastMenuItem = currentMenuItem;
 		}
 		lastButtonState = button;
-		//callback calling. TODO give callback ways to manipulate info
-		(*menu[currentMenuItem].callback)(cbInfo);
+		(*menu[currentMenuItem].callback)(cbInfo, &menu[currentMenuItem].Info);
 	}
 }
-UI& UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
-	return PushItem(Label, F(""), callback);
-}
 UI& UI::PushItem(const __FlashStringHelper* Label) {
-	return PushItem(Label, F(""));
+	return PushItem(Label, blankCallback);
 }
-UI& UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper*Info) {
-	return PushItem(Label, Info, BlankCallback);
-}
-UI& UI::PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback callback) {
-	
+UI& UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
 	MenuItem item;
 	item.Label =  Label;
-	item.Info  =  Info;
+	item.Info  =  NULL;
 	item.callback = callback;
 	item.parent = -1; //set these with the root level;
 	item.asParent = -1;
@@ -171,4 +161,8 @@ void UI::DestroyBuffer() {
 		delete buffer[i];
 	}
 	delete buffer;
+}
+template <typename T>
+int8_t UI::Bprint(T in) {
+	return 0; //unimplemented
 }
