@@ -10,7 +10,7 @@
 #include "../config.h"
 #include "../ui.h"
 
-class module_base {
+class module_base { //TODO add non ui background callbacks
 public:
 	module_base(uint8_t);
 	virtual ~module_base();

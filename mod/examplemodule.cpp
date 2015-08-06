@@ -60,7 +60,7 @@ mod_lag::~mod_lag() {
 
 }
 void mod_lag::callback(mci &info, char** text) {
-	if(timer.StaticCheck(200))
+	if(timer.StaticCheck(101))
 	{
 		ptrset(text);
 		loopcount = !loopcount;
