@@ -13,9 +13,9 @@ void RamCallback(mci &info, char** text) {
 	static bool init = true;
 	if (init) {
 		init = false;
-		*text = (char*)malloc(sizeof(char)*9);//plenty of space
+		*text = (char*)calloc(9, sizeof(char));//plenty of space
 	}
-	if(timer.Check(1000))
+	if(timer.Every(1000))
 	{
 		ram = freeMemory();
 		sprintf(*text, ": %db", freeMemory());
@@ -27,9 +27,9 @@ void DummyCB(mci &info, char** text) {//TODO create an init mechanism for these 
 	static bool init = true;
 	if (init) {
 		init = false;
-		*text = (char*)malloc(sizeof(char)*9);//plenty of space
+		*text = (char*)calloc(9, sizeof(char));//plenty of space
 	}
-	if(timer.Check(586))
+	if(timer.Every(586))
 		{
 			sprintf(*text, " %d %d", millis()%999, info.menuindex);
 			ui.UpdateScreen();

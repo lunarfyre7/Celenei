@@ -61,7 +61,7 @@ void setup() {
 
 	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
-//	Spin::RegisterTask(TripleBeep);
+	Spin::RegisterTask(TripleBeep);
 }
 
 void loop() {
