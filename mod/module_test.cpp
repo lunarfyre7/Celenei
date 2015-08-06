@@ -1,8 +1,8 @@
 #include "module_test.h"
-#include "timer.h"
+#include "../timer.h"
 #include <MemoryFree.h>
 #include <stdio.h>
-#include "utilfn.h"
+#include "../utilfn.h"
 using namespace UI_t;
 extern UI ui;
 typedef menucallbackinfo_t mci;

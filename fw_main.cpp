@@ -4,7 +4,7 @@
 //#include <pnew.cpp>
 #include <avr/wdt.h>
 #include "ui.h"
-#include "modulemanifest.h"
+#include "mod/modulemanifest.h"
 #include <stdio.h>
 
 //fix for pnew.cpp build fail
@@ -25,7 +25,6 @@ void* operator new(size_t size_,void *ptr_)
 void TripleBeep() {
 	static uint8_t counter;
 	static Timer _timer;
-	DebugP(F("triple beep"));
 	if (_timer.Check(60)) {
 		beep();
 		if (counter++ == 3) {
