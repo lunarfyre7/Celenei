@@ -38,7 +38,7 @@ void WatchdogReset() {wdt_reset();}
 
 //setup the UI task
 // UI ui(LCD_PINS);
-UI ui(LCD_I2C_ADDR);
+UI ui(LCD_I2C_ADDR);//TODO make this more flexible
 void uitask() {ui.Task();};
 
 /*
@@ -48,7 +48,7 @@ void uitask() {ui.Task();};
 */
 
 void setup() {
-	wdt_enable(WDTO_2S);
+	wdt_enable(WDTO_2S);//enable watchdog timer
 	wdt_reset();
 	Serial.begin(115200);
 	Serial.println(F("BEAN: start"));

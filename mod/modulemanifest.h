@@ -19,7 +19,7 @@ namespace mmcb {
 	wrapCB(ramcb, ram);//Use this to make a wrapper for the callback
 	mod_lag lag;
 	wrapCB(lagcb, lag);
-	mod_random rand;
+	mod_random rand; //this uses 27 bytes
 	mod_random rand1;
 	mod_random rand2;
 	wrapCB(randcb, rand);
@@ -55,11 +55,11 @@ void InitModules() {
 //		ui.PushItem(F("blank"), DummyCB2);
 //		ui.PushItem(F("A very long label that should scroll"), F("A very long info strip that should also scroll"));
 //
-//		ui.PushItem(F(">Parent 1<"), F("goto submenu")).LinkTo('p1');
-//			ui.PushItem(F(">Root<"), F("<<Back<<")).SetParent('p1').LinkTo(-1);
-//			ui.PushItem(F("Child 1"), F(" ")).SetParent('p1');
-//			ui.PushItem(F("Child 2"), F(" ")).SetParent('p1');
-//			ui.PushItem(F("Child 3"), F(" ")).SetParent('p1');
+		ui.PushItem(F(">Parent 1<")).LinkTo('p1');
+			ui.PushItem(F(">Root<")).SetParent('p1').LinkTo(-1);
+			ui.PushItem(F("Child 1")).SetParent('p1');
+			ui.PushItem(F("Child 2")).SetParent('p1');
+			ui.PushItem(F("Child 3")).SetParent('p1');
 //
 //		Spin::RegisterTask(SequenceTestTask);
 	#endif

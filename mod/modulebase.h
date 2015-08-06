@@ -9,7 +9,7 @@
 #define MODULEBASE_H_
 #include "../config.h"
 #include "../ui.h"
-
+//note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)
 class module_base { //TODO add non ui background callbacks
 public:
 	module_base(uint8_t);
