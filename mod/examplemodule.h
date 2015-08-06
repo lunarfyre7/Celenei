@@ -26,4 +26,14 @@ public:
 	void callback(UI_t::menucallbackinfo_t&, char**);
 };
 
+class mod_lag: public module_base {
+public:
+	mod_lag();
+	virtual ~mod_lag();
+	void callback(UI_t::menucallbackinfo_t&, char**);
+private:
+	unsigned long ltime;
+	bool loopcount;
+};
+
 #endif /* EXAMPLEMODULE_H_ */

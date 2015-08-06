@@ -1,5 +1,6 @@
 Roadmap/todo (in no particular order)
 
+* method to delete menu items
 * create text scrolling class
 * add auto return entries to submenus
 * create network interface base class

@@ -48,3 +48,31 @@ void mod_random::callback(mci &info, char** text) {
 		ui.UpdateScreen();
 	}
 }
+//lag
+mod_lag::mod_lag()
+	:module_base(10)
+	,ltime(0)
+	,loopcount(false)
+	{
+}
+
+mod_lag::~mod_lag() {
+
+}
+void mod_lag::callback(mci &info, char** text) {
+	if(timer.StaticCheck(200))
+	{
+		ptrset(text);
+		loopcount = !loopcount;
+		switch(loopcount){//faster than if else
+		case false:
+			ltime = millis();
+			break;
+		case true:
+			sprintf(text_str, ": %lu", millis() - ltime);
+			ui.UpdateScreen();
+			timer.Reset();
+			break;
+		}
+	}
+}

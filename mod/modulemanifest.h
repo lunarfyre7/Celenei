@@ -1,6 +1,7 @@
 #include "../config.h"
 #include "../ui.h"
 #include "../spin.h"
+#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.callback(info, text);}//make callback wrapper
 /*
 ###################################################
 #                Module Manifest                  #
@@ -14,13 +15,16 @@
 #include "examplemodule.h"
 namespace mmcb {
 	mod_ram ram;
-	void ramcb(UI_t::menucallbackinfo_t& info, char** text) {ram.callback(info, text);};
+//	void ramcb(UI_t::menucallbackinfo_t& info, char** text) {ram.callback(info, text);};
+	wrapCB(ramcb, ram);//Use this to make a wrapper for the callback
+	mod_lag lag;
+	wrapCB(lagcb, lag);
 	mod_random rand;
 	mod_random rand1;
 	mod_random rand2;
-	void  randcb(UI_t::menucallbackinfo_t& info, char** text) {rand.callback(info, text);};
-	void randcb1(UI_t::menucallbackinfo_t& info, char** text) {rand1.callback(info, text);};
-	void randcb2(UI_t::menucallbackinfo_t& info, char** text) {rand2.callback(info, text);};
+	wrapCB(randcb, rand);
+	wrapCB(randcb1, rand1);
+	wrapCB(randcb2, rand2);
 }
 #endif
 
@@ -40,6 +44,7 @@ void InitModules() {
 	//standard modules
 	#ifdef EN_TEST_MODULE	
 		ui.PushItem(F("ram"), ramcb);
+		ui.PushItem(F("lag"), lagcb);
 		ui.PushItem(F("rand"), randcb);
 		ui.PushItem(F("rand"), randcb1);
 		ui.PushItem(F("rand"), randcb2);
