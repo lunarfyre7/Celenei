@@ -10,16 +10,20 @@
 
 #include "modulebase.h"
 
-class example_module: public module_base {
+class mod_ram: public module_base {
 public:
-	example_module();
-	virtual ~example_module();
+	mod_ram();
+	virtual ~mod_ram();
 	void callback(UI_t::menucallbackinfo_t&, char**);
 private:
 	int ram;
-	Timer timer;
-	char **text;
-	char *text_str;
+};
+
+class mod_random: public module_base {
+public:
+	mod_random();
+	virtual ~mod_random();
+	void callback(UI_t::menucallbackinfo_t&, char**);
 };
 
 #endif /* EXAMPLEMODULE_H_ */

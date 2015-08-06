@@ -11,11 +11,18 @@ using namespace UI_t;
 extern UI ui;
 typedef menucallbackinfo_t mci;
 
-module_base::module_base() {
-	// TODO Auto-generated constructor stub
+module_base::module_base(uint8_t len)
+	:timer()
+	,text(NULL)
+	,text_str(new char[len]){
 
 }
 
 module_base::~module_base() {
-	// TODO Auto-generated destructor stub
+	delete text_str;
+}
+void module_base::ptrset(char **text) {
+	if (!(*text = text_str))
+		*text = text_str;
+	//idea: put this in a callback wrapper method so the module author does not have to call this.
 }

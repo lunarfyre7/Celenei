@@ -12,9 +12,16 @@
 #ifdef EN_TEST_MODULE
 //#include "module_test.h"
 #include "examplemodule.h"
-example_module expmod;
-void expmodwrapper(UI_t::menucallbackinfo_t& info, char** text) {expmod.callback(info, text);};
-
+namespace mmcb {
+	mod_ram ram;
+	void ramcb(UI_t::menucallbackinfo_t& info, char** text) {ram.callback(info, text);};
+	mod_random rand;
+	mod_random rand1;
+	mod_random rand2;
+	void  randcb(UI_t::menucallbackinfo_t& info, char** text) {rand.callback(info, text);};
+	void randcb1(UI_t::menucallbackinfo_t& info, char** text) {rand1.callback(info, text);};
+	void randcb2(UI_t::menucallbackinfo_t& info, char** text) {rand2.callback(info, text);};
+}
 #endif
 
 //#include "module_grow_core.h"
@@ -23,6 +30,7 @@ void expmodwrapper(UI_t::menucallbackinfo_t& info, char** text) {expmod.callback
 
 void InitModules() {
 	using namespace UI_t;
+	using namespace mmcb;
 	extern UI ui;
 	//#############################################
 	//This is where the main menu is defined.
@@ -31,8 +39,11 @@ void InitModules() {
 	//#############################################
 	//standard modules
 	#ifdef EN_TEST_MODULE	
-		ui.PushItem(F("ram"), expmodwrapper);
-//		ui.PushItem()
+		ui.PushItem(F("ram"), ramcb);
+		ui.PushItem(F("rand"), randcb);
+		ui.PushItem(F("rand"), randcb1);
+		ui.PushItem(F("rand"), randcb2);
+
 //		ui.PushItem(F("ram"), RamCallback);
 //		ui.PushItem(F("blank"), DummyCB);
 //		ui.PushItem(F("blank no cb"));
@@ -47,9 +58,4 @@ void InitModules() {
 //
 //		Spin::RegisterTask(SequenceTestTask);
 	#endif
-	//#######Grow core#######
-//	ui.PushItem(F("Status"), StatusDisp);
-//	ui.PushItem(F("On intv."), OnInterval);
-//	ui.PushItem(F("Off intv."), OffInterval);
-//	ui.PushItem(F("Overlap"), Overlap);
 }

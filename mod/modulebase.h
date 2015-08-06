@@ -12,9 +12,14 @@
 
 class module_base {
 public:
-	module_base();
+	module_base(uint8_t);
 	virtual ~module_base();
 	virtual void callback(UI_t::menucallbackinfo_t& info, char** text) {return;};
+protected:
+	Timer timer;
+	char **text;
+	char *text_str;
+	void ptrset(char **);//points the text pointer pointer to the string pointer.
 };
 
 #endif /* MODULEBASE_H_ */
