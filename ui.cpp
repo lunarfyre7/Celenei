@@ -10,10 +10,10 @@ using namespace UI_t;
 btndir_t DPad() {
 
   int reading = analogRead(BUTTON_PIN);
-  //Serial.print(F("dpad val: ")); Serial.println(reading); //uncomment for recalibration info
+//  Serial.print(F("dpad val: ")); Serial.println(reading); //uncomment for recalibration info
   btndir_t val;
   					 val = up;
-  if (reading < 750) val = left;
+  if (reading < 730) val = left;
   if (reading < 655) val = center;
   if (reading < 440) val = down;
   if (reading < 265) val = right;
@@ -32,6 +32,7 @@ UI::UI(int addr)
  :sizeX(0)
  ,sizeY(0)
  ,currentMenuItem(0)
+ ,screenPos(0)
  ,lastMenuItem(0)
  ,lcd(LCD_I2C_ADDR, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE)
  ,updateScreen(false)
@@ -92,13 +93,22 @@ void UI::Task() {
 		}
 		lastButtonState = button;
 		for (uint8_t y=0;y<LCD_Y;y++) {
-			uint8_t index = (currentMenuItem+y) % menu.size();
+//			uint8_t index = (currentMenuItem+y) % menu.size();
+			if(currentMenuItem > screenPos + LCD_Y-1)
+				screenPos = (screenPos+1)%menu.size();
+			else if (currentMenuItem < screenPos)
+				screenPos = (screenPos-1)%menu.size();
+			uint8_t index = (screenPos+y) % menu.size();//maybe a bad place for this
 			cbInfo.menuindex = (int)index;
 			(*menu[index].callback)(cbInfo, &(menu[index].Info));
 			if(updateScreen) {//handle display
 				ClearSection(0,y,sizeX, lcd);
 				lcd.setCursor(0,y);
-				lcd.print(index);
+				//print pointer icon
+				if(currentMenuItem == index)
+					lcd.write(0x7E);
+				else
+					lcd.setCursor(1,y);
 				lcd.print(menu[index].Label);
 				lcd.print(menu[index].Info);
 			}

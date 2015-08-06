@@ -71,6 +71,7 @@ private:
 	// std::olcdstream lcdout;
 	std::vector<MenuItem> menu;
 	unsigned int currentMenuItem; //current menu item index
+	unsigned int screenPos;
 	UI_t::btndir_t lastButtonState;
 	unsigned int lastMenuItem;
 	int menuLevel; //current menu parent
