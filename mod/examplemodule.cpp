@@ -44,13 +44,13 @@ void mod_random::callback(mci &info, char** text) {
 	if(timer.Every(200))
 	{
 		ptrset(text);
-		sprintf(text_str, ":%lu", random(micros()));
+		sprintf(text_str, ":%lu", random(micros())%999);
 		ui.UpdateScreen();
 	}
 }
 //lag
 mod_lag::mod_lag()
-	:module_base(10)
+	:module_base(5)//4 char + end sentinel
 	,ltime(0)
 	,loopcount(false)
 	{

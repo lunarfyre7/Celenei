@@ -5,7 +5,7 @@
 #include "utilfn.h"
 
 //+++++++++++++++++++++++++++
-//General/Misc.
+//Debug
 //+++++++++++++++++++++++++++
 #define DEBUG_INFO
 

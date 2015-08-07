@@ -65,9 +65,9 @@ public:
 private:
 
 	uint8_t sizeX, sizeY;
-	Timer dispRefreshTimer;
+//	Timer dispRefreshTimer;
 	Timer buttonTimer;
-	Timer scrollTimer;
+//	Timer scrollTimer;
 	// std::olcdstream lcdout;
 	std::vector<MenuItem> menu;
 	unsigned int currentMenuItem; //current menu item index

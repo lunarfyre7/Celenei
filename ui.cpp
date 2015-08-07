@@ -94,11 +94,14 @@ void UI::Task() {
 		lastButtonState = button;
 		for (uint8_t y=0;y<LCD_Y;y++) {
 //			uint8_t index = (currentMenuItem+y) % menu.size();
-			if(currentMenuItem > screenPos + LCD_Y-1)
+			if(currentMenuItem > screenPos + LCD_Y-1){//past bottom
 				screenPos = (screenPos+1)%menu.size();
-			else if (currentMenuItem < screenPos)
+//				updateScreen = true;
+			}
+			else if (currentMenuItem < screenPos)//past top
 				screenPos = (screenPos-1)%menu.size();
 			uint8_t index = (screenPos+y) % menu.size();//maybe a bad place for this
+			while(menu[index].parent != menuLevel) {index++;screenPos++;}//HACK move screen pos forward if element is not from same parent
 			cbInfo.menuindex = (int)index;
 			(*menu[index].callback)(cbInfo, &(menu[index].Info));
 			if(updateScreen) {//handle display
@@ -111,6 +114,18 @@ void UI::Task() {
 					lcd.setCursor(1,y);
 				lcd.print(menu[index].Label);
 				lcd.print(menu[index].Info);
+				#ifdef DEBUG_INFO
+				//index     currentMenuItem
+				//menu.size screenPos
+				lcd.setCursor(LCD_X-4, 0);
+				lcd.print(index);
+				lcd.setCursor(LCD_X-2, 0);
+				lcd.print(currentMenuItem);
+				lcd.setCursor(LCD_X-2, 1);
+				lcd.print(screenPos);
+				lcd.setCursor(LCD_X-4, 1);
+				lcd.print(menu.size());
+				#endif
 			}
 		}
 		updateScreen = false;
