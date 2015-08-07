@@ -43,23 +43,25 @@ void InitModules() {
 	//#############################################
 	//standard modules
 	#ifdef EN_TEST_MODULE	
+		//root menu
 		ui.PushItem(F("ram"), ramcb);
 		ui.PushItem(F("lag"), lagcb);
-		ui.PushItem(F("rand"), randcb);
-		ui.PushItem(F("rand"), randcb1);
-		ui.PushItem(F("rand"), randcb2);
-
-//		ui.PushItem(F("ram"), RamCallback);
-//		ui.PushItem(F("blank"), DummyCB);
-//		ui.PushItem(F("blank no cb"));
-//		ui.PushItem(F("blank"), DummyCB2);
-//		ui.PushItem(F("A very long label that should scroll"), F("A very long info strip that should also scroll"));
-//
+		ui.PushItem(F(">Random<")).LinkTo('rnd');
 		ui.PushItem(F(">Parent 1<")).LinkTo('p1');
+
+		//demo sub menu
 			ui.PushItem(F(">Root<")).SetParent('p1').LinkTo(-1);
 			ui.PushItem(F("Child 1")).SetParent('p1');
 			ui.PushItem(F("Child 2")).SetParent('p1');
 			ui.PushItem(F("Child 3")).SetParent('p1');
+
+		//random gen submenu
+		//place sub items after root items, somewhat of a bug/laziness
+		//TODO fix menu logic to make this not necessary.
+			ui.PushItem(F(">Root<")).SetParent('rnd').LinkTo(-1);
+			ui.PushItem(F("rand0"), randcb).SetParent('rnd');
+			ui.PushItem(F("rand1"), randcb1).SetParent('rnd');
+			ui.PushItem(F("rand2"), randcb2).SetParent('rnd');
 //
 //		Spin::RegisterTask(SequenceTestTask);
 	#endif
