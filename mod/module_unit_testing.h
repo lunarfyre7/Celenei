@@ -12,7 +12,7 @@ void module_unit_test() {
 	///test for ram usage
 	Serial.print("Ram before: ");
 	Serial.println(freeMemory());
-	module_base emptymod(0);
+	Module_base emptymod(0);
 	Serial.print("Ram after: ");
 	Serial.println(freeMemory());
 }

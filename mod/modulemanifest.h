@@ -1,7 +1,7 @@
 #include "../config.h"
 #include "../ui.h"
 #include "../spin.h"
-#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.callback(info, text);}//make callback wrapper
+#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
 /*
 ###################################################
 #                Module Manifest                  #
@@ -18,13 +18,13 @@ namespace mmcb {
 //	wrapCB(ramcb, ram);//Use this to make a wrapper for the callback
 //	mod_lag lag;
 //	wrapCB(lagcb, lag);
-//	mod_random rand; //this uses 27 bytes
+	Mod_random rand; //this uses 27 bytes
 //	mod_random rand1;
 //	mod_random rand2;
-//	wrapCB(randcb, rand);
+	wrapCB(randcb, rand);
 //	wrapCB(randcb1, rand1);
 //	wrapCB(randcb2, rand2);
-	module_base mod_base;
+//	module_base mod_base;
 
 }
 #endif
@@ -45,8 +45,10 @@ void InitModules() {
 //	//standard modules
 //	#ifdef EN_TEST_MODULE
 //		//root menu
+		Module_base *mod_base = new Module_base;
 		ui.PushItem(F("blank"));
-		mod_base.setup(&ui);
+		mod_base->setup(&ui);
+		ui.PushItem(F("rand0"), randcb);
 //		ui.PushItem(F("ram"), ramcb);
 //		ui.PushItem(F("lag"), lagcb);
 //		ui.PushItem(F(">Random<")).LinkTo('rnd');
@@ -60,7 +62,7 @@ void InitModules() {
 //
 //		//random gen submenu
 //		//place sub items after root items, somewhat of a bug/laziness
-//		//TODO fix menu logic to make this not necessary.
+//		//TODO fix menu logic to make this not necessary. (sort)
 //			ui.PushItem(F(">Root<")).SetParent('rnd').LinkTo(-1);
 //			ui.PushItem(F("rand0"), randcb).SetParent('rnd');
 //			ui.PushItem(F("rand1"), randcb1).SetParent('rnd');

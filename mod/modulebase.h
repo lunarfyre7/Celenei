@@ -10,11 +10,11 @@
 #include "../config.h"
 #include "../ui.h"
 //note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)
-class module_base { //TODO add non ui background callbacks
+class Module_base { //TODO add non ui background callbacks
 public:
-	module_base(uint8_t x=0);
-	virtual ~module_base();
-	virtual void callback(UI_t::menucallbackinfo_t& info, char** text) {return;}; //ui  callback
+	Module_base(uint8_t len=0);
+	virtual ~Module_base();
+	virtual void ui_callback(UI_t::menucallbackinfo_t& info, char** text) {return;}; //ui  callback
 	virtual void setup(UI *ui) {ui->PushItem(F("empty"));} //setup ui menu
 	virtual void tick() {} //background/non-ui task
 protected:

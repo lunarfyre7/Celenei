@@ -12,16 +12,16 @@
 using namespace UI_t;
 extern UI ui;
 typedef menucallbackinfo_t mci;
-mod_ram::mod_ram()
-	:module_base(9)
+Mod_ram::Mod_ram()
+	:Module_base(9)
 	,ram(0)
 	{
 }
 
-mod_ram::~mod_ram() {
+Mod_ram::~Mod_ram() {
 
 }
-void mod_ram::callback(mci &info, char** text) {
+void Mod_ram::ui_callback(mci &info, char** text) {
 	if(timer.Every(1000))
 	{
 		ptrset(text);
@@ -32,15 +32,15 @@ void mod_ram::callback(mci &info, char** text) {
 }
 
 //random
-mod_random::mod_random()
-	:module_base(10)
+Mod_random::Mod_random()
+	:Module_base(10)
 	{
 }
 
-mod_random::~mod_random() {
+Mod_random::~Mod_random() {
 
 }
-void mod_random::callback(mci &info, char** text) {
+void Mod_random::ui_callback(mci &info, char** text) {
 	if(timer.Every(200))
 	{
 		ptrset(text);
@@ -49,17 +49,17 @@ void mod_random::callback(mci &info, char** text) {
 	}
 }
 //lag
-mod_lag::mod_lag()
-	:module_base(5)//4 char + end sentinel
+Mod_lag::Mod_lag()
+	:Module_base(5)//4 char + end sentinel
 	,ltime(0)
 	,loopcount(false)
 	{
 }
 
-mod_lag::~mod_lag() {
+Mod_lag::~Mod_lag() {
 
 }
-void mod_lag::callback(mci &info, char** text) {
+void Mod_lag::ui_callback(mci &info, char** text) {
 	if(timer.StaticCheck(101))
 	{
 		ptrset(text);
