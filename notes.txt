@@ -3,7 +3,7 @@ Roadmap/todo (in no particular order)
 todo now:
 
 module init list
-switch vectors to lists, or even make a tine bare bones list class
+switch vectors to lists, or even make a tiny bare bones list class
 add non ui callback to module base
 module new/delete screen data on show/hide though non ui
 

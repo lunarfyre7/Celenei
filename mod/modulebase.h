@@ -7,6 +7,8 @@
 
 #ifndef MODULEBASE_H_
 #define MODULEBASE_H_
+#include <iterator>
+#include <list>
 #include "../config.h"
 #include "../ui.h"
 //note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)
@@ -17,11 +19,13 @@ public:
 	virtual void ui_callback(UI_t::menucallbackinfo_t& info, char** text) {return;}; //ui  callback
 	virtual void setup(UI *ui) {ui->PushItem(F("empty"));} //setup ui menu
 	virtual void tick() {} //background/non-ui task
+	void setup_all(); //loop though instances and run all setup methods.
 protected:
 	Timer timer;
+//	static std::list<Module_base*> instances; //list of instances
 	char **text; //pointer for ui dynamic text
 	char *text_str; //storage for dynamic text
 	void ptrset(char **);//points the text pointer pointer to the string pointer.
 };
-
+extern std::list<Module_base*> MODULE_INSTANCES; //list of instances. Wont work as a static member for some reason.
 #endif /* MODULEBASE_H_ */

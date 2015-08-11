@@ -47,7 +47,7 @@ void InitModules() {
 //		//root menu
 		Module_base *mod_base = new Module_base;
 		ui.PushItem(F("blank"));
-		mod_base->setup(&ui);
+		mod_base->setup_all();
 		ui.PushItem(F("rand0"), randcb);
 //		ui.PushItem(F("ram"), ramcb);
 //		ui.PushItem(F("lag"), lagcb);
