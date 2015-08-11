@@ -9,7 +9,6 @@
 typedef void(*FunctionPointer)(); 
 void ClearSection(uint8_t X, uint8_t Y, uint8_t len, LiquidCrystal_I2C lcd);
 void beep();
-
 template<typename T>
 void DebugP(T in) {
 #ifdef DEBUG_INFO

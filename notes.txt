@@ -1,5 +1,13 @@
 Roadmap/todo (in no particular order)
 
+todo now:
+
+module init list
+switch vectors to lists, or even make a tine bare bones list class
+add non ui callback to module base
+module new/delete screen data on show/hide though non ui
+
+general todo:
 * method to delete menu items
 * create text scrolling class
 * add auto return entries to submenus
@@ -14,7 +22,7 @@ Roadmap/todo (in no particular order)
 * create server api
 * create web ui
 
-Done:
+Done-ish:
 
 *task management
 *basic ui framework
