@@ -54,6 +54,7 @@ void setup() {
 	Serial.println(F("BEAN: start"));
 	ui.InitLCD(LCD_X, LCD_Y);
 	Module_reg::run();
+//	Module_reg::test();
 	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TripleBeep);
