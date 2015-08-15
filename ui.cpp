@@ -54,83 +54,83 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 	lcd.begin(X,Y);
 }
 void UI::Task() {
-	if(buttonTimer.Check(BUTTONCHECK_TIME)) {//handle button presses
-		menucallbackinfo_t cbInfo;
-		cbInfo.nothing = true;
-		btndir_t button = DPad();
-		if (button == none) {
-			buttonScrollTimer = millis();
-		}
-		if (lastButtonState == none || buttonScrollTimer + SCROLL_THRESHHOLD < millis()){
-			buttonScrollTimer += SCROLL_STEP;
-			//Menu item navigation
-			do {
-				if (button == up) {
-					currentMenuItem = currentMenuItem == 0 ? menu.size() -1 : currentMenuItem - 1;//loop it around from the beginning, would be easier to use signed int.
-				} else if (button == down) {
-					currentMenuItem++;
-					currentMenuItem = currentMenuItem % menu.size(); //limit the index
-				}
-			} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level. could get stuck
-			//callback buttons
-			if (lastMenuItem != currentMenuItem) {
-				cbInfo.nothing = false;
-				UpdateScreen();
-				if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
-				cbInfo._new = true;
-			} else if (button == left) {
-				cbInfo.left = true;
-			} else if (button == right) {
-				cbInfo.right = true;
-			} else if (button == center) {
-				cbInfo.select = true;
-				if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
-						menuLevel = menu[currentMenuItem].asParent;
-						RefreshMenu();
-					}
-			}
-			lastMenuItem = currentMenuItem;
-		}
-		lastButtonState = button;
-		for (uint8_t y=0;y<LCD_Y;y++) {
-//			uint8_t index = (currentMenuItem+y) % menu.size();
-			if(currentMenuItem > screenPos + LCD_Y-1){//past bottom
-				screenPos = (screenPos+1)%menu.size();
-//				updateScreen = true;
-			}
-			else if (currentMenuItem < screenPos)//past top
-				screenPos = (screenPos-1)%menu.size();
-			uint8_t index = (screenPos+y) % menu.size();//maybe a bad place for this
-			while(menu[index].parent != menuLevel) {index++;screenPos++;}//HACK move screen pos forward if element is not from same parent
-			cbInfo.menuindex = (int)index;
-			(*menu[index].callback)(cbInfo, &(menu[index].Info));
-			if(updateScreen) {//handle display
-				ClearSection(0,y,sizeX, lcd);
-				lcd.setCursor(0,y);
-				//print pointer icon
-				if(currentMenuItem == index)
-					lcd.write(0x7E);
-				else
-					lcd.setCursor(1,y);
-				lcd.print(menu[index].Label);
-				lcd.print(menu[index].Info);
-				#ifdef DEBUG_INFO
-				//index     currentMenuItem
-				//menu.size screenPos
-				lcd.setCursor(LCD_X-4, 0);
-				lcd.print(index);
-				lcd.setCursor(LCD_X-2, 0);
-				lcd.print(currentMenuItem);
-				lcd.setCursor(LCD_X-2, 1);
-				lcd.print(screenPos);
-				lcd.setCursor(LCD_X-4, 1);
-				lcd.print(menu.size());
-				#endif
-			}
-		}
-		updateScreen = false;
-
+	menucallbackinfo_t cbInfo;
+	cbInfo.nothing = true;
+	btndir_t button = DPad();
+	//abort if no menu items
+	if (menu.size() == 0)
+		return;
+	if (button == none) {
+		buttonScrollTimer = millis();
 	}
+	if (lastButtonState == none || buttonScrollTimer + SCROLL_THRESHHOLD < millis()){
+		buttonScrollTimer += SCROLL_STEP;
+		//Menu item navigation
+		do {
+			if (button == up) {
+				currentMenuItem = currentMenuItem == 0 ? menu.size() -1 : currentMenuItem - 1;//loop it around from the beginning, would be easier to use signed int.
+			} else if (button == down) {
+				currentMenuItem++;
+				currentMenuItem = currentMenuItem % menu.size(); //limit the index
+			}
+		} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level. could get stuck
+		//callback buttons
+		if (lastMenuItem != currentMenuItem) {
+			cbInfo.nothing = false;
+			UpdateScreen();
+			if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
+			cbInfo._new = true;
+		} else if (button == left) {
+			cbInfo.left = true;
+		} else if (button == right) {
+			cbInfo.right = true;
+		} else if (button == center) {
+			cbInfo.select = true;
+			if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
+					menuLevel = menu[currentMenuItem].asParent;
+					RefreshMenu();
+				}
+		}
+		lastMenuItem = currentMenuItem;
+	}
+	lastButtonState = button;
+	for (uint8_t y=0;y<LCD_Y;y++) {
+//			uint8_t index = (currentMenuItem+y) % menu.size();
+		if(currentMenuItem > screenPos + LCD_Y-1){//past bottom
+			screenPos = (screenPos+1)%menu.size();
+//				updateScreen = true;
+		}
+		else if (currentMenuItem < screenPos)//past top
+			screenPos = (screenPos-1)%menu.size();
+		uint8_t index = (screenPos+y) % menu.size();//maybe a bad place for this
+		while(menu[index].parent != menuLevel) {index++;screenPos++;}//HACK move screen pos forward if element is not from same parent
+		cbInfo.menuindex = (int)index;
+		(*menu[index].callback)(cbInfo, &(menu[index].Info));
+		if(updateScreen) {//handle display
+			ClearSection(0,y,sizeX, lcd);
+			lcd.setCursor(0,y);
+			//print pointer icon
+			if(currentMenuItem == index)
+				lcd.write(0x7E);
+			else
+				lcd.setCursor(1,y);
+			lcd.print(menu[index].Label);
+			lcd.print(menu[index].Info);
+			#ifdef DEBUG_INFO
+			//index     currentMenuItem
+			//menu.size screenPos
+			lcd.setCursor(LCD_X-4, 0);
+			lcd.print(index);
+			lcd.setCursor(LCD_X-2, 0);
+			lcd.print(currentMenuItem);
+			lcd.setCursor(LCD_X-2, 1);
+			lcd.print(screenPos);
+			lcd.setCursor(LCD_X-4, 1);
+			lcd.print(menu.size());
+			#endif
+		}
+	}
+	updateScreen = false;
 }
 UI& UI::PushItem(const __FlashStringHelper* Label) {
 	return PushItem(Label, blankCallback);

@@ -1,42 +1,19 @@
-#include "../config.h"
-#include "../ui.h"
-#include "../spin.h"
-#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
+#include "Modulereg.h"
 /*
 ###################################################
 #                Module Manifest                  #
 ###################################################
 */
 //include modules here
-
-#ifdef EN_TEST_MODULE
-//#include "module_test.h"
 #include "examplemodule.h"
-namespace mmcb {
-//	mod_ram ram;
-////	void ramcb(UI_t::menucallbackinfo_t& info, char** text) {ram.callback(info, text);};
-//	wrapCB(ramcb, ram);//Use this to make a wrapper for the callback
-//	mod_lag lag;
-//	wrapCB(lagcb, lag);
-	Mod_random rand; //this uses 27 bytes
-//	mod_random rand1;
-//	mod_random rand2;
-	wrapCB(randcb, rand);
-//	wrapCB(randcb1, rand1);
-//	wrapCB(randcb2, rand2);
-//	module_base mod_base;
 
-}
-#endif
-
-//#include "module_grow_core.h"
 
 //#################################################
-
-void InitModules() {
-	using namespace UI_t;
-	using namespace mmcb;
-	extern UI ui;
+//old setup code
+//void InitModules() {
+//	using namespace UI_t;
+//	using namespace mmcb;
+//	extern UI ui;
 //	//#############################################
 //	//This is where the main menu is defined.
 //	//Add menu items and init calls here.
@@ -45,10 +22,12 @@ void InitModules() {
 //	//standard modules
 //	#ifdef EN_TEST_MODULE
 //		//root menu
-		Module_base *mod_base = new Module_base;
-		ui.PushItem(F("blank"));
-		mod_base->setup_all();
-		ui.PushItem(F("rand0"), randcb);
+//		Module_base *mod_base = new Module_base;
+//		mod_base.ext_wrapper = *basecb;
+//		ui.PushItem(F("blank"));
+//		mod_base.setup_all();
+//		mod_base->setup(&ui);
+//		ui.PushItem(F("rand0"), randcb);
 //		ui.PushItem(F("ram"), ramcb);
 //		ui.PushItem(F("lag"), lagcb);
 //		ui.PushItem(F(">Random<")).LinkTo('rnd');
@@ -68,4 +47,4 @@ void InitModules() {
 //			ui.PushItem(F("rand1"), randcb1).SetParent('rnd');
 //			ui.PushItem(F("rand2"), randcb2).SetParent('rnd');
 //	#endif
-}
+//}

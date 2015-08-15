@@ -9,6 +9,10 @@
 #define EXAMPLEMODULE_H_
 
 #include "modulebase.h"
+#include "Modulereg.h"
+
+
+///module def///
 
 class Mod_ram: public Module_base {
 public:
@@ -22,7 +26,8 @@ private:
 class Mod_random: public Module_base {
 public:
 	Mod_random();
-	virtual ~Mod_random();
+//	virtual ~Mod_random();
+	void setup(UI*);
 	void ui_callback(UI_t::menucallbackinfo_t&, char**);
 };
 

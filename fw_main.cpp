@@ -53,11 +53,7 @@ void setup() {
 	Serial.begin(115200);
 	Serial.println(F("BEAN: start"));
 	ui.InitLCD(LCD_X, LCD_Y);
-	InitModules();
-	pinMode(VALVE_PIN_1, OUTPUT);
-	pinMode(VALVE_PIN_2, OUTPUT);
-	pinMode(VALVE_PIN_3, OUTPUT);
-
+	Module_reg::run();
 	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TripleBeep);

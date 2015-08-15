@@ -2,7 +2,7 @@
 <project>
 	<configuration id="it.baeyens.arduino.core.toolChain.release.1714856798" name="Release">
 		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
-			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
+			<provider class="org.eclipse.cdt.core.language.settings.providers.LanguageSettingsGenericProvider" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider" name="CDT User Setting Entries" prefer-non-shared="true"/>
 			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
 			<provider class="it.baeyens.arduino.toolchain.ArduinoLanguageProvider" console="false" env-hash="1566322300987459805" id="it.baeyens.arduino.languageSettingsProvider" keep-relative-paths="false" name="Arduino Compiler Settings" parameter="${COMMAND} -E -P -v -dD ${INPUTS}" prefer-non-shared="true">
 				<language-scope id="org.eclipse.cdt.core.gcc"/>

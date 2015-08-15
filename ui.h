@@ -4,7 +4,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <LCD.h>
 #include <lcdostream>
-#include <iterator>
+//#include <iterator>
 #include <vector>
 #include "timer.h"
 
@@ -66,7 +66,7 @@ private:
 
 	uint8_t sizeX, sizeY;
 //	Timer dispRefreshTimer;
-	Timer buttonTimer;
+//	Timer buttonTimer;
 //	Timer scrollTimer;
 	// std::olcdstream lcdout;
 	std::vector<MenuItem> menu;

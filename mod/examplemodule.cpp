@@ -34,11 +34,10 @@ void Mod_ram::ui_callback(mci &info, char** text) {
 //random
 Mod_random::Mod_random()
 	:Module_base(10)
-	{
-}
-
-Mod_random::~Mod_random() {
-
+	{}
+//Mod_random::Mod_random
+void Mod_random::setup(UI* ui) {
+	ui->PushItem(F("Rand"), *ext_wrapper);
 }
 void Mod_random::ui_callback(mci &info, char** text) {
 	if(timer.Every(200))
@@ -76,3 +75,17 @@ void Mod_lag::ui_callback(mci &info, char** text) {
 		}
 	}
 }
+
+///setup and wrapper code///
+void ramwrap() {
+	Mod_ram ram;
+	ram.setup(&ui);
+	DebugP(F("ramwrap"));
+}
+//void randwrap() {
+//
+//}
+//void lagwrap() {
+//
+//}
+//Module_reg ramptr(ramwrap);

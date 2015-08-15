@@ -11,6 +11,8 @@
 #include <list>
 #include "../config.h"
 #include "../ui.h"
+#include "Modulereg.h"
+#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
 //note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)
 class Module_base { //TODO add non ui background callbacks
 public:
@@ -19,7 +21,8 @@ public:
 	virtual void ui_callback(UI_t::menucallbackinfo_t& info, char** text) {return;}; //ui  callback
 	virtual void setup(UI *ui) {ui->PushItem(F("empty"));} //setup ui menu
 	virtual void tick() {} //background/non-ui task
-	void setup_all(); //loop though instances and run all setup methods.
+//	void setup_all(); //loop though instances and run all setup methods. Use module_reg instead
+	MenuItemCallback ext_wrapper;
 protected:
 	Timer timer;
 //	static std::list<Module_base*> instances; //list of instances

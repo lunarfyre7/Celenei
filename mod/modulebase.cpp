@@ -28,8 +28,11 @@ void Module_base::ptrset(char **text) {
 		*text = text_str;
 	//idea: put this in a callback wrapper method so the module author does not have to call this.
 }
-void Module_base::setup_all () {
-	for (std::list<Module_base*>::iterator it=MODULE_INSTANCES.begin(); it!=MODULE_INSTANCES.end(); ++it) {
-		(*it)->setup(&ui);
-	}
-}
+//void Module_base::setup_all () {
+//	for (std::list<Module_base*>::iterator it=MODULE_INSTANCES.begin(); it!=MODULE_INSTANCES.end(); ++it) {
+//		if((*it)->ext_wrapper)
+//			(*it)->setup(&ui);
+//		else
+//			Serial.println(F("[error] undefined wrapper pointer"));
+//	}
+//}
