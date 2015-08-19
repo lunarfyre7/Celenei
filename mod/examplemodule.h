@@ -43,8 +43,9 @@ private:
 
 ///setup and wrapper code///
 #ifndef IS_MOD_DEF
-Mod_ram ram;
-wrapCB(ramCB, ram);
+//Mod_ram ram;
+//wrapCB(ramCB, ram);
+makeCB(ramCB, Mod_ram, ui_callback);
 static void ramwrap() {
 	ui.PushItem(F("ram"), ramCB);
 	DebugP(F("ramwrap"));
