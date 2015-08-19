@@ -14,7 +14,7 @@
 #include "Modulereg.h"
 extern UI ui;
 //#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
-#define _makeCB(wrap,class,name, method) class name; void name(UI_t::menucallbackinfo_t& info, char** text) {obj.##method(info, text);}
+#define _makeCB(wrap,class,objname, method) class objname; void wrap(UI_t::menucallbackinfo_t& info, char** text) {objname.method(info, text);}
 #define makeCB(wrap,class,method) _makeCB(wrap, class, UNIQUE_NAME(class##method), method) ///usage makeCB(mycallback, mymodule, mymethod)
 
 //note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)

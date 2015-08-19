@@ -46,9 +46,12 @@ private:
 //Mod_ram ram;
 //wrapCB(ramCB, ram);
 makeCB(ramCB, Mod_ram, ui_callback);
-static void ramwrap() {
+makeCB(randCB, Mod_random, ui_callback);
+makeCB(lagCB, Mod_lag, ui_callback);
+static void wrap() {
 	ui.PushItem(F("ram"), ramCB);
-	DebugP(F("ramwrap"));
+	ui.PushItem(F("rand"), randCB);
+	ui.PushItem(F("lag"), lagCB);
 }
 //void randwrap() {
 //
@@ -56,7 +59,7 @@ static void ramwrap() {
 //void lagwrap() {
 //
 //}
-Module_reg ramptr(ramwrap);
+Module_reg ramptr(wrap);
 #endif //MOD_WRAPPER
 
 #endif /* EXAMPLEMODULE_H_ */

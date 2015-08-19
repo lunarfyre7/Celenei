@@ -51,7 +51,7 @@ void setup() {
 	wdt_enable(WDTO_2S);//enable watchdog timer
 	wdt_reset();
 	Serial.begin(115200);
-	Serial.println(F("BEAN: start"));
+	Serial.println(F("Solaneae: start"));
 	ui.InitLCD(LCD_X, LCD_Y);
 	Module_reg::run();
 //	Module_reg::test();
