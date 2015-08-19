@@ -28,6 +28,7 @@ namespace UI_t {
 }
 
 typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//TODO use lambdas instead of this
+typedef MenuItemCallback mci_t;
 struct MenuItem{
 	const __FlashStringHelper* Label;
 	char* Info;

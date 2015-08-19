@@ -12,6 +12,7 @@
 #include "../config.h"
 #include "../ui.h"
 #include "Modulereg.h"
+extern UI ui;
 #define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
 //note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)
 class Module_base { //TODO add non ui background callbacks
