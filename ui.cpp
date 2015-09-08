@@ -4,6 +4,7 @@
 #include "buffer.h"
 
 
+using namespace sol;
 using namespace UI_t;
 
 #ifdef RESISTOR_BUTTON_MULTIPLEX

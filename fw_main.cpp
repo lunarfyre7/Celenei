@@ -38,7 +38,7 @@ void WatchdogReset() {wdt_reset();}
 
 //setup the UI task
 // UI ui(LCD_PINS);
-UI ui(LCD_I2C_ADDR);//TODO make this more flexible
+sol::UI ui(LCD_I2C_ADDR);//TODO make this more flexible
 void uitask() {ui.Task();};
 
 /*

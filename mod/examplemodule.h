@@ -12,6 +12,7 @@
 #include "Modulereg.h"
 
 ///module def///
+using namespace sol;
 
 class Mod_ram: public Module_base {
 public:

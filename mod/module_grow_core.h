@@ -1,5 +1,5 @@
 #include "../ui.h"
-void StatusDisp(UI_t::menucallbackinfo_t, char*);
-void OnInterval(UI_t::menucallbackinfo_t, char*);
-void OffInterval(UI_t::menucallbackinfo_t, char*);
-void Overlap(UI_t::menucallbackinfo_t, char*);
+void StatusDisp(sol::UI_t::menucallbackinfo_t, char*);
+void OnInterval(sol::UI_t::menucallbackinfo_t, char*);
+void OffInterval(sol::UI_t::menucallbackinfo_t, char*);
+void Overlap(sol::UI_t::menucallbackinfo_t, char*);
