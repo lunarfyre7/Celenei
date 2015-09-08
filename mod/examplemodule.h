@@ -49,16 +49,11 @@ makeCB(ramCB, Mod_ram, ui_callback);
 makeCB(randCB, Mod_random, ui_callback);
 makeCB(lagCB, Mod_lag, ui_callback);
 static void wrap() {
+	ui.PushItem(F("Solaneae demo"));
 	ui.PushItem(F("ram"), ramCB);
 	ui.PushItem(F("rand"), randCB);
 	ui.PushItem(F("lag"), lagCB);
 }
-//void randwrap() {
-//
-//}
-//void lagwrap() {
-//
-//}
 Module_reg ramptr(wrap);
 #endif //MOD_WRAPPER
 

@@ -1,0 +1,234 @@
+000011e6 00000546 T UI::Task()
+00003508 0000042c T tone(unsigned char, unsigned int, unsigned long)
+000001cc 000003ba T vfprintf
+0000211a 00000322 T __vector_24
+00000d8c 0000027a W std::vector<MenuItem, std::allocator<MenuItem> >::_M_insert_aux(MenuItem*, MenuItem const&)
+00000984 0000015c W std::vector<void (*)(), std::allocator<void (*)()> >::_M_insert_aux(void (**)(), void (* const&)())
+00002b1a 0000013a T malloc
+00002c54 00000130 T free
+00002e74 0000010e T HardwareSerial::begin(unsigned long)
+000027a0 000000f4 T LCD::begin(unsigned char, unsigned char, unsigned char)
+00002a26 000000f4 T LiquidCrystal_I2C::LiquidCrystal_I2C(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, unsigned char, t_backlighPol)
+00003ab2 000000d0 T delay
+00003274 000000c8 T Print::printNumber(unsigned long, unsigned char)
+0000172c 000000c0 T beep()
+0000060a 000000bc T __ultoa_invert
+00003450 000000b8 T __vector_7
+00001c48 000000b0 T Module_base::~Module_base()
+0000308e 000000ac t global constructors keyed to __vector_18
+0000203a 000000aa T twi_writeTo
+00001da2 000000aa T Module_base::~Module_base()
+00001cf8 000000aa T Module_base::~Module_base()
+00003c44 000000a8 T digitalWrite
+008002ac 000000a2 B Serial
+00001006 0000009a T UI::PushItem(__FlashStringHelper const*, void (*)(UI_t::menucallbackinfo_t&, char**))
+000010fe 00000096 T UI::UI(int)
+00001fa8 00000092 T twi_readFrom
+0000397c 00000090 T __vector_16
+00000c50 0000008e T UI::RefreshMenu()
+00001aa8 00000080 T Mod_ram::ui_callback(UI_t::menucallbackinfo_t&, char**)
+00003bc6 0000007e T pinMode
+00001ec6 0000007e T Module_base::Module_base(unsigned char)
+00001908 0000007e T Module_reg::run()
+00001e4c 0000007a W std::list<Module_base*, std::allocator<Module_base*> >::insert(std::_List_iterator<Module_base*, Module_base*&, Module_base**>, Module_base* const&)
+00001986 0000007a W std::list<Module_reg*, std::allocator<Module_reg*> >::insert(std::_List_iterator<Module_reg*, Module_reg*&, Module_reg**>, Module_reg* const&)
+00001b6c 0000007a t __static_initialization_and_destruction_0(int, int)
+00001872 0000007a t __static_initialization_and_destruction_0(int, int)
+00003016 00000078 T HardwareSerial::write(unsigned char)
+00003a3c 00000076 T init
+00002d86 0000006e T __vector_18
+00000782 00000066 T setup
+00001f44 00000064 T freeMemory
+0000251a 00000062 T TwoWire::write(unsigned char const*, unsigned int)
+00000ae0 00000062 T Spin::RegisterTask(void (*)())
+00000d2a 00000062 T UI::InitBuffer()
+00002e14 00000060 T __vector_19
+0000257c 00000060 T TwoWire::write(unsigned char)
+000005b2 00000058 T fputc
+00000b80 00000058 T Timer::Check(unsigned long)
+000007f2 00000056 T TripleBeep()
+0000313a 00000054 T Print::write(unsigned char const*, unsigned int)
+00000848 00000054 T Spin::LoopTick()
+0000089c 00000054 t __static_initialization_and_destruction_0(int, int)
+00001a00 00000052 T Module_reg::Module_reg(void (*)())
+00001194 00000052 T DPad()
+000017ec 00000050 T ClearSection(unsigned char, unsigned char, unsigned char, LiquidCrystal_I2C)
+00002666 0000004c T I2CIO::write(unsigned char)
+00000cde 0000004c T UI::DestroyBuffer()
+00000730 0000004c t ramwrap()
+00000184 00000048 T sprintf
+00001c02 00000046 W std::list<Module_base*, std::allocator<Module_base*> >::erase(std::_List_iterator<Module_base*, Module_base*&, Module_base**>)
+0000318e 00000046 T Print::print(__FlashStringHelper const*)
+000029b2 00000046 T LiquidCrystal_I2C::init()
+00003b82 00000044 T analogRead
+000033e0 00000042 T disableTimer(unsigned char)
+000031d4 00000040 T Print::println()
+0000093a 00000040 T Spin::KillTask(unsigned char const&)
+00002942 00000040 T LiquidCrystal_I2C::send(unsigned char, unsigned char)
+00000b42 0000003e T Timer::StaticCheck(unsigned long)
+0000273c 0000003e T LCD::setCursor(unsigned char, unsigned char)
+000028c6 0000003e T LiquidCrystal_I2C::pulseEnable(unsigned char)
+00002904 0000003e T LiquidCrystal_I2C::write4bits(unsigned char, unsigned char)
+0000243c 0000003c T twi_init
+00002fba 0000003c T HardwareSerial::read()
+0000337c 0000003a T Print::println(unsigned int, int)
+000026b2 0000003a T I2CIO::begin(unsigned char)
+000006ce 0000003a t __static_initialization_and_destruction_0(int, int)
+0000323c 00000038 W Print::write(char const*)
+000020e4 00000036 T twi_transmit
+00800188 00000033 B ui
+00000bee 00000032 T Timer::Reset()
+00002894 00000032 T LiquidCrystal_I2C::setBacklightPin(unsigned char, t_backlighPol)
+00002982 00000030 T LiquidCrystal_I2C::setBacklight(unsigned char)
+0000090c 0000002e W void (**std::copy<void (**)(), void (**)()>(void (**)(), void (**)(), void (**)()))()
+000010aa 0000002e W std::vector<MenuItem, std::allocator<MenuItem> >::~vector()
+000029f8 0000002e T LiquidCrystal_I2C::begin(unsigned char, unsigned char, unsigned char)
+00003422 0000002e T noTone(unsigned char)
+000024ec 0000002e t global constructors keyed to _ZN7TwoWire8rxBufferE
+0000249e 0000002a T TwoWire::read()
+00003214 00000028 T Print::println(__FlashStringHelper const*)
+00001b46 00000026 W std::_List_alloc_base<Module_base*, std::allocator<Module_base*>, true>::_M_get_node()
+0000184c 00000026 W std::_List_alloc_base<Module_reg*, std::allocator<Module_reg*>, true>::_M_get_node()
+000025dc 00000026 T TwoWire::endTransmission(unsigned char)
+00000c20 00000026 T Timer::Timer()
+00000160 00000024 T memmove
+000033b6 00000024 T Print::print(unsigned char, int)
+000024c8 00000022 T TwoWire::peek()
+00001a66 00000022 T Mod_ram::~Mod_ram()
+0000335a 00000022 T Print::print(unsigned int, int)
+00800216 00000020 b twi_txBuffer
+00800238 00000020 b twi_rxBuffer
+008001f4 00000020 b twi_masterBuffer
+0080027d 00000020 B TwoWire::txBuffer
+0080025a 00000020 B TwoWire::rxBuffer
+00001a88 00000020 T Mod_ram::Mod_ram()
+00002ff6 00000020 T HardwareSerial::flush()
+00002f9a 00000020 T HardwareSerial::peek()
+00002df4 00000020 W serialEventRun()
+00003934 0000001e T main
+0000333c 0000001e T Print::print(unsigned long, int)
+00003a0c 0000001c T millis
+00001b2a 0000001c T Module_base::ptrset(char**)
+0000260a 0000001a T TwoWire::requestFrom(unsigned char, unsigned char, unsigned char)
+000010d8 00000018 T UI::~UI()
+00002f82 00000018 T HardwareSerial::available()
+00000586 00000016 T strnlen_P
+0000059c 00000016 T strnlen
+0000262c 00000016 T TwoWire::begin()
+00000bd8 00000016 T Timer::Every(unsigned long)
+00002650 00000016 T I2CIO::portMode(unsigned char)
+00002700 00000016 T LCD::backlight()
+0000277a 00000016 T LCD::write(unsigned char)
+000000d2 00000014 T digital_pin_to_timer_PGM
+000000aa 00000014 T digital_pin_to_port_PGM
+000000be 00000014 T digital_pin_to_bit_mask_PGM
+00003a28 00000014 T delayMicroseconds
+00003952 00000014 T __cxa_guard_acquire
+00002478 00000014 T TwoWire::beginTransmission(unsigned char)
+00002728 00000014 T LCD::display()
+0000014e 00000012 T memcpy
+0000248c 00000012 T TwoWire::available()
+00001a54 00000012 T Mod_ram::~Mod_ram()
+00002716 00000012 T LCD::command(unsigned char)
+0000007a 00000011 t Module_reg::run()::__c
+0080013d 00000010 V vtable for TwoWire
+0080014d 00000010 V vtable for LCD
+00800165 00000010 V vtable for LiquidCrystal_I2C
+00800175 00000010 V vtable for HardwareSerial
+000026f0 00000010 T LCD::LCD()
+00002790 00000010 T LCD::clear()
+0000183c 00000010 T Module_reg::runf()
+00800121 0000000e V vtable for Mod_ram
+0080012f 0000000e V vtable for Module_base
+00002642 0000000e T I2CIO::I2CIO()
+000010f0 0000000e T UI::InitLCD(unsigned char, unsigned char)
+00000716 0000000e t global constructors keyed to ramptr
+000008fe 0000000e t global constructors keyed to _ZN4Spin5tasksE
+000018fa 0000000e t global constructors keyed to _ZN10Module_reg5flistE
+00001bf4 0000000e t global constructors keyed to MODULE_INSTANCES
+00000708 0000000e t global destructors keyed to ramptr
+000008f0 0000000e t global destructors keyed to _ZN4Spin5tasksE
+000018ec 0000000e t global destructors keyed to _ZN10Module_reg5flistE
+00001be6 0000000e t global destructors keyed to MODULE_INSTANCES
+0000006e 0000000c t setup::__c
+00000724 0000000c W Module_base::setup(UI*)
+008002a0 0000000c B Wire
+00000096 0000000a T port_to_output_PGM
+0000008c 0000000a T port_to_mode_PGM
+000000a0 0000000a T port_to_input_PGM
+0000097a 0000000a T Spin::KillTask()
+000010a0 0000000a T UI::PushItem(__FlashStringHelper const*)
+000007e8 0000000a T uitask()
+008001de 00000009 b beep()::timer
+008001c3 00000009 b TripleBeep()::_timer
+00003966 00000008 T __cxa_guard_release
+00002602 00000008 T TwoWire::endTransmission()
+00002624 00000008 T TwoWire::requestFrom(unsigned char, unsigned char)
+00000c48 00000008 T UI::UpdateScreen()
+008001d6 00000008 b guard variable for beep()::timer
+008001bb 00000008 b guard variable for TripleBeep()::_timer
+0000077c 00000006 T loop
+00003976 00000006 T operator new[](unsigned int)
+00003970 00000006 T operator delete(void*)
+00000068 00000006 V Module_base::setup(UI*)::__c
+000033da 00000006 T Print::print(char const*)
+008001cd 00000006 B Spin::tasks
+0080035c 00000004 B timer2_toggle_count
+00800355 00000004 B timer1_toggle_count
+0080034e 00000004 B timer0_toggle_count
+00800363 00000004 B timer0_overflow_count
+00800367 00000004 B timer0_millis
+0080015d 00000004 d row_offsetsLarge.2974
+00800161 00000004 d row_offsetsDef.2973
+000006c6 00000004 T operator new(unsigned int, void*)
+000006ca 00000004 T WatchdogReset()
+00003cec 00000002 W yield
+008001f0 00000002 b twi_onSlaveTransmit
+008001f2 00000002 b twi_onSlaveReceive
+00800360 00000002 B timer2_pin_port
+00800359 00000002 B timer1_pin_port
+00800352 00000002 B timer0_pin_port
+00800186 00000002 B ramptr
+00800119 00000002 D __malloc_margin
+0080011b 00000002 D __malloc_heap_start
+0080011d 00000002 D __malloc_heap_end
+0080036e 00000002 B __flp
+00003cec 00000002 t __empty
+0000396e 00000002 T __cxa_pure_virtual
+0080036c 00000002 B __brkval
+008001d4 00000002 V std::__malloc_alloc_template<0>::__malloc_alloc_oom_handler
+000024ea 00000002 T TwoWire::flush()
+000026ec 00000002 W LCD::setBacklightPin(unsigned char, t_backlighPol)
+000026ee 00000002 W LCD::setBacklight(unsigned char)
+00001a52 00000002 W Module_base::tick()
+00001b28 00000002 W Module_base::ui_callback(UI_t::menucallbackinfo_t&, char**)
+008001e8 00000002 B Module_reg::flist
+00000c46 00000002 T blankCallback(UI_t::menucallbackinfo_t&, char**)
+00002d84 00000002 W serialEvent()
+008001ea 00000002 B MODULE_INSTANCES
+00800237 00000001 b twi_txBufferLength
+00800236 00000001 b twi_txBufferIndex
+008001ec 00000001 b twi_state
+008001ed 00000001 b twi_slarw
+008001ee 00000001 b twi_sendStop
+00800258 00000001 b twi_rxBufferIndex
+00800215 00000001 b twi_masterBufferLength
+00800214 00000001 b twi_masterBufferIndex
+008001ef 00000001 b twi_inRepStart
+00800259 00000001 b twi_error
+00800362 00000001 B timer2_pin_mask
+0080035b 00000001 B timer1_pin_mask
+00800354 00000001 B timer0_pin_mask
+0080036b 00000001 b timer0_fract
+00800120 00000001 D analog_reference
+008001e7 00000001 b beep()::inloop
+008001cc 00000001 b TripleBeep()::counter
+0080027c 00000001 B TwoWire::txAddress
+0080029e 00000001 B TwoWire::txBufferLength
+0080027b 00000001 B TwoWire::rxBufferLength
+0080029d 00000001 B TwoWire::txBufferIndex
+0080027a 00000001 B TwoWire::rxBufferIndex
+0080029f 00000001 B TwoWire::transmitting
+008001d3 00000001 B Spin::currentTask
+0080011f 00000001 d tone_pins
+0000008b 00000001 t tone_pin_to_timer_PGM

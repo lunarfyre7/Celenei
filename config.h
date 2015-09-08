@@ -7,13 +7,7 @@
 //+++++++++++++++++++++++++++
 //Debug
 //+++++++++++++++++++++++++++
-#define DEBUG_INFO
-
-//+++++++++++++++++++++++++++
-//Module enable/disable
-//+++++++++++++++++++++++++++
-#define EN_TEST_MODULE
-// #define EN_GROW_CORE
+//#define DEBUG_INFO
 
 //+++++++++++++++++++++++++++
 //SCREEN
