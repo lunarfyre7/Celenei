@@ -1,7 +1,7 @@
 #ifndef GUARD_timer
 #define GUARD_timer
 
-
+namespace sol {
 class Timer {
 public:
 	Timer();
@@ -18,5 +18,6 @@ private:
 	unsigned long interval;
 	bool first;
 };
+}
 
 #endif
