@@ -51,3 +51,18 @@ void beep() {//todo: Add recursion
 		return;
 	}
 }
+void assert(bool statement, int line) {
+	if(statement)
+		return;
+	else {
+		Serial.print(F("Assert failed at line "));
+		Serial.println(line);
+	}
+}
+void assert(bool statement) {
+	if(statement)
+		return;
+	else {
+		Serial.print(F("Assert failed"));
+	}
+}

@@ -5,6 +5,7 @@
 */
 //include modules here
 #include "examplemodule.h"
+#include "SelfTest.h".h"
 
 
 //#################################################

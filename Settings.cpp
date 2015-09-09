@@ -64,11 +64,18 @@ void Settings::Save() {
 	int pos = 0;
 	uint8_t size = sizeof(int)/sizeof(byte);
 	for(std::vector<setting_t>::iterator it=intlist.begin(); it != intlist.end(); it++) {
+		if(eeprom_read_word((uint16_t*)&pos) != it->hash)
+			eeprom_write_word((uint16_t*)&pos, it->hash);
+		pos += size;
 		if(eeprom_read_word((uint16_t*)&pos) != it->val)
-			eeprom_write_word((uint16_t*)&pos, it->val);
+					eeprom_write_word((uint16_t*)&pos, it->val);
 		pos += size;
 	}
 }
 void Settings::Read() {
+	int pos = 0;
+	uint8_t size = sizeof(int)/sizeof(byte);
+	do {
 
+	} while ();
 }
