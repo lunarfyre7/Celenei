@@ -6,7 +6,7 @@
  */
 
 #include "Settings.h"
-//#include "config.h"
+#include "config.h"
 #include <avr/eeprom.h>
 
 using namespace sol;
@@ -62,7 +62,7 @@ int Settings::IntHash(int num) {
 }
 void Settings::Save() {
 	int pos = 0;
-	uint8_t size = sizeof(int)/sizeof(byte);
+	uint8_t size = sizeof(int)/sizeof(uint8_t);
 	for(std::vector<setting_t>::iterator it=intlist.begin(); it != intlist.end(); it++) {
 		if(eeprom_read_word((uint16_t*)&pos) != it->hash)
 			eeprom_write_word((uint16_t*)&pos, it->hash);
@@ -74,7 +74,7 @@ void Settings::Save() {
 }
 void Settings::Read() {
 	int pos = 0;
-	uint8_t size = sizeof(int)/sizeof(byte);
+	uint8_t size = sizeof(int)/sizeof(uint8_t);
 	int hash, value;
 	setting_t tuple;
 	do {

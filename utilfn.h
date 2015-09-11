@@ -28,7 +28,4 @@ void DebugP(T in) {
 #endif
 }
 
-void _assert(bool);
-void _assert(bool, int);
-#define ASSERT(statement) _assert((statement), __LINE__);
-#endif
+#endif //guard

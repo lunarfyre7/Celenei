@@ -4,7 +4,6 @@
  *  Created on: Sep 8, 2015
  *      Author: Jake
  */
-#include "config.h"
 #include <iterator>
 #include <vector>
 

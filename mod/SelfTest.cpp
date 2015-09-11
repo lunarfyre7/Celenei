@@ -8,6 +8,7 @@
 #include "SelfTest.h"
 #include "../Settings.h"
 #include "../utilfn.h"
+#include <assert.h>
 
 namespace test {
 using namespace sol;
@@ -29,7 +30,7 @@ void SelfTest::SettingTest() {
 	Settings* sett2 = new Settings;
 	sett2->Read();
 	int setting1 = sett2->Get("Setting1");
-	ASSERT(setting1 == 5);
+	assert(setting1 == 5);
 	delete sett2;
 	Serial.println(F("--Setting test end--"));
 }

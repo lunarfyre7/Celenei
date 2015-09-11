@@ -28,7 +28,7 @@ void TripleBeep() {
 	}
 }
 //Watchdog reset
-void WatchdogReset() {wdt_reset();}
+//void WatchdogReset() {wdt_reset();}
 
 //setup the UI task
 // UI ui(LCD_PINS);
@@ -49,7 +49,7 @@ void setup() {
 	ui.InitLCD(LCD_X, LCD_Y);
 	Module_reg::run();
 //	Module_reg::test();
-	Spin::RegisterTask(WatchdogReset);
+//	Spin::RegisterTask(WatchdogReset);
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TripleBeep);
 }
