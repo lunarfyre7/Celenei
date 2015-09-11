@@ -1,17 +1,11 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
-//#include <pnew.cpp>
+#include <pnew.h>
 #include <avr/wdt.h>
 #include "ui.h"
 #include "mod/modulemanifest.h"
 #include <stdio.h>
-
-//fix for pnew.cpp build fail
-void* operator new(size_t size_,void *ptr_)
-{
-	return ptr_;
-}
 
 
 
