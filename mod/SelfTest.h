@@ -24,7 +24,7 @@ static void wrapper() {
 	test.SettingTest();
 }
 
-Module_reg wrapper_object(wrap);
+Module_reg wrapper_object(wrapper);
 
 } /* namespace test */
 

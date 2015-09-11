@@ -51,7 +51,7 @@ void beep() {//todo: Add recursion
 		return;
 	}
 }
-void assert(bool statement, int line) {
+void _assert(bool statement, int line) {
 	if(statement)
 		return;
 	else {
@@ -59,7 +59,7 @@ void assert(bool statement, int line) {
 		Serial.println(line);
 	}
 }
-void assert(bool statement) {
+void _assert(bool statement) {
 	if(statement)
 		return;
 	else {

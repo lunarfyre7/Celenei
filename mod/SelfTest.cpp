@@ -22,14 +22,15 @@ SelfTest::~SelfTest() {
 }
 void SelfTest::SettingTest() {
 	Serial.println(F("--Setting test begin--"));
-	Settings sett;
-	sett.Register("setting1", 5);
-	sett.Save();
+	Settings* sett = new Settings;
+	sett->Register("setting1", 5);
+	sett->Save();
 	delete sett;
-	Settings sett;
-	sett.Read();
-	int setting1 = sett.Get("Setting1");
+	Settings* sett2 = new Settings;
+	sett2->Read();
+	int setting1 = sett2->Get("Setting1");
 	ASSERT(setting1 == 5);
+	delete sett2;
 	Serial.println(F("--Setting test end--"));
 }
 

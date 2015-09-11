@@ -75,7 +75,15 @@ void Settings::Save() {
 void Settings::Read() {
 	int pos = 0;
 	uint8_t size = sizeof(int)/sizeof(byte);
+	int hash, value;
+	setting_t tuple;
 	do {
-
-	} while ();
+		hash = eeprom_read_word((uint16_t*)&pos);
+		pos += size;
+		value = eeprom_read_word((uint16_t*)&pos);
+		pos += size;
+		tuple.hash = hash;
+		tuple.val = value;
+		intlist.push_back(tuple);
+	} while (hash != 0);
 }
