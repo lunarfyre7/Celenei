@@ -9,9 +9,10 @@
 #include "config.h"
 #include <avr/eeprom.h>
 
-using namespace sol;
+namespace sol {
 using namespace std;
 
+vector<setting_t> Settings::intlist;
 
 Settings::Settings() {
 	Read();
@@ -87,3 +88,5 @@ void Settings::Read() {
 		intlist.push_back(tuple);
 	} while (hash != 0);
 }
+
+}//ns sol

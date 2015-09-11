@@ -26,7 +26,7 @@ static void wrapper() {
 	test.SettingTest();
 }
 
-extern Module_reg *wrapper_object;
+Module_reg wrapper_object(wrapper);
 #endif //IS_MOD_DEF
 } /* namespace test */
 

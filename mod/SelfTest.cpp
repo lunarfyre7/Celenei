@@ -4,7 +4,7 @@
  *  Created on: Sep 9, 2015
  *      Author: Jake
  */
-
+#define IS_MOD_DEF
 #include "SelfTest.h"
 #include "../Settings.h"
 #include "../utilfn.h"
