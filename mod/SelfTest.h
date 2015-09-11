@@ -19,6 +19,7 @@ public:
 	void SettingTest();
 };
 
+
 #ifndef IS_MOD_DEF
 static void wrapper() {
 	SelfTest test;
