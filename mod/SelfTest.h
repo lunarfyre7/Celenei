@@ -12,18 +12,12 @@
 
 namespace test {
 
-class SelfTest {
-public:
-	SelfTest();
-	virtual ~SelfTest();
-	void SettingTest();
-};
+void SettingTest();
 
 
 #ifndef IS_MOD_DEF
 static void wrapper() {
-	SelfTest test;
-	test.SettingTest();
+	SettingTest();
 }
 
 Module_reg wrapper_object(wrapper);

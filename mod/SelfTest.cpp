@@ -13,25 +13,27 @@
 namespace test {
 using namespace sol;
 
-SelfTest::SelfTest() {
-	// TODO Auto-generated constructor stub
-
-}
-
-SelfTest::~SelfTest() {
-	// TODO Auto-generated destructor stub
-}
-void SelfTest::SettingTest() {
+void SettingTest() {
+	Settings sett, sett2; //setting objects
+	int setting1; //variable to hold a setting
 	Serial.println(F("--Setting test begin--"));
-	Settings* sett = new Settings;
-	sett->Register("setting1", 5);
-	sett->Save();
-	delete sett;
-	Settings* sett2 = new Settings;
-	sett2->Read();
-	int setting1 = sett2->Get("Setting1");
-	assert(setting1 == 5);
-	delete sett2;
+//	Settings *sett = new Settings;
+	Serial.println(F("--create sett object--"));
+	sett.Register("setting1", 5);
+	Serial.println(F("--registered--"));
+//	sett->Save();
+//	Serial.println(F("--saved--"));
+//	delete sett;
+//	Serial.println(F("--deleted--"));
+//	return; //skip the rest for now
+//	Settings* sett2 = new Settings;
+	sett2.Read();
+	setting1 = sett2.Get("--Setting1--");
+	if (setting1 == 5)
+		Serial.println(F("Setting Test passed"));
+	else
+		Serial.println(F("Setting Test failed"));
+//	delete sett2;
 	Serial.println(F("--Setting test end--"));
 }
 

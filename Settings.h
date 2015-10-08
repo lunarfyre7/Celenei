@@ -6,13 +6,14 @@
  */
 #include <iterator>
 #include <vector>
+#include <stddef.h>
 
 #ifndef SETTINGS_H_
 #define SETTINGS_H_
 namespace sol { //TODO wrap all core classes in this namespace
 	struct setting_t {
-		int val;
-		int hash;
+		unsigned int val;
+		unsigned int hash;
 	};
 	class Settings {
 	public:
@@ -26,9 +27,9 @@ namespace sol { //TODO wrap all core classes in this namespace
 		void Read();
 	private:
 		static std::vector<setting_t> intlist;
-		int StrHash(char string[]);
-		int IntHash(int);
-		int Find(int);
+		unsigned int StrHash(char string[]);
+		unsigned int IntHash(int);
+		int Find(unsigned int);
 	};
 }
 #endif /* SETTINGS_H_ */
