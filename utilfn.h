@@ -4,6 +4,12 @@
 #include <LiquidCrystal_I2C.h>
 
 //macros
+#define P(thing) Serial.print(thing) //print thing
+#define PL(thing) Serial.println(thing) //print line
+#define PF(string) Serial.print(F(string)) //print flash string
+#define PLF(string) Serial.println(F(string)) //print flash string with newline
+#define NL Serial.print("/n") //new line
+
 //http://stackoverflow.com/a/17624752/826312
 #define PP_CAT(a, b) PP_CAT_I(a, b)
 #define PP_CAT_I(a, b) PP_CAT_II(~, a ## b)
