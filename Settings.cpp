@@ -10,7 +10,7 @@
 //#include <EEPROM.h>
 #include <avr/eeprom.h>
 
-#define END_SEN 0xfefefefe //end sentinel
+#define END_SEN 0xdead //end sentinel
 
 namespace sol {
 using namespace std;
@@ -115,7 +115,7 @@ void Settings::Read() {
 		if (hash == END_SEN || hash == 0)
 			break;
 		pos += size;
-		value = eeprom_read_word((uint16_t*)pos);
+		value = (int)eeprom_read_word((uint16_t*)pos);
 		pos += size;
 		Serial.print(F("EEPROM pos: "));
 		Serial.println(pos);

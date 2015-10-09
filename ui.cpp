@@ -2,26 +2,10 @@
 #include "config.h"
 #include <avr/pgmspace.h>
 #include "buffer.h"
-
+#include "controls.h"
 
 using namespace sol;
 using namespace UI_t;
-
-#ifdef RESISTOR_BUTTON_MULTIPLEX
-btndir_t DPad() {
-
-  int reading = analogRead(BUTTON_PIN);
-//  Serial.print(F("dpad val: ")); Serial.println(reading); //uncomment for recalibration info
-  btndir_t val;
-  					 val = up;
-  if (reading < 730) val = left;
-  if (reading < 655) val = center;
-  if (reading < 440) val = down;
-  if (reading < 265) val = right;
-  if (reading < 100) val = none;
-  return val;
-}
-#endif
 
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
 // bool StrinF(const char * s1, const __FlashStringHelper * fstr) {return (strstr_P(s1, reinterpret_cast<const PROGMEM char *> (fstr)) != NULL);}
@@ -81,7 +65,7 @@ void UI::Task() {
 			UpdateScreen();
 			if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
 			cbInfo._new = true;
-		} else if (button == left) {
+		} else if (button == left) { //using cbinfo for controls is probably a bad idea
 			cbInfo.left = true;
 		} else if (button == right) {
 			cbInfo.right = true;

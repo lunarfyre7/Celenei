@@ -7,6 +7,7 @@
 //#include <iterator>
 #include <vector>
 #include "timer.h"
+#include "controls.h"
 
 namespace sol {
 	namespace UI_t {
@@ -17,14 +18,6 @@ namespace sol {
 			bool left;
 			bool right;
 			int  menuindex;
-		};
-		enum btndir_t {
-			up,
-			down,
-			left,
-			right,
-			center,
-			none
 		};
 	}
 
@@ -74,7 +67,7 @@ namespace sol {
 		std::vector<MenuItem> menu;
 		unsigned int currentMenuItem; //current menu item index
 		unsigned int screenPos;
-		UI_t::btndir_t lastButtonState;
+		btndir_t lastButtonState;
 		unsigned int lastMenuItem;
 		int menuLevel; //current menu parent
 		unsigned long buttonScrollTimer;

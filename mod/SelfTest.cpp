@@ -31,8 +31,12 @@ void SettingTest() {
 	setting1 = sett2.Get("--Setting1--");
 	if (setting1 == 5)
 		Serial.println(F("Setting Test passed"));
-	else
+	else {
 		Serial.println(F("Setting Test failed"));
+		Serial.print(setting1);
+		Serial.print(F(" != "));
+		Serial.println(5);
+	}
 //	delete sett2;
 	Serial.println(F("--Setting test end--"));
 }

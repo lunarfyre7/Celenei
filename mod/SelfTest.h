@@ -17,7 +17,7 @@ void SettingTest();
 
 #ifndef IS_MOD_DEF
 static void wrapper() {
-	SettingTest();
+//	SettingTest();
 }
 
 Module_reg wrapper_object(wrapper);

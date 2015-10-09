@@ -41,6 +41,12 @@ private:
 	bool loopcount;
 };
 
+class Mod_persist: public Module_base {
+public:
+	Mod_persist();
+	void ui_callback(UI_t::menucallbackinfo_t&, char**);
+};
+
 
 ///setup and wrapper code///
 #ifndef IS_MOD_DEF
@@ -49,11 +55,13 @@ private:
 makeCB(ramCB, Mod_ram, ui_callback);
 makeCB(randCB, Mod_random, ui_callback);
 makeCB(lagCB, Mod_lag, ui_callback);
+makeCB(persistCB, Mod_persist, ui_callback);
 static void wrap() {
 	ui.PushItem(F("Solaneae demo"));
 	ui.PushItem(F("ram"), ramCB);
 	ui.PushItem(F("rand"), randCB);
 	ui.PushItem(F("lag"), lagCB);
+	ui.PushItem(F("persist"), persistCB);
 }
 Module_reg ramptr(wrap);
 #endif //MOD_WRAPPER
