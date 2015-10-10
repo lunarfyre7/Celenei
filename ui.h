@@ -13,10 +13,8 @@ namespace sol {
 	namespace UI_t {
 		struct menucallbackinfo_t {
 			bool _new; //menu entry has just been selected
-			bool nothing; //no buttons pressed
-			bool select; //user has just eaten cake
-			bool left;
-			bool right;
+			bool isSelected; //is the current menu item;
+			btndir_t button; //the button state
 			int  menuindex;
 		};
 	}

@@ -40,7 +40,7 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 }
 void UI::Task() {
 	menucallbackinfo_t cbInfo;
-	cbInfo.nothing = true;
+//	cbInfo.nothing = true;
 	btndir_t button = DPad();
 	//abort if no menu items
 	if (menu.size() == 0)
@@ -61,16 +61,12 @@ void UI::Task() {
 		} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level. could get stuck
 		//callback buttons
 		if (lastMenuItem != currentMenuItem) {
-			cbInfo.nothing = false;
+//			cbInfo.nothing = false;
 			UpdateScreen();
 			if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
 			cbInfo._new = true;
-		} else if (button == left) { //using cbinfo for controls is probably a bad idea
-			cbInfo.left = true;
-		} else if (button == right) {
-			cbInfo.right = true;
-		} else if (button == center) {
-			cbInfo.select = true;
+		}
+		if (button == center) {
 			if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
 					menuLevel = menu[currentMenuItem].asParent;
 					RefreshMenu();
@@ -90,12 +86,19 @@ void UI::Task() {
 		uint8_t index = (screenPos+y) % menu.size();//maybe a bad place for this
 		while(menu[index].parent != menuLevel) {index++;screenPos++;}//HACK move screen pos forward if element is not from same parent
 		cbInfo.menuindex = (int)index;
+		if(currentMenuItem == index) {//give more into to selected callback
+			cbInfo.isSelected = true;
+			cbInfo.button = DPad();
+		} else {
+			cbInfo.isSelected = false;
+			cbInfo.button = none;
+		}
 		(*menu[index].callback)(cbInfo, &(menu[index].Info));
 		if(updateScreen) {//handle display
 			ClearSection(0,y,sizeX, lcd);
 			lcd.setCursor(0,y);
 			//print pointer icon
-			if(currentMenuItem == index)
+			if(currentMenuItem == index)//print arrow on current selection
 				lcd.write(0x7E);
 			else
 				lcd.setCursor(1,y);
