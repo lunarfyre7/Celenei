@@ -81,7 +81,7 @@ void Mod_lag::ui_callback(mci &info, char** text) {
 //persist
 //uint8_t EEMEM eememvar = 0;
 //Persist<uint8_t> persist(&eememvar);
-PERSIST(int, persist)
+PERSIST(uint8_t, persist)
 Mod_persist::Mod_persist() {
 
 }
@@ -93,13 +93,13 @@ void Mod_persist::ui_callback(mci &info, char** text) {
 		if(DPad() == right) {
 //			eeprom_write_byte(&persistantint, --buffer);
 //			persist.set(persist.get() - 1);
-			persist = persist.val -1;
+			persist = persist.get() -1;
 			tone(SPEAKER_PIN, 1000, 30);
 		}
 		if(DPad() == left) {
 //			eeprom_write_byte(&persistantint, ++buffer);
 //			persist.set(persist.get() + 1);
-			persist = persist.val +1;
+			persist = persist.get() +1;
 			tone(SPEAKER_PIN, 1000, 30);
 		}
 		sprintf(text_str, "%d", persist.get());
