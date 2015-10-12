@@ -27,6 +27,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/stl}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/LiquidCrystal}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/vendor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/src}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.860180727" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>

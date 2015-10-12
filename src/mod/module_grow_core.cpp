@@ -1,5 +1,5 @@
 #include "module_grow_core.h"
-#include "../timer.h"
+#include "timer.h"
 extern sol::UI ui;
 using namespace sol;
 using namespace UI_t;
