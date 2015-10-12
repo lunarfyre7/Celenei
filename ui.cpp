@@ -2,25 +2,10 @@
 #include "config.h"
 #include <avr/pgmspace.h>
 #include "buffer.h"
+#include "controls.h"
 
-
+using namespace sol;
 using namespace UI_t;
-
-#ifdef RESISTOR_BUTTON_MULTIPLEX
-btndir_t DPad() {
-
-  int reading = analogRead(BUTTON_PIN);
-//  Serial.print(F("dpad val: ")); Serial.println(reading); //uncomment for recalibration info
-  btndir_t val;
-  					 val = up;
-  if (reading < 730) val = left;
-  if (reading < 655) val = center;
-  if (reading < 440) val = down;
-  if (reading < 265) val = right;
-  if (reading < 100) val = none;
-  return val;
-}
-#endif
 
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
 // bool StrinF(const char * s1, const __FlashStringHelper * fstr) {return (strstr_P(s1, reinterpret_cast<const PROGMEM char *> (fstr)) != NULL);}
@@ -55,7 +40,7 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 }
 void UI::Task() {
 	menucallbackinfo_t cbInfo;
-	cbInfo.nothing = true;
+//	cbInfo.nothing = true;
 	btndir_t button = DPad();
 	//abort if no menu items
 	if (menu.size() == 0)
@@ -76,16 +61,12 @@ void UI::Task() {
 		} while(menu[currentMenuItem].parent != menuLevel);//ignore those in a different level. could get stuck
 		//callback buttons
 		if (lastMenuItem != currentMenuItem) {
-			cbInfo.nothing = false;
+//			cbInfo.nothing = false;
 			UpdateScreen();
 			if (beepOnChange) tone(SPEAKER_PIN, 1000, 30);
 			cbInfo._new = true;
-		} else if (button == left) {
-			cbInfo.left = true;
-		} else if (button == right) {
-			cbInfo.right = true;
-		} else if (button == center) {
-			cbInfo.select = true;
+		}
+		if (button == center) {
 			if (menu[currentMenuItem].link && menu[currentMenuItem].asParent != menuLevel) {
 					menuLevel = menu[currentMenuItem].asParent;
 					RefreshMenu();
@@ -105,12 +86,19 @@ void UI::Task() {
 		uint8_t index = (screenPos+y) % menu.size();//maybe a bad place for this
 		while(menu[index].parent != menuLevel) {index++;screenPos++;}//HACK move screen pos forward if element is not from same parent
 		cbInfo.menuindex = (int)index;
+		if(currentMenuItem == index) {//give more into to selected callback
+			cbInfo.isSelected = true;
+			cbInfo.button = DPad();
+		} else {
+			cbInfo.isSelected = false;
+			cbInfo.button = none;
+		}
 		(*menu[index].callback)(cbInfo, &(menu[index].Info));
 		if(updateScreen) {//handle display
 			ClearSection(0,y,sizeX, lcd);
 			lcd.setCursor(0,y);
 			//print pointer icon
-			if(currentMenuItem == index)
+			if(currentMenuItem == index)//print arrow on current selection
 				lcd.write(0x7E);
 			else
 				lcd.setCursor(1,y);

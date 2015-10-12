@@ -12,7 +12,8 @@
 #include "../config.h"
 #include "../ui.h"
 #include "Modulereg.h"
-extern UI ui;
+extern sol::UI ui;
+using namespace sol;
 //#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
 #define _makeCB(wrap,class,objname, method) class objname; void wrap(UI_t::menucallbackinfo_t& info, char** text) {objname.method(info, text);}
 #define makeCB(wrap,class,method) _makeCB(wrap, class, UNIQUE_NAME(class##method), method) ///usage makeCB(mycallback, mymodule, mymethod)

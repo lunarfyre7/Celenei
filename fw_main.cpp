@@ -1,18 +1,11 @@
 #include "fw_main.h"
 #include "spin.h"
 #include "timer.h"
-//#include <pnew.cpp>
+#include <pnew.h>
 #include <avr/wdt.h>
 #include "ui.h"
 #include "mod/modulemanifest.h"
 #include <stdio.h>
-
-//fix for pnew.cpp build fail
-void* operator new(size_t size_,void *ptr_)
-{
-	return ptr_;
-}
-
 
 
 
@@ -38,7 +31,7 @@ void WatchdogReset() {wdt_reset();}
 
 //setup the UI task
 // UI ui(LCD_PINS);
-UI ui(LCD_I2C_ADDR);//TODO make this more flexible
+sol::UI ui(LCD_I2C_ADDR);//TODO make this more flexible
 void uitask() {ui.Task();};
 
 /*
@@ -48,16 +41,19 @@ void uitask() {ui.Task();};
 */
 
 void setup() {
-	wdt_enable(WDTO_2S);//enable watchdog timer
-	wdt_reset();
 	Serial.begin(115200);
 	Serial.println(F("Solaneae: start"));
 	ui.InitLCD(LCD_X, LCD_Y);
 	Module_reg::run();
 //	Module_reg::test();
-	Spin::RegisterTask(WatchdogReset);
+	Serial.println(F("Registering tasks"));
 	Spin::RegisterTask(uitask);
-	Spin::RegisterTask(TripleBeep);
+//	Spin::RegisterTask(TripleBeep);
+
+	//start wtd after init is done
+//	wdt_enable(WDTO_2S);//enable watchdog timer
+//	wdt_reset(); //reset it now
+//	Spin::RegisterTask(WatchdogReset); //add reset task
 }
 
 void loop() {

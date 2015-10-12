@@ -3,7 +3,7 @@
 
 #include "config.h"
 #include "ui.h"
-extern UI ui;
+extern sol::UI ui;
 
 
 #endif

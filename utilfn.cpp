@@ -5,6 +5,8 @@
 #include "arduino.h"
 #include <LiquidCrystal_I2C.h>
 
+using namespace sol;
+
 void ClearSection(uint8_t X, uint8_t Y, uint8_t len, LiquidCrystal_I2C lcd) {
 	lcd.setCursor(X, Y);
 	for (uint8_t i = 0; i < len; ++i)
@@ -47,5 +49,20 @@ void beep() {//todo: Add recursion
 		timer.Reset();
 		Spin::RegisterTask(beep);
 		return;
+	}
+}
+void _assert(bool statement, int line) {
+	if(statement)
+		return;
+	else {
+		Serial.print(F("Assert failed at line "));
+		Serial.println(line);
+	}
+}
+void _assert(bool statement) {
+	if(statement)
+		return;
+	else {
+		Serial.print(F("Assert failed"));
 	}
 }

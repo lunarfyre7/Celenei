@@ -8,8 +8,8 @@
 /**
  * Global placement operator new
  */
-
-void* operator new(size_t size_,void *ptr_)
-{
-	return ptr_;
-}
+#ifndef _PNEW_H_
+#define _PNEW_H_
+#include <stddef.h>
+void* operator new(size_t size_,void *ptr_);
+#endif

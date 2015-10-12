@@ -9,6 +9,9 @@
 #include "../timer.h"
 #include <MemoryFree.h>
 #include "Arduino.h"
+#include "../persist.h"
+//#include "../controls.h"
+
 using namespace UI_t;
 typedef menucallbackinfo_t mci;
 Mod_ram::Mod_ram()
@@ -72,5 +75,33 @@ void Mod_lag::ui_callback(mci &info, char** text) {
 			timer.Reset();
 			break;
 		}
+	}
+}
+
+//persist
+//uint8_t EEMEM eememvar = 0;
+//Persist<uint8_t> persist(&eememvar);
+PERSIST_D(uint8_t, persist, 0)
+Mod_persist::Mod_persist() {
+
+}
+void Mod_persist::ui_callback(mci &info, char** text) {
+	ptrset(text);
+	if(timer.Every(100)) {
+		//read value from eeprom
+//		buffer = eeprom_read_byte(&persistantint);
+		if(info.button == right) {
+//			eeprom_write_byte(&persistantint, --buffer);
+//			persist.set(persist.get() - 1);
+			persist = persist.get() -1;
+			tone(SPEAKER_PIN, 1000, 30);
+		}
+		if(info.button == left) {
+//			eeprom_write_byte(&persistantint, ++buffer);
+//			persist.set(persist.get() + 1);
+			persist = persist.get() +1;
+			tone(SPEAKER_PIN, 1000, 30);
+		}
+		sprintf(text_str, "%d", persist.get());
 	}
 }

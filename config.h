@@ -37,12 +37,9 @@
 #define SPEAKER_PIN 9
 
 //+++++++++++++++++++++++++++
-//Valves
+//Other
 //+++++++++++++++++++++++++++
-	//TODO add abstraction for valves
-#define VALVE_PIN_1 12
-#define VALVE_PIN_2 11
-#define VALVE_PIN_3 10
+#define SEED 123
 
 
 #endif
