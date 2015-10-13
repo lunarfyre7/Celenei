@@ -9,8 +9,8 @@
 #define MODULEBASE_H_
 #include <iterator>
 #include <list>
-#include "../config.h"
-#include "../ui.h"
+#include "config.h"
+#include "sol/ui.h"
 #include "Modulereg.h"
 extern sol::UI ui;
 using namespace sol;

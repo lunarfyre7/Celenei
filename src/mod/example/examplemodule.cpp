@@ -4,13 +4,11 @@
  *  Created on: Aug 4, 2015
  *      Author: Jake
  */
-#define IS_MOD_DEF
 #include "examplemodule.h"
-#include "../timer.h"
+#include "sol/timer.h"
 #include <MemoryFree.h>
 #include "Arduino.h"
-#include "../persist.h"
-//#include "../controls.h"
+#include "sol/persist.h"
 
 using namespace UI_t;
 typedef menucallbackinfo_t mci;

@@ -6,7 +6,7 @@
  */
 
 #include "modulebase.h"
-#include "../timer.h"
+#include "sol/timer.h"
 using namespace UI_t;
 extern UI ui;
 typedef menucallbackinfo_t mci;

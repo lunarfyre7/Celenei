@@ -7,7 +7,7 @@
 //#include "../fw_main.h"
 #include <iterator>
 #include <list>
-#include "../config.h"
+#include "config.h"
 //#include "modulebase.h"
 
 #ifndef MODULEREG_H_

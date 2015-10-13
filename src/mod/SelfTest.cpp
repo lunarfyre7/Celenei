@@ -7,8 +7,8 @@
 #define IS_MOD_DEF
 #include "SelfTest.h"
 //#include "../Settings.h"
-#include "../persist.h"
-#include "../utilfn.h"
+#include "sol/persist.h"
+#include "sol/utilfn.h"
 
 namespace test {
 //using namespace sol;

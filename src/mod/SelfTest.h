@@ -8,20 +8,20 @@
 #ifndef SELFTEST_H_
 #define SELFTEST_H_
 
-#include "Modulereg.h"
+#include "mod/sol/Modulereg.h"
 
 namespace test {
 
 void SettingTest();
 
 
-#ifndef IS_MOD_DEF
+#ifdef IS_MOD_MANIFEST
 static void wrapper() {
 //	SettingTest();
 }
 
 Module_reg wrapper_object(wrapper);
-#endif //IS_MOD_DEF
+#endif //IS_MOD_MANIFEST
 } /* namespace test */
 
 #endif /* SELFTEST_H_ */

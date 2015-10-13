@@ -2,7 +2,7 @@
 #define GUARD_fw_main
 
 #include "config.h"
-#include "ui.h"
+#include "sol/ui.h"
 extern sol::UI ui;
 
 
