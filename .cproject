@@ -17,7 +17,7 @@
 						<toolChain id="it.baeyens.arduino.core.toolChain.release.1571018818" name="Arduino Toolchain" superClass="it.baeyens.arduino.core.toolChain.release">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="it.baeyens.arduino.targetplatform.1459978011" name="Arduino Target" osList="all" superClass="it.baeyens.arduino.targetplatform"/>
 							<builder buildPath="${workspace_loc:/Bean_FW}/Release" id="it.baeyens.arduino.sketch.builder.298155805" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Arduino sketch builder" superClass="it.baeyens.arduino.sketch.builder"/>
-							<tool commandLinePattern="${A.RECIPE.CPP.O.PATTERN.1} ${FLAGS} -D__IN_ECLIPSE__=1 -x c++ ${INPUTS} ${A.RECIPE.CPP.O.PATTERN.2} ${OUTPUT} ${A.RECIPE.CPP.O.PATTERN.3} ${JANTJE.WARNING_LEVEL} ${JANTJE.EXTRA.COMPILE} ${JANTJE.EXTRA.CPP.COMPILE}-std=c++0x" id="it.baeyens.arduino.tool.sketch.compiler.cpp.1341088353" name="Arduino C++ Compiler" superClass="it.baeyens.arduino.tool.sketch.compiler.cpp">
+							<tool commandLinePattern="${A.RECIPE.CPP.O.PATTERN.1} ${FLAGS} -D__IN_ECLIPSE__=1 -x c++ ${INPUTS} ${A.RECIPE.CPP.O.PATTERN.2} ${OUTPUT} ${A.RECIPE.CPP.O.PATTERN.3} ${JANTJE.WARNING_LEVEL} ${JANTJE.EXTRA.COMPILE} ${JANTJE.EXTRA.CPP.COMPILE}" id="it.baeyens.arduino.tool.sketch.compiler.cpp.1341088353" name="Arduino C++ Compiler" superClass="it.baeyens.arduino.tool.sketch.compiler.cpp">
 								<option id="it.baeyens.arduino.compiler.cpp.sketch.option.incpath.1943588254" name="Include Paths (-I)" superClass="it.baeyens.arduino.compiler.cpp.sketch.option.incpath" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/arduino/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/EEPROM}&quot;"/>
@@ -27,7 +27,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/stl}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/LiquidCrystal}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/vendor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/solcore}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.860180727" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>
@@ -37,12 +37,13 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/arduino/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/Wire}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/Wire/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/solcore}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.c.sketch.input.1044558172" name="C Source Files" superClass="it.baeyens.arduino.compiler.c.sketch.input"/>
 							</tool>
 							<tool id="it.baeyens.arduino.tool.sketch.compiler.s.1267991295" name="Arduino Assembler" superClass="it.baeyens.arduino.tool.sketch.compiler.s"/>
 							<tool id="it.baeyens.arduino.tool.ar.944629967" name="Arduino archiver" superClass="it.baeyens.arduino.tool.ar"/>
-							<tool id="it.baeyens.arduino.tool.combine.1762429976" name="Arduino combiner" superClass="it.baeyens.arduino.tool.combine"/>
+							<tool commandLinePattern="${A.RECIPE.C.COMBINE.PATTERN.1}-Ur --relocatable ${FLAGS} ${INPUTS} ${A.RECIPE.C.COMBINE.PATTERN.2} ${A.RECIPE.C.COMBINE.PATTERN.3}" id="it.baeyens.arduino.tool.combine.1762429976" name="Arduino combiner" superClass="it.baeyens.arduino.tool.combine"/>
 							<tool id="it.baeyens.arduino.tool.objcopy.eep.1487262931" name="Arduino tool Create eeprom" superClass="it.baeyens.arduino.tool.objcopy.eep"/>
 							<tool id="it.baeyens.arduino.tool.objcopy.flash.2006764129" name="Arduino tool Create hex" superClass="it.baeyens.arduino.tool.objcopy.flash"/>
 							<tool id="it.baeyens.arduino.tool.size.258350132" name="Arduino tool Print Size" superClass="it.baeyens.arduino.tool.size"/>

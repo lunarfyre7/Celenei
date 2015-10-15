@@ -8,7 +8,7 @@
 #ifndef SELFTEST_H_
 #define SELFTEST_H_
 
-#include "mod/sol/Modulereg.h"
+#include "base/Modulereg.h"
 
 namespace test {
 

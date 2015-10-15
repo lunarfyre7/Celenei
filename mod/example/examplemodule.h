@@ -8,8 +8,8 @@
 #ifndef EXAMPLEMODULE_H_
 #define EXAMPLEMODULE_H_
 
-#include "mod/sol/modulebase.h"
-#include "mod/sol/Modulereg.h"
+#include "../base/modulebase.h"
+#include "../base/Modulereg.h"
 
 ///module declaration///
 using namespace sol;
@@ -66,6 +66,6 @@ static void wrap() {
 }
 Module_reg examplereg(wrap);
 //Module_reg *examplereg = new Module_reg(wrap);
-#endif //IF_MOD_MANIFEST
+#endif //IS_MOD_MANIFEST
 
 #endif /* EXAMPLEMODULE_H_ */

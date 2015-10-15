@@ -36,4 +36,5 @@ protected:
 	void ptrset(char **);//points the text pointer pointer to the string pointer.
 };
 extern std::list<Module_base*> MODULE_INSTANCES; //list of instances. Wont work as a static member for some reason.
+
 #endif /* MODULEBASE_H_ */

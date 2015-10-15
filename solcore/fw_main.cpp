@@ -4,7 +4,7 @@
 #include <pnew.h>
 #include <avr/wdt.h>
 #include "sol/ui.h"
-#include "mod/modulemanifest.h"
+#include "../../mod/modulemanifest.h"
 #include <stdio.h>
 
 
