@@ -22,17 +22,7 @@ namespace Spin {
 		}
 	}
 	void KillTask() { //kills the task that calls it
-//		tasks.erase(tasks.begin() + index);
-//		currentTask = tasks.erase(currentTask);
+
 		killCurrent = true;
 	}
-//	void KillTask() {
-//		KillTask(currentTask);
-//	}
-	// void OnlyOne(int id) {
-
-	// }
-	// void OnlyOne(FunctionPointer fun) {
-
-	// }
 }
