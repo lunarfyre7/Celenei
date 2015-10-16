@@ -24,8 +24,19 @@
 //+++++++++++++++++++++++++++
 //Controls
 //+++++++++++++++++++++++++++
-#define RESISTOR_BUTTON_MULTIPLEX
-#define BUTTON_PIN A0
+//button types
+//#define RESISTOR_BUTTON_MULTIPLEX
+#define DIRECT_5WAY_BUTTONS
+
+//button config
+//#define BUTTON_PIN A0 //for multiplex
+//pins for direct
+#define BUTTON_PIN_1 2
+#define BUTTON_PIN_2 3
+#define BUTTON_PIN_3 4
+#define BUTTON_PIN_4 5
+#define BUTTON_PIN_5 6
+
 #define BUTTONCHECK_TIME 10
 #define SCROLL_THRESHHOLD 750
 #define SCROLL_STEP 200

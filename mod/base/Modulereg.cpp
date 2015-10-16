@@ -13,7 +13,7 @@ list<Module_reg*> Module_reg::flist;
 Module_reg::Module_reg(voidfptr_t fptr)
         :function(fptr)
     {
-		PLF("module registered");
+		PF("module registered");
         if (fptr) //skip NULL pointers
             flist.push_back(this);
     }

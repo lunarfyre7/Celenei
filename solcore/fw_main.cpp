@@ -5,6 +5,7 @@
 #include <avr/wdt.h>
 #include "sol/ui.h"
 #include "../../mod/modulemanifest.h"
+#include "../../mod/base/modulebase.h"
 #include <stdio.h>
 
 
@@ -41,6 +42,14 @@ void uitask() {ui.Task();};
 */
 
 void setup() {
+#ifdef DIRECT_5WAY_BUTTONS //if using buttons
+	pinMode(BUTTON_PIN_1, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_2, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_3, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_4, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_5, INPUT_PULLUP);
+#endif
+
 	Serial.begin(115200);
 	Serial.println(F("Solaneae: start"));
 	ui.InitLCD(LCD_X, LCD_Y);

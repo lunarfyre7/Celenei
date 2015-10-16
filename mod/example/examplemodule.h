@@ -50,6 +50,7 @@ public:
 
 ///setup and wrapper code///
 #ifdef IS_MOD_MANIFEST
+namespace {
 //Mod_ram ram;
 //wrapCB(ramCB, ram);
 makeCB(ramCB, Mod_ram, ui_callback);//make a ui callback
@@ -66,6 +67,7 @@ static void wrap() {
 }
 Module_reg examplereg(wrap);
 //Module_reg *examplereg = new Module_reg(wrap);
+}
 #endif //IS_MOD_MANIFEST
 
 #endif /* EXAMPLEMODULE_H_ */

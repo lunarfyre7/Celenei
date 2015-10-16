@@ -17,9 +17,7 @@ enum btndir_t {
 	none
 };
 
-#ifdef RESISTOR_BUTTON_MULTIPLEX
 btndir_t DPad();
-#endif
 
 
 #endif /* CONTROLS_H_ */

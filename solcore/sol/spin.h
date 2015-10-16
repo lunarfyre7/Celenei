@@ -4,7 +4,7 @@
 #include "arduino.h"
 #include "config.h"
 #include <iterator> //TODO: replace <vector> with something with less sram usage.
-#include <vector> //TODO: use arrays instead of vectors
+#include <list> //TODO: use arrays instead of vectors
 
 /*
 Simplistic task scheduler system
@@ -20,8 +20,8 @@ namespace Spin {
 	void KillTask(const uint8_t&);//kill specified task
 	// void OnlyOne(int id);//stops more than one copy on a task with the name id from running.
 	// void OnlyOne(FunctionPointer);//stops more than one copy on a task from running.
-	extern std::vector<FunctionPointer> tasks;
-	extern uint8_t currentTask;
+	extern std::list<FunctionPointer> tasks;
+//	extern uint8_t currentTask;
 };
 
 #endif
