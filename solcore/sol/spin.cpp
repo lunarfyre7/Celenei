@@ -1,6 +1,7 @@
 #include "spin.h"
 
 namespace Spin {
+	static bool killCurrent = false; //true if current task is to be killed
 	using namespace std;
 	list<FunctionPointer> tasks;
 	list<FunctionPointer>::iterator currentTask; //current iterator for running task
@@ -14,11 +15,16 @@ namespace Spin {
 		for (list<FunctionPointer>::iterator it=tasks.begin(); it != tasks.end(); ++it) {
 			currentTask = it;
 			(**it)();
+			if (killCurrent) {
+				tasks.erase(it++);
+				killCurrent = false;
+			}
 		}
 	}
-	void KillTask() {
+	void KillTask() { //kills the task that calls it
 //		tasks.erase(tasks.begin() + index);
-		tasks.erase(currentTask);
+//		currentTask = tasks.erase(currentTask);
+		killCurrent = true;
 	}
 //	void KillTask() {
 //		KillTask(currentTask);

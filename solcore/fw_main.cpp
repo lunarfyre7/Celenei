@@ -16,17 +16,25 @@
 --------------------------------------
 */
 //boot up beep
-void TripleBeep() {
-	static uint8_t counter;
-	static Timer _timer;
-	if (_timer.Check(60)) {
-		beep();
-		if (counter++ == 3) {
-			counter = 0;
-			Spin::KillTask();
-		}
-	}
+//void TripleBeep() {
+//	static uint8_t counter;
+//	static Timer _timer;
+//	if (_timer.Check(60) {
+//		beep();
+//		if (counter++ == 3) {
+//			counter = 0;
+//			Spin::KillTask();
+//		}
+//	}
+//}
+
+//Spin test
+void TaskTest() {
+	PLF("test task created");
+	Spin::KillTask();
+	PLF("test task killed");
 }
+
 //Watchdog reset
 void WatchdogReset() {wdt_reset();}
 
@@ -55,7 +63,8 @@ void setup() {
 	ui.InitLCD(LCD_X, LCD_Y);
 	Module_reg::run();
 	Spin::RegisterTask(uitask);
-	Spin::RegisterTask(TripleBeep);
+	Spin::RegisterTask(TaskTest);
+//	Spin::RegisterTask(TripleBeep);
 
 	//start wtd
 	wdt_enable(WDTO_2S);//enable watchdog timer

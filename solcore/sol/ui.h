@@ -59,7 +59,7 @@ namespace sol {
 
 		uint8_t sizeX, sizeY;
 //		Timer dispRefreshTimer;
-		uint8_t lastIndex; //last index for display
+//		uint8_t lastIndex; //last index for display
 	//	Timer buttonTimer;
 	//	Timer scrollTimer;
 		// std::olcdstream lcdout;
