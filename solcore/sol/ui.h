@@ -5,7 +5,7 @@
 #include <LCD.h>
 #include <lcdostream>
 //#include <iterator>
-#include <vector>
+#include <list>
 #include "timer.h"
 #include "controls.h"
 
@@ -21,14 +21,19 @@ namespace sol {
 
 	typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//TODO use lambdas instead of this
 	typedef MenuItemCallback mci_t;
-	struct MenuItem{
+	struct MenuItem{ //menu type
 		const __FlashStringHelper* Label;
 		char* Info;
 		MenuItemCallback callback;
 
-		int parent;
-		int asParent;
-		bool link;
+		int target;//id of list to link to
+		bool link;//is this a link?
+	};
+	struct Menu {//type for menu
+		//Menu() : list() {}//init the list in the constructor
+		std::list<MenuItem> list;//the list containing MenuItems
+		int parent; //parent id
+		int id;
 	};
 	class UI {
 	public:
@@ -44,8 +49,10 @@ namespace sol {
 		UI& PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
 		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 
+		//name = name of menu
 		UI& SetParent(int name); //both take multi character literals, e.g., 'abc'
 		UI& LinkTo(int name);
+		UI& PushMenu(int name);//create new menu
 
 		//screen
 		void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
@@ -58,28 +65,31 @@ namespace sol {
 	private:
 
 		uint8_t sizeX, sizeY;
-//		Timer dispRefreshTimer;
+		Timer dispRefreshTimer;
 //		uint8_t lastIndex; //last index for display
 	//	Timer buttonTimer;
 	//	Timer scrollTimer;
 		// std::olcdstream lcdout;
-		std::vector<MenuItem> menu;
-		unsigned int currentMenuItem; //current menu item index
-		unsigned int screenPos;
-		btndir_t lastButtonState;
-		unsigned int lastMenuItem;
-		int menuLevel; //current menu parent
+		std::list<Menu> menus;//list of menus
+		std::list<MenuItem>::iterator menuIt;//menu iterator
+		btndir_t button; //current button state
+		btndir_t lastButton;
+		std::list<Menu>::iterator currentMenu; //iterator pointing to the current menu
 		unsigned long buttonScrollTimer;
 		bool updateScreen; //true if screen needs update
-		char ** buffer;
+//		char ** buffer;
+
 
 		//methods
+		void CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &menuit);
+		void DrawDisplay(std::list<MenuItem>::iterator);
+		void JumpToMenu(std::list<Menu>::iterator);
 	//	bool DoUpdateScreen();
-		void RefreshMenu(); //called after changing menu level
-		void InitBuffer();
-		void DestroyBuffer();
-		template <typename T>
-		int8_t  Bprint(T);
+//		void RefreshMenu(); //called after changing menu level
+//		void InitBuffer();
+//		void DestroyBuffer();
+//		template <typename T>
+//		int8_t  Bprint(T);
 	};
 }
 #endif
