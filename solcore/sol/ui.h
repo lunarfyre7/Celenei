@@ -66,10 +66,6 @@ namespace sol {
 
 		uint8_t sizeX, sizeY;
 		Timer dispRefreshTimer;
-//		uint8_t lastIndex; //last index for display
-	//	Timer buttonTimer;
-	//	Timer scrollTimer;
-		// std::olcdstream lcdout;
 		std::list<Menu> menus;//list of menus
 		std::list<MenuItem>::iterator menuIt;//menu iterator
 		btndir_t button; //current button state
@@ -77,19 +73,16 @@ namespace sol {
 		std::list<Menu>::iterator currentMenu; //iterator pointing to the current menu
 		unsigned long buttonScrollTimer;
 		bool updateScreen; //true if screen needs update
-//		char ** buffer;
 
 
 		//methods
 		void CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &menuit);
 		void DrawDisplay(std::list<MenuItem>::iterator);
 		void JumpToMenu(std::list<Menu>::iterator);
-	//	bool DoUpdateScreen();
-//		void RefreshMenu(); //called after changing menu level
-//		void InitBuffer();
-//		void DestroyBuffer();
-//		template <typename T>
-//		int8_t  Bprint(T);
+
+		//helpers
+		bool CheckItem(); //check that menu iterator is OK
+
 	};
 }
 #endif

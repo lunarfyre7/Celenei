@@ -27,12 +27,11 @@ int reading = analogRead(BUTTON_PIN);
 #ifdef DIRECT_5WAY_BUTTONS
 btndir_t DPad() {
 	btndir_t val = none;
-
-	if (!digitalRead(BUTTON_PIN_1)) val = down;
-	if (!digitalRead(BUTTON_PIN_2)) val = left;
-	if (!digitalRead(BUTTON_PIN_3)) val = up;
-	if (!digitalRead(BUTTON_PIN_4)) val = right;
-	if (!digitalRead(BUTTON_PIN_5)) val = center;
+	if (!digitalRead(BUTTON_PIN_D)) val = down;
+	if (!digitalRead(BUTTON_PIN_L)) val = left;
+	if (!digitalRead(BUTTON_PIN_U)) val = up;
+	if (!digitalRead(BUTTON_PIN_R)) val = right;
+	if (!digitalRead(BUTTON_PIN_C)) val = center;
 	return val;
 }
 #endif

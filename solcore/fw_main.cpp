@@ -51,11 +51,11 @@ void uitask() {ui.Task();};
 
 void setup() {
 #ifdef DIRECT_5WAY_BUTTONS //if using buttons
-	pinMode(BUTTON_PIN_1, INPUT_PULLUP);
-	pinMode(BUTTON_PIN_2, INPUT_PULLUP);
-	pinMode(BUTTON_PIN_3, INPUT_PULLUP);
-	pinMode(BUTTON_PIN_4, INPUT_PULLUP);
-	pinMode(BUTTON_PIN_5, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_U, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_D, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_L, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_R, INPUT_PULLUP);
+	pinMode(BUTTON_PIN_C, INPUT_PULLUP);
 #endif
 
 	Serial.begin(115200);
