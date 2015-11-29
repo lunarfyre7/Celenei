@@ -130,9 +130,9 @@ void UI::CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &
 	}
 }
 void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus and calls menu callbacks. 'it' is current menu
-	menucallbackinfo_t cbinfo; //this is passed to the callback
+	menucallbackinfo_t cbinfo, blankinfo; //this is passed to the callback
 
-
+	//draw each line and call item callbacks
 	uint8_t y=0;//line index of current line we're writing
 	do {
 		//abort if list is empty
@@ -150,6 +150,7 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 		if(y == cursorOffset) { //selected line
 			lcd.write(0x7E); //write arrow on selected line
 			cbinfo.isSelected = true; //tell the callback its special and showered with attention
+			cbinfo.button = button;//give callback button state
 		}
 		else {//or space on the others
 			lcd.setCursor(1,y);
@@ -163,20 +164,14 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 
 		//increment y and it and check for end of screen
 		y++; it++;
+		//reset cbinfo
+		cbinfo = blankinfo;
 	} while(y != LCD_Y);//break when we get to the end of the screen
 }
 void UI::JumpToMenu(list<Menu>::iterator menu) {//set current menu and request redraw.
-	PLF("UI::JumpToMenu");
 	currentMenu = menu;
-	PLF("menu ids: ");
-	P(menu->id);
-	PF(" & ");
-	PL(currentMenu->id);
-	PF("menu list length: ");
-	PL(menu->list.size());
 	menuIt = currentMenu->list.begin(); //set it. to the new menu
 	UpdateScreen();
-	PLF("UI::JumpToMenu END");
 }
 
 bool UI::CheckItem() {
