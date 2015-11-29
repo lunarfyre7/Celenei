@@ -68,6 +68,7 @@ namespace sol {
 		Timer dispRefreshTimer;
 		std::list<Menu> menus;//list of menus
 		std::list<MenuItem>::iterator menuIt;//menu iterator
+		uint8_t cursorOffset; //offset of the selected menu item from top of screen
 		btndir_t button; //current button state
 		btndir_t lastButton;
 		std::list<Menu>::iterator currentMenu; //iterator pointing to the current menu

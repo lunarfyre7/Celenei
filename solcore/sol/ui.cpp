@@ -22,7 +22,7 @@ UI::UI(int addr)
  ,buttonScrollTimer(0)
  ,currentMenu()
  ,menuIt()
-
+ ,cursorOffset(0)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -49,10 +49,8 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 }
 void UI::Task() {
 	//fps throttle
-	if(!dispRefreshTimer.Every(100))
+	if(!dispRefreshTimer.Every(LCD_REFRESH_TIME))
 		return;
-	//iterator check
-	PLF("UI::Task tick");
 	CheckButtons(currentMenu->list, menuIt);
 	DrawDisplay(menuIt);
 
@@ -101,14 +99,19 @@ void UI::UpdateScreen() {
 	updateScreen = true;
 }
 void UI::CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &menuit) {//the target menu list and an iterator for it
-	PLF("UI::CheckButtons called");
 	if (!CheckItem())//iterator check
 		return;
 	button = DPad();
 	if (button == lastButton) return; //abort if there has not been a new button press
 	lastButton = button; //save button state for above check
 	if (button == up) {
-		if (menuit == menu.begin()) {//if at beginning go to end
+		//offset incrementing
+		if(cursorOffset > 0) {//limit cursor offset to screen size
+			cursorOffset--;
+		}
+		//only change iterator if cursor offset is at limit
+		//iterator incrementing
+		else if (menuit == menu.begin()) {//if at beginning go to end
 			menuit = menu.end(); //set to end
 			menuit--;//then move to last element
 		}
@@ -116,14 +119,18 @@ void UI::CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &
 			menuit--;
 
 	} else if (button == down) {
-		menuit++;
-		if (menuit == menu.end()) //if at end reset to top
-			menuit = menu.begin();
+		if(cursorOffset < LCD_Y-1) {//limit cursor offset to screen size
+			cursorOffset++;
+		}
+		else {//move iterator pos if edge it hit
+			menuit++;
+			if (menuit == menu.end()) //if at end reset to top
+				menuit = menu.begin();
+		}
 	}
 }
 void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus and calls menu callbacks. 'it' is current menu
 	menucallbackinfo_t cbinfo; //this is passed to the callback
-	PLF("UI::DrawDisplay called");
 
 
 	uint8_t y=0;//line index of current line we're writing
@@ -137,27 +144,22 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 		//menu item rollback
 		if(it == currentMenu->list.end())
 			it = currentMenu->list.begin();
-
-		PF("Item iterator info -- ");
-			PF("info: ");
-			P(it->Info);
-			PF(", label: ");
-			PL(it->Label);
-		//call the callback
-		(*it->callback)(cbinfo, &(it->Info));
-		PLF("callback");
 		//clear and write line
 		ClearSection(0, y, sizeX, lcd);
 		lcd.setCursor(0,y); //set line to y
-		if(menuIt == it)//write arrow on selected line
-			lcd.write(0x7E);
-		else//or space on the others
+		if(y == cursorOffset) { //selected line
+			lcd.write(0x7E); //write arrow on selected line
+			cbinfo.isSelected = true; //tell the callback its special and showered with attention
+		}
+		else {//or space on the others
 			lcd.setCursor(1,y);
+			cbinfo.isSelected = false; //or that it's being ignored
+		}
+		//call the callback
+		(*it->callback)(cbinfo, &(it->Info));
 		//print label and callback string
 		lcd.print(it->Label);
-		PLF("label");
 		lcd.print(it->Info); //string from the callback
-		PLF("info");
 
 		//increment y and it and check for end of screen
 		y++; it++;
