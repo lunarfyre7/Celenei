@@ -11,6 +11,7 @@
 #include <list>
 #include "config.h"
 #include "sol/ui.h"
+#include "sol/spin.h"
 //#include "Modulereg.h"
 extern sol::UI ui;
 //using namespace sol;
@@ -19,13 +20,13 @@ extern sol::UI ui;
 //#define makeCB(wrap,class,method) _makeCB(wrap, class, UNIQUE_NAME(class##method), method) ///usage makeCB(mycallback, mymodule, mymethod)
 
 //note: this only uses 4 bytes of ram by itself (not allocating ram for the label string)
-class Module { //TODO add non ui background callbacks
+class Module : public Spin::Task { //TODO add non ui background callbacks
 public:
-	Module(uint8_t len=0);
+	Module();
 	virtual ~Module();
 	void ui_callback_proxy(sol::UI_t::menucallbackinfo_t& info, char** text); //calls the callback in the ui
 	virtual void ui_callback(sol::UI_t::menucallbackinfo_t& info, char** text) {return;}; //ui  callback
-	virtual void tick() {} //background/non-ui task
+	virtual void task() {} //background/non-ui task
 //	void setup_all(); //loop though instances and run all setup methods. Use module_reg instead
 //	MenuItemCallback ext_wrapper;
 protected:
@@ -33,8 +34,11 @@ protected:
 //	static std::list<Module_base*> instances; //list of instances
 	char **text; //pointer for ui dynamic text.
 	char *text_str; //storage for dynamic text. It really might be a good idea to use std::string instead, though this might be lighter possibly
+
+	void usingUI(uint8_t len=0);//call from constructor if using ui callback. len is the length of the ui string
+	void regTask();//call from constructor if using tick callback
 	void ptrset(char **);//points the text pointer pointer to the string pointer.
 };
-extern std::list<Module*> MODULE_INSTANCES; //list of instances. Wont work as a static member for some reason.
+//extern std::list<Module*> sol::moduleTaskList; //list of instances. Wont work as a static member for some reason.
 
 #endif /* MODULEBASE_H_ */

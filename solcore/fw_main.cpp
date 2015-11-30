@@ -29,19 +29,24 @@
 //}
 
 //Spin test
-void TaskTest() {
-	PLF("test task created");
-	Spin::KillTask();
-	PLF("test task killed");
-}
+class TaskTest : public Spin::Task {
+	void task() {
+		PLF("test task created");
+		Spin::KillTask();
+		PLF("test task killed");
+	}
+};
 
 //Watchdog reset
-void WatchdogReset() {wdt_reset();}
+class WatchdogReset : public Spin::Task {
+	void task() {
+		wdt_reset();
+	}
+};
 
 //setup the UI task
 // UI ui(LCD_PINS);
 sol::UI ui(LCD_I2C_ADDR);
-void uitask() {ui.Task();};
 
 /*
 --------------------------------------
@@ -63,14 +68,18 @@ void setup() {
 	ui.InitLCD(LCD_X, LCD_Y);
 //	Module_reg::run();
 	module_setup();
+	Spin::Task *uitask, *tasktest, *WDRtask;
+	uitask = &ui;//pointer to ui instance
+	tasktest = new TaskTest;
+	WDRtask = new WatchdogReset;
+
 	Spin::RegisterTask(uitask);
-	Spin::RegisterTask(TaskTest);
-//	Spin::RegisterTask(TripleBeep);
+	Spin::RegisterTask(tasktest);
 
 	//start wtd
 	wdt_enable(WDTO_2S);//enable watchdog timer
 	wdt_reset(); //reset it now
-	Spin::RegisterTask(WatchdogReset); //add reset task
+	Spin::RegisterTask(WDRtask); //add reset task
 }
 
 void loop() {

@@ -8,6 +8,7 @@
 #include <list>
 #include "timer.h"
 #include "controls.h"
+#include "sol/spin.h"
 //#include "../mod/base/modulebase.h"
 class Module;//forward declaration
 
@@ -38,13 +39,13 @@ namespace sol {
 		int parent; //parent id
 		int id;
 	};
-	class UI {
+	class UI : public Spin::Task {
 	public:
 		//Constructor
 		//UI(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
 		UI(int);
 		~UI();
-		void Task();//start this as a task
+		void task();//start this as a task
 
 		//Menu insertion & manipulation
 //		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);

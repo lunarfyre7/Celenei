@@ -13,15 +13,16 @@ Simplistic task scheduler system
 //typedef void(*TaskPtr)(const uint8_t&); 
 
 namespace Spin {
-	void RegisterTask(FunctionPointer); //Takes a function reference and adds it to the task list.
-	//void RegisterTask(TaskPtr); //Takes a function reference and adds it to the task list. Callback function is passed it's index number;
+	class Task {//task container
+	public:
+		virtual void task()=0;
+		virtual ~Task() {};
+	};
+	void RegisterTask(Task*); //Takes a function reference and adds it to the task list.
 	void LoopTick(); //Place this into the main loop.
 	void KillTask();//kill current task. ONLY CALL FROM WITHIN THE TASK!!!
 	void KillTask(const uint8_t&);//kill specified task
-	// void OnlyOne(int id);//stops more than one copy on a task with the name id from running.
-	// void OnlyOne(FunctionPointer);//stops more than one copy on a task from running.
-	extern std::list<FunctionPointer> tasks;
-//	extern uint8_t currentTask;
+	extern std::list<Task*> tasks;
 };
 
 #endif

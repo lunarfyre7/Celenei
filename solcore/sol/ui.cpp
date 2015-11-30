@@ -50,7 +50,7 @@ void UI::InitLCD(uint8_t X, uint8_t Y) {
 
 //	menuIt = menus.front().list.begin(); //hack: the above should do the same
 }
-void UI::Task() {
+void UI::task() {
 	//fps throttle
 	if(!dispRefreshTimer.Every(LCD_REFRESH_TIME))
 		return;
