@@ -2,6 +2,7 @@
 #include "config.h"
 #include <avr/pgmspace.h>
 #include "controls.h"
+#include "../mod/base/modulebase.h"
 
 using namespace sol;
 using namespace UI_t;
@@ -10,7 +11,7 @@ using namespace std;
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
 // bool StrinF(const char * s1, const __FlashStringHelper * fstr) {return (strstr_P(s1, reinterpret_cast<const PROGMEM char *> (fstr)) != NULL);}
 
-void blankCallback(menucallbackinfo_t &info, char** text){};
+//void blankCallback(menucallbackinfo_t &info, char** text){};
 
 //UI::UI(uint8_t rs, uint8_t en, uint8_t d4, uint8_t d5, uint8_t d6, uint8_t d7) 
 UI::UI(int addr) 
@@ -23,6 +24,8 @@ UI::UI(int addr)
  ,currentMenu()
  ,menuIt()
  ,cursorOffset(0)
+ ,button()
+ ,lastButton()
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -56,15 +59,16 @@ void UI::Task() {
 
 }
 UI& UI::PushItem(const __FlashStringHelper* Label) {
-	return PushItem(Label, blankCallback);
+	return PushItem(Label, (Module*)NULL);
 }
-UI& UI::PushItem(const __FlashStringHelper* Label, MenuItemCallback callback) {
+UI& UI::PushItem(const __FlashStringHelper* Label, Module* module) {
 	PF("Item pushed: ");
 	PL(Label);
 	MenuItem item;
 	item.Label =  Label;
 	item.Info  =  NULL;
-	item.callback = callback;
+//	item.callback = callback;//old
+	item.mod = module;
 //	item.parent = -1; //set these with the root level;
 //	item.asParent = -1;
 	item.link = false; //if true selecting item goes to submenu
@@ -157,7 +161,9 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 			cbinfo.isSelected = false; //or that it's being ignored
 		}
 		//call the callback
-		(*it->callback)(cbinfo, &(it->Info));
+//		(*it->callback)(cbinfo, &(it->Info));//old
+		if (it->mod != NULL)//check for a null pointer
+			it->mod->ui_callback_proxy(cbinfo, &(it->Info));//call the ui callback proxy through the pointer to the module object
 		//print label and callback string
 		lcd.print(it->Label);
 		lcd.print(it->Info); //string from the callback

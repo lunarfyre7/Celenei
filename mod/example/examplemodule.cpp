@@ -11,9 +11,11 @@
 #include "sol/persist.h"
 
 using namespace UI_t;
+using namespace example_module;
+
 typedef menucallbackinfo_t mci;
 Mod_ram::Mod_ram()
-	:Module_base(9)
+	:Module(9)
 	,ram(0)
 	{
 }
@@ -31,13 +33,16 @@ void Mod_ram::ui_callback(mci &info, char** text) {
 	}
 }
 
+void Mod_ram::setup() {
+	ui.PushItem(F("ram"), this);
+}
 //random
 Mod_random::Mod_random()
-	:Module_base(10)
+	:Module(10)
 	{}
 //Mod_random::Mod_random
-void Mod_random::setup(UI* ui) {
-	ui->PushItem(F("Rand"), *ext_wrapper);
+void Mod_random::setup() {
+	return;
 }
 void Mod_random::ui_callback(mci &info, char** text) {
 	if(timer.Every(200))
@@ -49,7 +54,7 @@ void Mod_random::ui_callback(mci &info, char** text) {
 }
 //lag
 Mod_lag::Mod_lag()
-	:Module_base(5)//4 char + end sentinel
+	:Module(5)//4 char + end sentinel
 	,ltime(0)
 	,loopcount(false)
 	{
@@ -102,4 +107,14 @@ void Mod_persist::ui_callback(mci &info, char** text) {
 		}
 		sprintf(text_str, "%d", persist.get());
 	}
+}
+
+//setup code for the whole module
+void example_module::setup() {
+	ui.PushItem(F("Solaneae"));
+	//ui.PushMenu('example');
+//	ui.PushItem(F("example module")).LinkTo('example');
+	//add something like ui.setcontext('menuname') here
+	Module* ram = new Mod_ram();
+	ram->setup();
 }

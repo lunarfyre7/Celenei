@@ -7,23 +7,29 @@
 
 #include "modulebase.h"
 #include "sol/timer.h"
+using namespace sol;
 using namespace UI_t;
-extern UI ui;
+//extern UI ui;
 typedef menucallbackinfo_t mci;
-std::list<Module_base*> MODULE_INSTANCES;
+std::list<Module*> MODULE_INSTANCES;
 
-Module_base::Module_base(uint8_t len)
+Module::Module(uint8_t len)
 	:timer()
 	,text(NULL)
 	,text_str(new char[len]){
 	MODULE_INSTANCES.push_back(this);
 }
 
-Module_base::~Module_base() {
+Module::~Module() {
 	delete text_str;
 	MODULE_INSTANCES.remove(this);
 }
-void Module_base::ptrset(char **text) {
+
+void Module::ui_callback_proxy(UI_t::menucallbackinfo_t& info, char** text) {
+	ptrset(text); //call weird hackey code thing
+	ui_callback(info, text);//call callback
+}
+void Module::ptrset(char **text) {
 	if (!(*text = text_str))
 		*text = text_str;
 	//idea: put this in a callback wrapper method so the module author does not have to call this.

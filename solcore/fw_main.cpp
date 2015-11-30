@@ -61,7 +61,8 @@ void setup() {
 	Serial.begin(115200);
 	Serial.println(F("Solaneae: start"));
 	ui.InitLCD(LCD_X, LCD_Y);
-	Module_reg::run();
+//	Module_reg::run();
+	module_setup();
 	Spin::RegisterTask(uitask);
 	Spin::RegisterTask(TaskTest);
 //	Spin::RegisterTask(TripleBeep);

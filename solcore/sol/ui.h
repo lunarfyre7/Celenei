@@ -8,6 +8,8 @@
 #include <list>
 #include "timer.h"
 #include "controls.h"
+//#include "../mod/base/modulebase.h"
+class Module;//forward declaration
 
 namespace sol {
 	namespace UI_t {
@@ -19,12 +21,13 @@ namespace sol {
 		};
 	}
 
-	typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//TODO use lambdas instead of this
-	typedef MenuItemCallback mci_t;
+//	typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//TODO use lambdas instead of this
+//	typedef void(Module::*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//don't use this!!!
+//	typedef MenuItemCallback mci_t;
 	struct MenuItem{ //menu type
 		const __FlashStringHelper* Label;
 		char* Info;
-		MenuItemCallback callback;
+		Module *mod;//pointer to module in question
 
 		int target;//id of list to link to
 		bool link;//is this a link?
@@ -44,10 +47,10 @@ namespace sol {
 		void Task();//start this as a task
 
 		//Menu insertion & manipulation
-		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
+//		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
 		UI& PushItem(const __FlashStringHelper* Label);
-		UI& PushItem(const __FlashStringHelper* Label, MenuItemCallback); //use this form for callback's that draw on line 1;
-		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
+		UI& PushItem(const __FlashStringHelper* Label, Module*); //use this form for callback's that draw on line 1;
+//		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 
 		//name = name of menu
 		UI& SetParent(int name); //both take multi character literals, e.g., 'abc'
