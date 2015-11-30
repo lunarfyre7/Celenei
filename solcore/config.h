@@ -18,7 +18,7 @@
 
 #define LCD_X 16
 #define LCD_Y 2
-#define LCD_REFRESH_TIME 60 //millis between screen refreshes
+#define LCD_REFRESH_TIME 100 //millis between screen refreshes
 
 
 //+++++++++++++++++++++++++++

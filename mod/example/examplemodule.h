@@ -20,7 +20,7 @@ public:
 	Mod_ram();
 	virtual ~Mod_ram();
 	void ui_callback(UI_t::menucallbackinfo_t&, char**);
-	void setup();
+//	void setup();
 private:
 	int ram;
 };
@@ -29,7 +29,7 @@ class Mod_random: public Module {
 public:
 	Mod_random();
 //	virtual ~Mod_random();
-	void setup();
+//	void setup();
 	void ui_callback(UI_t::menucallbackinfo_t&, char**);
 };
 
@@ -38,6 +38,7 @@ public:
 	Mod_lag();
 	virtual ~Mod_lag();
 	void ui_callback(UI_t::menucallbackinfo_t&, char**);
+//	void setup();
 private:
 	unsigned long ltime;
 	bool loopcount;
@@ -47,6 +48,7 @@ class Mod_persist: public Module {
 public:
 	Mod_persist();
 	void ui_callback(UI_t::menucallbackinfo_t&, char**);
+//	void setup();
 };
 
 void setup();

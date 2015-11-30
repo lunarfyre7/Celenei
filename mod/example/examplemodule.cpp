@@ -18,6 +18,7 @@ Mod_ram::Mod_ram()
 	:Module(9)
 	,ram(0)
 	{
+	ui.PushItem(F("ram"), this);
 }
 
 Mod_ram::~Mod_ram() {
@@ -32,18 +33,13 @@ void Mod_ram::ui_callback(mci &info, char** text) {
 		ui.UpdateScreen();
 	}
 }
-
-void Mod_ram::setup() {
-	ui.PushItem(F("ram"), this);
-}
 //random
 Mod_random::Mod_random()
 	:Module(10)
-	{}
-//Mod_random::Mod_random
-void Mod_random::setup() {
-	return;
+	{
+	ui.PushItem(F("rand: "), this);
 }
+//Mod_random::Mod_random
 void Mod_random::ui_callback(mci &info, char** text) {
 	if(timer.Every(200))
 	{
@@ -58,6 +54,7 @@ Mod_lag::Mod_lag()
 	,ltime(0)
 	,loopcount(false)
 	{
+	ui.PushItem(F("lag: "), this);
 }
 
 Mod_lag::~Mod_lag() {
@@ -73,7 +70,7 @@ void Mod_lag::ui_callback(mci &info, char** text) {
 			ltime = millis();
 			break;
 		case true:
-			sprintf(text_str, ": %lu", millis() - ltime);
+			sprintf(text_str, ": %lu", millis() - ltime - LCD_REFRESH_TIME);
 			ui.UpdateScreen();
 			timer.Reset();
 			break;
@@ -116,5 +113,7 @@ void example_module::setup() {
 //	ui.PushItem(F("example module")).LinkTo('example');
 	//add something like ui.setcontext('menuname') here
 	Module* ram = new Mod_ram();
-	ram->setup();
+	Module* rand = new Mod_random();
+	Module* lag = new Mod_lag();
+//	lag->setup();
 }
