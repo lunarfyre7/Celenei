@@ -24,7 +24,7 @@ Module::~Module() {
 
 void Module::ui_callback_proxy(UI_t::menucallbackinfo_t& info, char** text) {
 	ptrset(text); //call weird hackey code thing
-	ui_callback(info, text);//call callback
+	ui_callback(info);//call callback
 }
 void Module::usingUI(uint8_t len) {
 	text_str = new char[len];

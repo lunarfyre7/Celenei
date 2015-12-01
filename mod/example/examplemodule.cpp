@@ -25,10 +25,10 @@ Mod_ram::Mod_ram()
 Mod_ram::~Mod_ram() {
 
 }
-void Mod_ram::ui_callback(mci &info, char** text) {
+void Mod_ram::ui_callback(mci &info) {
 	if(timer.Every(1000))
 	{
-		ptrset(text);
+//		ptrset(text);
 		ram = freeMemory();
 		sprintf(text_str, ": %db", freeMemory());
 		ui.UpdateScreen();
@@ -41,8 +41,8 @@ Mod_random::Mod_random()
 	usingUI(10);
 	ui.PushItem(F("rand: "), this);
 }
-//Mod_random::Mod_random
-void Mod_random::ui_callback(mci &info, char** text) {
+Mod_random::~Mod_random() {}
+void Mod_random::ui_callback(mci &info) {
 	if(timer.Every(200))
 	{
 //		ptrset(text);
@@ -54,31 +54,39 @@ void Mod_random::ui_callback(mci &info, char** text) {
 Mod_lag::Mod_lag()
 	:Module()
 	,ltime(0)
-	,loopcount(false)
+	,lag(0)
+	,plag(0)
+//	,peak(*this)
 	{
-	usingUI(5);//4 char + end sentinel
-	ui.PushItem(F("lag: "), this);
+	usingUI(9);//setup ui label buffer
+	ui.PushItem(F("lag: "), this);//add ui entry to menu
+	regTask();//register background task
 }
 
 Mod_lag::~Mod_lag() {
 
 }
-void Mod_lag::ui_callback(mci &info, char** text) {
-	if(timer.StaticCheck(101))
-	{
-//		ptrset(text);
-		loopcount = !loopcount;
-		switch(loopcount){//faster than if else
-		case false:
-			ltime = millis();
-			break;
-		case true:
-			sprintf(text_str, ": %lu", millis() - ltime - LCD_REFRESH_TIME);
-			ui.UpdateScreen();
-			timer.Reset();
-			break;
-		}
-	}
+void Mod_lag::ui_callback(mci &info) {//ui task
+	sprintf(text_str, ": %luuS", lag);
+}
+//Mod_lag::SubMod::SubMod(Mod_lag &p) :Module(), outer(p), timer(){
+//	usingUI(9);
+//	ui.PushItem(F("P Lag: "), this);
+//	regTask();
+//}
+//void Mod_lag::SubMod::task() {
+//	if (timer.Every(500)) {
+//		outer.plag = 0;
+//	}
+//}
+//void Mod_lag::SubMod::ui_callback(mci &info) {
+//	sprintf(text_str, ": %luuS", outer.plag);
+//}
+void Mod_lag::task() {//background task
+	unsigned long time = micros();
+	lag = time - ltime;
+	plag = (lag > plag) ? lag : plag;
+	ltime = time;
 }
 
 //persist
@@ -88,7 +96,7 @@ PERSIST_D(uint8_t, persist, 0)
 Mod_persist::Mod_persist() {
 
 }
-void Mod_persist::ui_callback(mci &info, char** text) {
+void Mod_persist::ui_callback(mci &info) {
 //	ptrset(text);
 	if(timer.Every(100)) {
 		//read value from eeprom
@@ -118,5 +126,4 @@ void example_module::setup() {
 	Module* ram = new Mod_ram();
 	Module* rand = new Mod_random();
 	Module* lag = new Mod_lag();
-//	lag->setup();
 }

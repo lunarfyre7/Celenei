@@ -25,7 +25,7 @@ public:
 	Module();
 	virtual ~Module();
 	void ui_callback_proxy(sol::UI_t::menucallbackinfo_t& info, char** text); //calls the callback in the ui
-	virtual void ui_callback(sol::UI_t::menucallbackinfo_t& info, char** text) {return;}; //ui  callback
+	virtual void ui_callback(sol::UI_t::menucallbackinfo_t& info) {}; //ui  callback
 	virtual void task() {} //background/non-ui task
 //	void setup_all(); //loop though instances and run all setup methods. Use module_reg instead
 //	MenuItemCallback ext_wrapper;
