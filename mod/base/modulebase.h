@@ -12,6 +12,7 @@
 #include "config.h"
 #include "sol/ui.h"
 #include "sol/spin.h"
+#include "sol/timer.h"
 //#include "Modulereg.h"
 extern sol::UI ui;
 //using namespace sol;
@@ -29,7 +30,14 @@ public:
 	UIcallback();
 	virtual ~UIcallback();
 	virtual void callback (sol::UI_t::menucallbackinfo_t& info) =0;//implement your UI callback as this
-	void proxy(sol::UI_t::menucallbackinfo_t& info, char** text);//called by the UI system
+	virtual void proxy(sol::UI_t::menucallbackinfo_t& info, char** text);//called by the UI system
+};
+class UIcallbackTimer : public UIcallback {//adds auto refresh timing to the callback
+	sol::Timer u_timer;//update timer
+	uint16_t period;
+public:
+	UIcallbackTimer(uint16_t);//pass the refresh time here
+	void proxy(sol::UI_t::menucallbackinfo_t& info, char** text);
 };
 
 class Module : public Spin::Task { //TODO add non ui background callbacks

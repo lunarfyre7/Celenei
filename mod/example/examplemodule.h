@@ -41,13 +41,13 @@ public:
 class Mod_lag: public Module {
 	unsigned long ltime, lag, plag;
 	Timer timer;
-	class UIcb : public UIcallback {
+	class UIcb : public UIcallbackTimer {
 		Mod_lag &outer;
 	public:
 		UIcb(Mod_lag&);
 		void callback(UI_t::menucallbackinfo_t&);
 	};
-	class UIcb2 : public UIcallback {
+	class UIcb2 : public UIcallbackTimer {
 		Mod_lag &outer;
 	public:
 		UIcb2(Mod_lag&);

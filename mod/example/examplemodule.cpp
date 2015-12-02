@@ -30,11 +30,11 @@ Mod_ram::UIcb::UIcb(Mod_ram& mod): UIcallback(), timer(), outer(mod) {
 	alloc(9);//allocate a 9 char string for writing to
 }
 void Mod_ram::UIcb::callback(mci &info) {
-	if(timer.Every(1000))
+	if(timer.Every(1000))//this callback handles it's own timing
 	{
 		outer.ram = freeMemory();
 		sprintf(text_store, ": %db", freeMemory());
-		ui.UpdateScreen();
+		ui.UpdateLine();
 	}
 }
 ////random
@@ -77,10 +77,10 @@ Mod_lag::~Mod_lag() {
 //void Mod_lag::ui_callback2(mci &info) {//ui task
 //	sprintf(text_store[1], ": %luuS", plag);
 //}
-Mod_lag::UIcb::UIcb(Mod_lag& m) : outer(m) {
+Mod_lag::UIcb::UIcb(Mod_lag& m) : outer(m), UIcallbackTimer(100) {//this callback using built in timing
 	alloc(9);
 }
-Mod_lag::UIcb2::UIcb2(Mod_lag& m) : outer(m) {
+Mod_lag::UIcb2::UIcb2(Mod_lag& m) : outer(m), UIcallbackTimer(100) {
 	alloc(9);
 }
 void Mod_lag::UIcb::callback(mci &info) {

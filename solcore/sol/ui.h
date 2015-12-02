@@ -63,12 +63,14 @@ namespace sol {
 
 		//screen
 		void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
-		void UpdateScreen();
+		void UpdateLine();//updates current line (use in callbacks)
+		void UpdateScreen();//updates whole screen
 
 		LiquidCrystal_I2C lcd;
 
 		//pub vars
 		bool beepOnChange;
+		bool frozen;//true if ui is not to be drawn
 	private:
 
 		uint8_t sizeX, sizeY;
@@ -81,6 +83,7 @@ namespace sol {
 		std::list<Menu>::iterator currentMenu; //iterator pointing to the current menu
 		unsigned long buttonScrollTimer;
 		bool updateScreen; //true if screen needs update
+		bool updateLine;
 
 
 		//methods

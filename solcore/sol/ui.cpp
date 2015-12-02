@@ -19,6 +19,7 @@ UI::UI(int addr)
  ,sizeY(0)
  ,lcd(LCD_I2C_ADDR, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE)
  ,updateScreen(false)
+ ,updateLine(false)
  ,beepOnChange(true)
  ,buttonScrollTimer(0)
  ,currentMenu()
@@ -26,6 +27,7 @@ UI::UI(int addr)
  ,cursorOffset(0)
  ,button()
  ,lastButton()
+ ,frozen(false)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -92,6 +94,9 @@ UI& UI::PushMenu(int name) {
 	menus.push_back(menu);
 	return *this;
 }
+void UI::UpdateLine() {
+	updateLine = true;
+}
 void UI::UpdateScreen() {
 	updateScreen = true;
 }
@@ -102,6 +107,7 @@ void UI::CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &
 	if (button == lastButton) return; //abort if there has not been a new button press
 	lastButton = button; //save button state for above check
 	if (button == up) {
+		UpdateScreen();
 		//offset incrementing
 		if(cursorOffset > 0) {//limit cursor offset to screen size
 			cursorOffset--;
@@ -116,6 +122,7 @@ void UI::CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &
 			menuit--;
 
 	} else if (button == down) {
+		UpdateScreen();
 		if(cursorOffset < LCD_Y-1) {//limit cursor offset to screen size
 			cursorOffset++;
 		}
@@ -141,31 +148,35 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 		//menu item rollback
 		if(it == currentMenu->list.end())
 			it = currentMenu->list.begin();
-		//clear and write line
-		ClearSection(0, y, sizeX, lcd);
-		lcd.setCursor(0,y); //set line to y
-		if(y == cursorOffset) { //selected line
-			lcd.write(0x7E); //write arrow on selected line
-			cbinfo.isSelected = true; //tell the callback its special and showered with attention
-			cbinfo.button = button;//give callback button state
-		}
-		else {//or space on the others
-			lcd.setCursor(1,y);
-			cbinfo.isSelected = false; //or that it's being ignored
-		}
 		//call the callback
 //		(*it->callback)(cbinfo, &(it->Info));//old
 		if (it->cb != NULL) //check for a null pointer
 			it->cb->proxy(cbinfo, &(it->Info));//call the ui callback proxy through the pointer to the module object
-		//print label and callback string
-		lcd.print(it->Label);
-		lcd.print(it->Info); //string from the callback
+		if (updateScreen || updateLine){
+			//clear and write line
+			ClearSection(0, y, sizeX, lcd);
+			lcd.setCursor(0,y); //set line to y
+			if(y == cursorOffset) { //selected line
+				lcd.write(0x7E); //write arrow on selected line
+				cbinfo.isSelected = true; //tell the callback its special and showered with attention
+				cbinfo.button = button;//give callback button state
+			}
+			else {//or space on the others
+				lcd.setCursor(1,y);
+				cbinfo.isSelected = false; //or that it's being ignored
+			}
+			//print label and callback string
+			lcd.print(it->Label);
+			lcd.print(it->Info); //string from the callback
+			updateLine = false;//mark line as clean
+		}
 
 		//increment y and it and check for end of screen
 		y++; it++;
 		//reset cbinfo
 		cbinfo = blankinfo;
 	} while(y != LCD_Y);//break when we get to the end of the screen
+	updateScreen = false;//mark as clean
 }
 void UI::JumpToMenu(list<Menu>::iterator menu) {//set current menu and request redraw.
 	currentMenu = menu;
