@@ -61,17 +61,11 @@ void UI::task() {
 UI& UI::PushItem(const __FlashStringHelper* Label) {
 	return PushItem(Label, (Module*)NULL);
 }
-UI& UI::PushItem(const __FlashStringHelper* Label, Module* module) {
+UI& UI::PushItem(const __FlashStringHelper* Label, Module* module, uint8_t cbNumber) {
 	PF("Item pushed: ");
 	PL(Label);
-	MenuItem item;
-	item.Label =  Label;
-	item.Info  =  NULL;
-//	item.callback = callback;//old
-	item.mod = module;
-//	item.parent = -1; //set these with the root level;
-//	item.asParent = -1;
-	item.link = false; //if true selecting item goes to submenu
+	MenuItem item(Label, module);
+	item.cbNum = cbNumber;
 	menus.front().list.push_back(item);//push into main menu(first element)
 
 	//reset iterator if list was empty
@@ -162,8 +156,8 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 		}
 		//call the callback
 //		(*it->callback)(cbinfo, &(it->Info));//old
-		if (it->mod != NULL)//check for a null pointer
-			it->mod->ui_callback_proxy(cbinfo, &(it->Info));//call the ui callback proxy through the pointer to the module object
+		if (it->mod != NULL) //check for a null pointer
+			it->mod->ui_callback_proxy(cbinfo, &(it->Info), it->cbNum);//call the ui callback proxy through the pointer to the module object
 		//print label and callback string
 		lcd.print(it->Label);
 		lcd.print(it->Info); //string from the callback
@@ -184,3 +178,14 @@ bool UI::CheckItem() {
 	//return true if errors are not found, otherwise false
 	return !(currentMenu->list.size() == 0 || menuIt == currentMenu->list.end());
 }
+
+
+//misc data type constructors
+MenuItem::MenuItem(const __FlashStringHelper* Label, Module* module) :
+	Label(Label)
+	,mod(module)
+	,Info(NULL)
+	,cbNum(1)
+	,link(false)
+	,target('root')
+	{}

@@ -25,10 +25,13 @@ namespace sol {
 //	typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//TODO use lambdas instead of this
 //	typedef void(Module::*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//don't use this!!!
 //	typedef MenuItemCallback mci_t;
-	struct MenuItem{ //menu type
+	class MenuItem{ //menu type
+	public:
+		MenuItem(const __FlashStringHelper*, Module*);//constructor
 		const __FlashStringHelper* Label;
 		char* Info;
 		Module *mod;//pointer to module in question
+		uint8_t cbNum; //the callback to call in the module
 
 		int target;//id of list to link to
 		bool link;//is this a link?
@@ -50,7 +53,8 @@ namespace sol {
 		//Menu insertion & manipulation
 //		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
 		UI& PushItem(const __FlashStringHelper* Label);
-		UI& PushItem(const __FlashStringHelper* Label, Module*); //use this form for callback's that draw on line 1;
+//		UI& PushItem(const __FlashStringHelper* Label, Module*); //use this form for callback's that draw in the menu;
+		UI& PushItem(const __FlashStringHelper* Label, Module*, uint8_t cbNumber=1); //use this for addition callbacks from the same module
 //		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 
 		//name = name of menu

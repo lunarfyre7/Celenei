@@ -18,7 +18,7 @@ Mod_ram::Mod_ram()
 	:Module()
 	,ram(0)
 	{
-	usingUI(9);
+	alloc(9);
 	ui.PushItem(F("ram"), this);
 }
 
@@ -30,7 +30,7 @@ void Mod_ram::ui_callback(mci &info) {
 	{
 //		ptrset(text);
 		ram = freeMemory();
-		sprintf(text_str, ": %db", freeMemory());
+		sprintf(text_store[0], ": %db", freeMemory());
 		ui.UpdateScreen();
 	}
 }
@@ -38,7 +38,7 @@ void Mod_ram::ui_callback(mci &info) {
 Mod_random::Mod_random()
 	:Module()
 	{
-	usingUI(10);
+	alloc(10);
 	ui.PushItem(F("rand: "), this);
 }
 Mod_random::~Mod_random() {}
@@ -46,7 +46,7 @@ void Mod_random::ui_callback(mci &info) {
 	if(timer.Every(200))
 	{
 //		ptrset(text);
-		sprintf(text_str, ":%lu", random(micros())%999);
+		sprintf(text_store[0], ":%lu", random(micros())%999);
 		ui.UpdateScreen();
 	}
 }
@@ -56,10 +56,12 @@ Mod_lag::Mod_lag()
 	,ltime(0)
 	,lag(0)
 	,plag(0)
-//	,peak(*this)
+	,timer()
 	{
-	usingUI(9);//setup ui label buffer
+	alloc(9, 1);//setup ui label buffer
+	alloc(9, 2);//setup ui label buffer
 	ui.PushItem(F("lag: "), this);//add ui entry to menu
+	ui.PushItem(F("P.lag: "), this, 2);//add 2nd callback to menu
 	regTask();//register background task
 }
 
@@ -67,26 +69,18 @@ Mod_lag::~Mod_lag() {
 
 }
 void Mod_lag::ui_callback(mci &info) {//ui task
-	sprintf(text_str, ": %luuS", lag);
+	sprintf(text_store[0], ": %luuS", lag);
 }
-//Mod_lag::SubMod::SubMod(Mod_lag &p) :Module(), outer(p), timer(){
-//	usingUI(9);
-//	ui.PushItem(F("P Lag: "), this);
-//	regTask();
-//}
-//void Mod_lag::SubMod::task() {
-//	if (timer.Every(500)) {
-//		outer.plag = 0;
-//	}
-//}
-//void Mod_lag::SubMod::ui_callback(mci &info) {
-//	sprintf(text_str, ": %luuS", outer.plag);
-//}
+void Mod_lag::ui_callback2(mci &info) {//ui task
+	sprintf(text_store[1], ": %luuS", plag);
+}
 void Mod_lag::task() {//background task
 	unsigned long time = micros();
 	lag = time - ltime;
 	plag = (lag > plag) ? lag : plag;
 	ltime = time;
+	if (timer.Every(100))
+		plag = 0;
 }
 
 //persist
@@ -113,7 +107,7 @@ void Mod_persist::ui_callback(mci &info) {
 			persist = persist.get() +1;
 			tone(SPEAKER_PIN, 1000, 30);
 		}
-		sprintf(text_str, "%d", persist.get());
+		sprintf(text_store[0], "%d", persist.get());
 	}
 }
 

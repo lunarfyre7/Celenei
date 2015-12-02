@@ -32,22 +32,14 @@ public:
 };
 
 class Mod_lag: public Module {
-private:
-//	class SubMod : public Module {//submodule for another line
-//	public:
-//		SubMod(Mod_lag &);
-//		Mod_lag &outer;
-//		void ui_callback(UI_t::menucallbackinfo_t&);
-//		void task();
-//		Timer timer;
-//	};
 	unsigned long ltime, lag, plag;
+	Timer timer;
 public:
 	Mod_lag();
 	virtual ~Mod_lag();
 	void ui_callback(UI_t::menucallbackinfo_t&);
+	void ui_callback2(UI_t::menucallbackinfo_t&);
 	void task();
-//	SubMod peak;
 };
 
 class Mod_persist: public Module {
