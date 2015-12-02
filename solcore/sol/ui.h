@@ -34,7 +34,7 @@ namespace sol {
 		char* Info;
 		UIcallback *cb;//pointer to module in question
 
-		int target;//id of list to link to
+		char target;//id of list to link to
 		bool link;//is this a link?
 	};
 	struct Menu {//type for menu
@@ -61,6 +61,10 @@ namespace sol {
 		UI& SetParent(char name); //both take multi character literals, e.g., 'abc'
 		UI& LinkTo(char name);
 		UI& PushMenu(char name);//create new menu
+
+		//deletion
+		void EraseItem(const __FlashStringHelper* Label, char parent);
+		void EraseMenu(char id);
 
 		//screen
 		void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
@@ -92,7 +96,9 @@ namespace sol {
 		void CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &menuit);
 		void DrawDisplay(std::list<MenuItem>::iterator);
 		void JumpToMenu(std::list<Menu>::iterator);
-		Menu& Find(char);//find a menu based on it's id;
+		Menu& FindMenuRef(char);//find a menu based on it's id;
+		std::list<Menu>::iterator FindMenuIt(char);//find a menu iterator based on it's id;
+		MenuItem& FindItem(const __FlashStringHelper *label, char parent);
 
 		//helpers
 		bool CheckItem(); //check that menu iterator is OK

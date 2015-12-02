@@ -81,7 +81,7 @@ UI& UI::SetParent(char name) {
 	MenuItem item = menus.front().list.back();//back element of first menu
 	menus.front().list.pop_back();//delete it from the list
 	//find menu
-	Menu& target = Find(name);
+	Menu& target = FindMenuRef(name);
 	target.list.push_back(item);
 	return *this;
 }
@@ -213,18 +213,31 @@ bool UI::CheckItem() {
 	//return true if errors are not found, otherwise false
 	return !(currentMenu->list.size() == 0 || menuIt == currentMenu->list.end());
 }
-Menu& UI::Find(char id) {
+Menu& UI::FindMenuRef(char id) {
+	return *FindMenuIt(id);
+}
+list<Menu>::iterator UI::FindMenuIt(char id) {
 	PLF("UI::Find()");
 	for (list<Menu>::iterator i=menus.begin(); i != menus.end(); i++) {
 		P(i->id);
 		PF(" <> ");
 		PL(id);
 		if(i->id == id)
-			return *i;//menu with id found
+			return i;//menu with id found
 	}
 	//fail
 	PLF("failed");
-	return menus.front();
+	return menus.begin();
+}
+
+void UI::EraseItem(const __FlashStringHelper *label, char parent) {
+
+}
+void UI::EraseMenu(char id) {
+	list<Menu>::iterator menu = FindMenuIt(id);
+	if (menu != menus.begin())//don't erase root
+		menus.erase(menu);
+	JumpToMenu(menus.begin());
 }
 
 //misc data type constructors
