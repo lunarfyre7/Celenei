@@ -178,7 +178,10 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 			ClearSection(0, y, sizeX, lcd);
 			lcd.setCursor(0,y); //set line to y
 			if(y == cursorOffset){ //selected line
-				lcd.write(0x7E); //write arrow on selected line
+				if (it->link)
+					lcd.write(0x3E);//link arrow
+				else
+					lcd.write(0x7E); //write arrow on selected line
 
 			}
 			else {//or space on the others
@@ -237,7 +240,7 @@ MenuItem::~MenuItem() {
 //linking callback
 UI::Linker::Linker(UI &ui, char id) :UIcallback(), id(id), ui(ui) {}
 void UI::Linker::callback(UI_t::menucallbackinfo_t &info) {
-	if (info.button == right) {
+	if (info.button == right || info.button == center) {
 		PLF("Link activated");
 		for (list<Menu>::iterator i=ui.menus.begin(); i != ui.menus.end(); i++) {
 			if (i->id == id) {
