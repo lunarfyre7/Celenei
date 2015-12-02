@@ -137,10 +137,9 @@ void example_module::setup() {
 	Module* lag = new Mod_lag();
 	////menu example/test////
 	ui.PushMenu('meow');//add a menu called meow
-	ui.PushItem(F("Meow")).LinkTo('meow');
-	ui.PushItem(F("cat1")).SetParent('meow');
-	ui.PushItem(F("cat2")).SetParent('meow');
-	ui.PushItem(F("cat3")).SetParent('meow');
-	ui.PushItem(F("cat4")).SetParent('meow');
-	ui.PushItem(F("un-meow")).LinkTo('root').SetParent('meow');
+	ui.PushItem(F("link to submenu")).LinkTo('meow');
+	ui.PushItem(F("This is a")).SetParent('meow');
+	ui.PushItem(F("submenu")).SetParent('meow');
+	ui.PushItem(F("Meow =^..^=")).SetParent('meow');
+	ui.PushItem(F("Return to root")).LinkTo('root').SetParent('meow');
 }

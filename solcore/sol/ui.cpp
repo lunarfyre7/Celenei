@@ -204,7 +204,8 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 void UI::JumpToMenu(list<Menu>::iterator menu) {//set current menu and request redraw.
 	currentMenu = menu;
 	menuIt = currentMenu->list.begin(); //set it. to the new menu
-	dirty=true;
+	dirty=true; //mark as dirty
+	cursorOffset = 0; //move cursor to top of screen
 	UpdateScreen();
 }
 
