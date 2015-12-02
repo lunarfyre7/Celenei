@@ -38,9 +38,9 @@ void UIcallback::alloc(uint8_t len) {
 UIcallbackTimer::UIcallbackTimer(uint16_t time) : period(time), u_timer() {}
 
 void UIcallbackTimer::proxy(sol::UI_t::menucallbackinfo_t& info, char** text) {
-	UIcallback::proxy(info, text);//call base;
 	//do the thing
 	if(u_timer.Every(period)) {
+		UIcallback::proxy(info, text);//call base;
 		ui.UpdateLine();
 	}
 }

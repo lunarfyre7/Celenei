@@ -84,10 +84,10 @@ Mod_lag::UIcb2::UIcb2(Mod_lag& m) : outer(m), UIcallbackTimer(100) {
 	alloc(9);
 }
 void Mod_lag::UIcb::callback(mci &info) {
-	sprintf(text_store, ": %luuS", outer.lag);
+	sprintf(text_store, "%luuS", outer.lag);
 }
 void Mod_lag::UIcb2::callback(mci &info) {
-	sprintf(text_store, ": %luuS", outer.plag);
+	sprintf(text_store, "%luuS", outer.plag);
 }
 void Mod_lag::task() {//background task
 	unsigned long time = micros();
