@@ -7,9 +7,10 @@
 
 #include "modulebase.h"
 #include "sol/timer.h"
+#include "sol/ui.h"
 using namespace sol;
 using namespace UI_t;
-//extern UI ui;
+extern UI ui;
 typedef menucallbackinfo_t mci;
 //uint8_t Module::STR_COUNT = 6;
 

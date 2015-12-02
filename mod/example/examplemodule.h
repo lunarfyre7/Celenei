@@ -9,6 +9,7 @@
 #define EXAMPLEMODULE_H_
 
 #include "../base/modulebase.h"
+#include "sol/ui.h"
 
 ///module declaration///
 using namespace sol;

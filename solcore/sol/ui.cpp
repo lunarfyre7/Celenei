@@ -2,7 +2,7 @@
 #include "config.h"
 #include <avr/pgmspace.h>
 #include "controls.h"
-#include "../mod/base/modulebase.h"
+//#include "../mod/base/modulebase.h"
 
 using namespace sol;
 using namespace UI_t;
@@ -74,20 +74,32 @@ UI& UI::PushItem(const __FlashStringHelper* Label, UIcallback *callback) {
 		JumpToMenu(menus.begin());
 	return *this;
 }
-//UI& UI::SetParent(int name) {
-//	menus.front().list.back()//back element of first menu
-//			.parent = name; //set parent in element
-//	return *this;
-//}
-UI& UI::LinkTo(int name) {
-	//OLD CODE//
+UI& UI::SetParent(char name) {
+	PF("perent set to: ");
+	PL(name);
+	MenuItem item = menus.front().list.back();//back element of first menu
+	menus.front().list.pop_back();//delete it from the list
+	//find menu
+	Menu& target = Find(name);
+	target.list.push_back(item);
+	return *this;
+}
+
+UI& UI::LinkTo(char name) {
+	PF("linked to: ");
+	PL(name);
 	MenuItem &item = menus.front().list.back(); //get last element of first menu
 	//assign attributes to menu item
 	item.link = true; //set as link
 	item.target = name; //target to link to
+	Linker * lnkr = new Linker(*this, name);//create a new link handler callback object
+	item.cb = lnkr;
+	PLF("Linker created");
 	return *this;
 }
-UI& UI::PushMenu(int name) {
+UI& UI::PushMenu(char name) {
+	PF("pushed menu: ");
+	PL(name);
 	Menu menu;
 	menu.id = name;
 	menu.parent = 'root';//default root, even for root
@@ -148,18 +160,21 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 		//menu item rollback
 		if(it == currentMenu->list.end())
 			it = currentMenu->list.begin();
+		if(y == cursorOffset) { //selected line
+			cbinfo.isSelected = true; //tell the callback its special and showered with attention
+			cbinfo.button = button;//give callback button state
+		}
 		//call the callback
-//		(*it->callback)(cbinfo, &(it->Info));//old
 		if (it->cb != NULL) //check for a null pointer
 			it->cb->proxy(cbinfo, &(it->Info));//call the ui callback proxy through the pointer to the module object
 		if (updateScreen || updateLine){
 			//clear and write line
 			ClearSection(0, y, sizeX, lcd);
 			lcd.setCursor(0,y); //set line to y
-			if(y == cursorOffset) { //selected line
+			if(y == cursorOffset){ //selected line
 				lcd.write(0x7E); //write arrow on selected line
-				cbinfo.isSelected = true; //tell the callback its special and showered with attention
-				cbinfo.button = button;//give callback button state
+//				cbinfo.isSelected = true; //tell the callback its special and showered with attention
+//				cbinfo.button = button;//give callback button state
 			}
 			else {//or space on the others
 				lcd.setCursor(1,y);
@@ -188,7 +203,19 @@ bool UI::CheckItem() {
 	//return true if errors are not found, otherwise false
 	return !(currentMenu->list.size() == 0 || menuIt == currentMenu->list.end());
 }
-
+Menu& UI::Find(char id) {
+	PLF("UI::Find()");
+	for (list<Menu>::iterator i=menus.begin(); i != menus.end(); i++) {
+		P(i->id);
+		PF(" <> ");
+		PL(id);
+		if(i->id == id)
+			return *i;//menu with id found
+	}
+	//fail
+	PLF("failed");
+	return menus.front();
+}
 
 //misc data type constructors
 MenuItem::MenuItem(const __FlashStringHelper* Label, UIcallback *cb) :
@@ -198,3 +225,21 @@ MenuItem::MenuItem(const __FlashStringHelper* Label, UIcallback *cb) :
 	,link(false)
 	,target('root')
 	{}
+MenuItem::~MenuItem() {
+	//delete cb;//bad juju here
+}
+//linking callback
+UI::Linker::Linker(UI &ui, char id) :UIcallback(), id(id), ui(ui) {}
+void UI::Linker::callback(UI_t::menucallbackinfo_t &info) {
+	if (info.button == right) {
+		PLF("Link activated");
+		for (list<Menu>::iterator i=ui.menus.begin(); i != ui.menus.end(); i++) {
+			if (i->id == id) {
+				ui.JumpToMenu(i);
+				PLF("Linked target found");
+				return;
+			}
+		}
+		PLF("Link failed");
+	}
+}

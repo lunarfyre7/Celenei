@@ -3,25 +3,25 @@
 #include "config.h"
 #include <LiquidCrystal_I2C.h>
 #include <LCD.h>
-#include <lcdostream>
-//#include <iterator>
+//#include <lcdostream>
+#include <iterator>
 #include <list>
 #include "timer.h"
 #include "controls.h"
 #include "sol/spin.h"
-//#include "../mod/base/modulebase.h"
+#include "../mod/base/modulebase.h"
 class Module;//forward declaration
 class UIcallback; //ditto
 
 namespace sol {
-	namespace UI_t {
-		struct menucallbackinfo_t {
-			bool _new; //menu entry has just been selected
-			bool isSelected; //is the current menu item;
-			btndir_t button; //the button state
-			int  menuindex;
-		};
-	}
+//	namespace UI_t {
+//		struct menucallbackinfo_t {
+//			bool _new; //menu entry has just been selected
+//			bool isSelected; //is the current menu item;
+//			btndir_t button; //the button state
+//			int  menuindex;
+//		};
+//	}
 
 //	typedef void(*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//TODO use lambdas instead of this
 //	typedef void(Module::*MenuItemCallback)(UI_t::menucallbackinfo_t&, char**);//don't use this!!!
@@ -29,6 +29,7 @@ namespace sol {
 	class MenuItem{ //menu type
 	public:
 		MenuItem(const __FlashStringHelper*, UIcallback*);//constructor
+		~MenuItem();
 		const __FlashStringHelper* Label;
 		char* Info;
 		UIcallback *cb;//pointer to module in question
@@ -40,7 +41,7 @@ namespace sol {
 		//Menu() : list() {}//init the list in the constructor
 		std::list<MenuItem> list;//the list containing MenuItems
 		int parent; //parent id
-		int id;
+		char id;
 	};
 	class UI : public Spin::Task {
 	public:
@@ -57,9 +58,9 @@ namespace sol {
 //		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 
 		//name = name of menu
-		UI& SetParent(int name); //both take multi character literals, e.g., 'abc'
-		UI& LinkTo(int name);
-		UI& PushMenu(int name);//create new menu
+		UI& SetParent(char name); //both take multi character literals, e.g., 'abc'
+		UI& LinkTo(char name);
+		UI& PushMenu(char name);//create new menu
 
 		//screen
 		void InitLCD(uint8_t X, uint8_t Y);//Must be called before task is started!
@@ -90,10 +91,19 @@ namespace sol {
 		void CheckButtons(std::list<MenuItem> &menu, std::list<MenuItem>::iterator &menuit);
 		void DrawDisplay(std::list<MenuItem>::iterator);
 		void JumpToMenu(std::list<Menu>::iterator);
+		Menu& Find(char);//find a menu based on it's id;
 
 		//helpers
 		bool CheckItem(); //check that menu iterator is OK
 
+		class Linker : public UIcallback {
+			char id;
+			UI &ui;
+		public:
+			Linker(UI &ui, char id);
+			void callback(UI_t::menucallbackinfo_t &);
+		};
 	};
 }
+extern sol::UI ui;
 #endif

@@ -10,15 +10,26 @@
 #include <iterator>
 #include <list>
 #include "config.h"
-#include "sol/ui.h"
+//#include "sol/ui.h"
+#include "sol/controls.h"
 #include "sol/spin.h"
 #include "sol/timer.h"
 //#include "Modulereg.h"
-extern sol::UI ui;
+//extern sol::UI ui;
 //using namespace sol;
 //#define wrapCB(name,obj) void name(UI_t::menucallbackinfo_t& info, char** text) {obj.ui_callback(info, text);}//make callback wrapper
 //#define _makeCB(wrap,class,objname, method) class objname; void wrap(UI_t::menucallbackinfo_t& info, char** text) {objname.method(info, text);}
 //#define makeCB(wrap,class,method) _makeCB(wrap, class, UNIQUE_NAME(class##method), method) ///usage makeCB(mycallback, mymodule, mymethod)
+namespace sol {
+	namespace UI_t {
+		struct menucallbackinfo_t {
+			bool _new; //menu entry has just been selected
+			bool isSelected; //is the current menu item;
+			btndir_t button; //the button state
+			int  menuindex;
+		};
+	}
+}
 
 class Module;
 class UIcallback {
