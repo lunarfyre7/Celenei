@@ -37,6 +37,11 @@
 			<locationURI>ArduinoHardwareLibPath/Wire</locationURI>
 		</link>
 		<link>
+			<name>Libraries/stl</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/STL/stl</locationURI>
+		</link>
+		<link>
 			<name>arduino/core</name>
 			<type>2</type>
 			<locationURI>ArduinoPlatformPath/cores/arduino</locationURI>
