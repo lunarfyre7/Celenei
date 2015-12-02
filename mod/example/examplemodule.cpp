@@ -53,39 +53,51 @@ void Mod_ram::UIcb::callback(mci &info) {
 //		ui.UpdateScreen();
 //	}
 //}
-////lag
-//Mod_lag::Mod_lag()
-//	:Module()
-//	,ltime(0)
-//	,lag(0)
-//	,plag(0)
-//	,timer()
-//	{
-//	alloc(9, 1);//setup ui label buffer
-//	alloc(9, 2);//setup ui label buffer
-//	ui.PushItem(F("lag: "), this);//add ui entry to menu
-//	ui.PushItem(F("P.lag: "), this, 2);//add 2nd callback to menu
-//	regTask();//register background task
-//}
-//
-//Mod_lag::~Mod_lag() {
-//
-//}
+//lag
+Mod_lag::Mod_lag()
+	:Module()
+	,ltime(0)
+	,lag(0)
+	,plag(0)
+	,timer()
+	,cb1(*this)
+	,cb2(*this)
+	{
+	ui.PushItem(F("lag: "), &cb1);//add ui entry to menu
+	ui.PushItem(F("P.lag: "), &cb2);//add 2nd callback to menu
+	regTask();//register background task
+}
+
+Mod_lag::~Mod_lag() {
+
+}
 //void Mod_lag::ui_callback(mci &info) {//ui task
 //	sprintf(text_store[0], ": %luuS", lag);
 //}
 //void Mod_lag::ui_callback2(mci &info) {//ui task
 //	sprintf(text_store[1], ": %luuS", plag);
 //}
-//void Mod_lag::task() {//background task
-//	unsigned long time = micros();
-//	lag = time - ltime;
-//	plag = (lag > plag) ? lag : plag;
-//	ltime = time;
-//	if (timer.Every(100))
-//		plag = 0;
-//}
-//
+Mod_lag::UIcb::UIcb(Mod_lag& m) : outer(m) {
+	alloc(9);
+}
+Mod_lag::UIcb2::UIcb2(Mod_lag& m) : outer(m) {
+	alloc(9);
+}
+void Mod_lag::UIcb::callback(mci &info) {
+	sprintf(text_store, ": %luuS", outer.lag);
+}
+void Mod_lag::UIcb2::callback(mci &info) {
+	sprintf(text_store, ": %luuS", outer.plag);
+}
+void Mod_lag::task() {//background task
+	unsigned long time = micros();
+	lag = time - ltime;
+	plag = (lag > plag) ? lag : plag;
+	ltime = time;
+	if (timer.Every(100))
+		plag = 0;
+}
+
 ////persist
 ////uint8_t EEMEM eememvar = 0;
 ////Persist<uint8_t> persist(&eememvar);
@@ -122,5 +134,5 @@ void example_module::setup() {
 	//add something like ui.setcontext('menuname') here
 	Module* ram = new Mod_ram();
 //	Module* rand = new Mod_random();
-//	Module* lag = new Mod_lag();
+	Module* lag = new Mod_lag();
 }

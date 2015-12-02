@@ -37,17 +37,29 @@ public:
 //	virtual ~Mod_random();
 //	void ui_callback(UI_t::menucallbackinfo_t&);
 //};
-//
-//class Mod_lag: public Module {
-//	unsigned long ltime, lag, plag;
-//	Timer timer;
-//public:
-//	Mod_lag();
-//	virtual ~Mod_lag();
-//	void ui_callback(UI_t::menucallbackinfo_t&);
-//	void ui_callback2(UI_t::menucallbackinfo_t&);
-//	void task();
-//};
+
+class Mod_lag: public Module {
+	unsigned long ltime, lag, plag;
+	Timer timer;
+	class UIcb : public UIcallback {
+		Mod_lag &outer;
+	public:
+		UIcb(Mod_lag&);
+		void callback(UI_t::menucallbackinfo_t&);
+	};
+	class UIcb2 : public UIcallback {
+		Mod_lag &outer;
+	public:
+		UIcb2(Mod_lag&);
+		void callback(UI_t::menucallbackinfo_t&);
+	};
+	UIcb cb1;
+	UIcb2 cb2;
+public:
+	Mod_lag();
+	virtual ~Mod_lag();
+	void task();
+};
 
 //class Mod_persist: public Module {
 //public:
