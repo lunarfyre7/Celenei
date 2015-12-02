@@ -16,37 +16,44 @@ using namespace sol;
 namespace example_module {
 
 class Mod_ram: public Module {
+	int ram;
+	class UIcb : public UIcallback {
+		Mod_ram &outer;
+		Timer timer;
+	public:
+		UIcb(Mod_ram&);
+		void callback(UI_t::menucallbackinfo_t&);
+	};
+	UIcb callback;
 public:
 	Mod_ram();
 	virtual ~Mod_ram();
-	void ui_callback(UI_t::menucallbackinfo_t&);
-private:
-	int ram;
+//	void ui_callback(UI_t::menucallbackinfo_t&);
 };
 
-class Mod_random: public Module {
-public:
-	Mod_random();
-	virtual ~Mod_random();
-	void ui_callback(UI_t::menucallbackinfo_t&);
-};
+//class Mod_random: public Module {
+//public:
+//	Mod_random();
+//	virtual ~Mod_random();
+//	void ui_callback(UI_t::menucallbackinfo_t&);
+//};
+//
+//class Mod_lag: public Module {
+//	unsigned long ltime, lag, plag;
+//	Timer timer;
+//public:
+//	Mod_lag();
+//	virtual ~Mod_lag();
+//	void ui_callback(UI_t::menucallbackinfo_t&);
+//	void ui_callback2(UI_t::menucallbackinfo_t&);
+//	void task();
+//};
 
-class Mod_lag: public Module {
-	unsigned long ltime, lag, plag;
-	Timer timer;
-public:
-	Mod_lag();
-	virtual ~Mod_lag();
-	void ui_callback(UI_t::menucallbackinfo_t&);
-	void ui_callback2(UI_t::menucallbackinfo_t&);
-	void task();
-};
-
-class Mod_persist: public Module {
-public:
-	Mod_persist();
-	void ui_callback(UI_t::menucallbackinfo_t&);
-};
+//class Mod_persist: public Module {
+//public:
+//	Mod_persist();
+//	void ui_callback(UI_t::menucallbackinfo_t&);
+//};
 
 void setup();
 

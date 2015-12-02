@@ -11,6 +11,7 @@
 #include "sol/spin.h"
 //#include "../mod/base/modulebase.h"
 class Module;//forward declaration
+class UIcallback; //ditto
 
 namespace sol {
 	namespace UI_t {
@@ -27,11 +28,10 @@ namespace sol {
 //	typedef MenuItemCallback mci_t;
 	class MenuItem{ //menu type
 	public:
-		MenuItem(const __FlashStringHelper*, Module*);//constructor
+		MenuItem(const __FlashStringHelper*, UIcallback*);//constructor
 		const __FlashStringHelper* Label;
 		char* Info;
-		Module *mod;//pointer to module in question
-		uint8_t cbNum; //the callback to call in the module
+		UIcallback *cb;//pointer to module in question
 
 		int target;//id of list to link to
 		bool link;//is this a link?
@@ -53,8 +53,7 @@ namespace sol {
 		//Menu insertion & manipulation
 //		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info);
 		UI& PushItem(const __FlashStringHelper* Label);
-//		UI& PushItem(const __FlashStringHelper* Label, Module*); //use this form for callback's that draw in the menu;
-		UI& PushItem(const __FlashStringHelper* Label, Module*, uint8_t cbNumber=1); //use this for addition callbacks from the same module
+		UI& PushItem(const __FlashStringHelper* Label, UIcallback*);//use this form for callback's that draw in the menu;
 //		UI& PushItem(const __FlashStringHelper* Label, const __FlashStringHelper* Info, MenuItemCallback);
 
 		//name = name of menu
