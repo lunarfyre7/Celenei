@@ -28,6 +28,7 @@ UI::UI(int addr)
  ,button()
  ,lastButton()
  ,frozen(false)
+ ,dirty(false)
 {
 		//lcd(rs, en, d4, d5, d6, d7);
 		// std::olcdstream lcdout(lcd);
@@ -167,14 +168,18 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 		//call the callback
 		if (it->cb != NULL) //check for a null pointer
 			it->cb->proxy(cbinfo, &(it->Info));//call the ui callback proxy through the pointer to the module object
+		//check if dirty
+		if (dirty) {
+			dirty = false;//disable dirty flag
+			return; //restart (abort)
+		}
 		if (updateScreen || updateLine){
 			//clear and write line
 			ClearSection(0, y, sizeX, lcd);
 			lcd.setCursor(0,y); //set line to y
 			if(y == cursorOffset){ //selected line
 				lcd.write(0x7E); //write arrow on selected line
-//				cbinfo.isSelected = true; //tell the callback its special and showered with attention
-//				cbinfo.button = button;//give callback button state
+
 			}
 			else {//or space on the others
 				lcd.setCursor(1,y);
@@ -196,6 +201,7 @@ void UI::DrawDisplay(list<MenuItem>::iterator it) {//draws text lines in menus a
 void UI::JumpToMenu(list<Menu>::iterator menu) {//set current menu and request redraw.
 	currentMenu = menu;
 	menuIt = currentMenu->list.begin(); //set it. to the new menu
+	dirty=true;
 	UpdateScreen();
 }
 

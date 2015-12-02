@@ -85,6 +85,7 @@ namespace sol {
 		unsigned long buttonScrollTimer;
 		bool updateScreen; //true if screen needs update
 		bool updateLine;
+		bool dirty; //restart the whole drawing process
 
 
 		//methods
