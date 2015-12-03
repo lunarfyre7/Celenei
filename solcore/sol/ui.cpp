@@ -5,7 +5,7 @@
 //#include "../mod/base/modulebase.h"
 
 using namespace sol;
-using namespace UI_t;
+//using namespace UI_t;
 using namespace std;
 
 int Pstrlen(const __FlashStringHelper * str) {return (int) strlen_P(reinterpret_cast<const PROGMEM char *> (str));}
@@ -253,7 +253,7 @@ MenuItem::~MenuItem() {
 }
 //linking callback
 UI::Linker::Linker(UI &ui, char id) :UIcallback(), id(id), ui(ui) {}
-void UI::Linker::callback(UI_t::menucallbackinfo_t &info) {
+void UI::Linker::callback(menucallbackinfo_t &info) {
 	if (info.button == right || info.button == center) {
 		PLF("Link activated");
 		for (list<Menu>::iterator i=ui.menus.begin(); i != ui.menus.end(); i++) {

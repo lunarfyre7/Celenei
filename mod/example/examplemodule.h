@@ -23,7 +23,7 @@ class Mod_ram: public Module {
 		Timer timer;
 	public:
 		UIcb(Mod_ram&);
-		void callback(UI_t::menucallbackinfo_t&);
+		void callback(menucallbackinfo_t&);
 	};
 	UIcb callback;
 public:
@@ -39,20 +39,20 @@ public:
 //	void ui_callback(UI_t::menucallbackinfo_t&);
 //};
 
-class Mod_lag: public Module {
+class Mod_lag: public Module, public Spin::Task {
 	unsigned long ltime, lag, plag;
 	Timer timer;
 	class UIcb : public UIcallbackTimer {
 		Mod_lag &outer;
 	public:
 		UIcb(Mod_lag&);
-		void callback(UI_t::menucallbackinfo_t&);
+		void callback(menucallbackinfo_t&);
 	};
 	class UIcb2 : public UIcallbackTimer {
 		Mod_lag &outer;
 	public:
 		UIcb2(Mod_lag&);
-		void callback(UI_t::menucallbackinfo_t&);
+		void callback(menucallbackinfo_t&);
 	};
 	UIcb cb1;
 	UIcb2 cb2;
@@ -65,7 +65,7 @@ public:
 //class Mod_persist: public Module {
 //public:
 //	Mod_persist();
-//	void ui_callback(UI_t::menucallbackinfo_t&);
+//	void ui_callback(menucallbackinfo_t&);
 //};
 
 void setup();

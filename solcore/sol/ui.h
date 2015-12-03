@@ -108,7 +108,7 @@ namespace sol {
 			UI &ui;
 		public:
 			Linker(UI &ui, char id);
-			void callback(UI_t::menucallbackinfo_t &);
+			void callback(menucallbackinfo_t &);
 		};
 	};
 }

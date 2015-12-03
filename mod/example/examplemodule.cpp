@@ -10,7 +10,6 @@
 #include "Arduino.h"
 #include "sol/persist.h"
 
-using namespace UI_t;
 using namespace example_module;
 
 typedef menucallbackinfo_t mci;
@@ -65,7 +64,7 @@ Mod_lag::Mod_lag()
 	{
 	ui.PushItem(F("lag: "), &cb1);//add ui entry to menu
 	ui.PushItem(F("P.lag: "), &cb2);//add 2nd callback to menu
-	regTask();//register background task
+	Spin::RegisterTask(this);//register the task in this object
 }
 
 Mod_lag::~Mod_lag() {
