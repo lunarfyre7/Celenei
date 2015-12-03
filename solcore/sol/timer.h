@@ -9,7 +9,7 @@ public:
 	Timer Reset();//resets the timer
 	bool CheckInterval();//checks the interval set by SetInterval
 	bool Check(unsigned long);
-	bool Every(unsigned long);
+	bool Every(unsigned long);//true every x amount of time
 	bool StaticCheck(unsigned long time);//checks if time has elapsed since last reset
 	bool First(); //is this the first check? It returns true only once.
 private:
