@@ -43,10 +43,10 @@ Modules are where you write all your code, they are located in the `mod` folder 
 ####Module example 2
 Example of a module with a background task and a callback mixin
 ###### mod/example/MyModule.h
-	#include "../base/modulebase.h"//include the base classes
-	#include "sol/ui.h"//include the UI class
-
 ```C++	
+#include "../base/modulebase.h"//include the base classes
+#include "sol/ui.h"//include the UI class
+
 namespace example_module { //it's best if module headers are in their own namespace
 	class MyModule:
 			public Module,//include the module base
