@@ -104,7 +104,13 @@ UI& UI::PushMenu(char name) {
 	Menu menu;
 	menu.id = name;
 	menu.parent = 'root';//default root, even for root
-	menus.push_back(menu);
+	//check for conflicting ids
+	PLF("Checking for conflicts...");
+	if (FindMenuIt(name) == menus.end()) {
+		PLF("[warning] Menu name conflict!");//complain
+	}
+	else
+		menus.push_back(menu);
 	return *this;
 }
 void UI::UpdateLine() {
