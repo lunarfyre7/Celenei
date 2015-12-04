@@ -15,15 +15,16 @@ namespace example_module_1 {
 
 	class MyModule:
 			public Module,//include the module base
-			public UIcallback,//include a mixin for adding a UI callback(optional)
+			public UIcallbackTimer,//include a mixin for adding a UI callback(optional)
 			public Spin::Task //include the background task base(optional)
 			{
 	public:
 		MyModule();
 		void callback(sol::menucallbackinfo_t &);//your UI callback
 		void task();//Your background task
-
 	};
+
+	void setup();
 }//example_module_1 end
 
 

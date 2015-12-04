@@ -37,8 +37,8 @@ Currently the license is GPL, this is subject to change however. By contributing
 
 Modules are where you write all your code, they are located in the `mod` folder and included into the `modulemanifest.h` file. Each module should have a class (or more) and a non-member setup function that instantiates the class(es) in the module. A module can contain many module classes making a module pack see `examplemodule.h`.
 
-####Module example
-Simple example of a module with a background task and a callback
+####Module example 2
+Example of a module with a background task and a callback mixin
 ###### mod/example/MyModule.h
 	#include "../base/modulebase.h"//include the base classes
 	#include "sol/ui.h"//include the UI class
@@ -46,7 +46,7 @@ Simple example of a module with a background task and a callback
 	namespace example_module { //it's best if module headers are in their own namespace
 		class MyModule:
 				public Module,//include the module base
-				public UIcallback,//include a mixin for adding a UI callback(optional)
+				public UIcallbackTimer,//include a mixin for adding a UI callback(optional)
 				public Spin::Task //include the background task base(optional)
 				{
 		public:
@@ -54,25 +54,32 @@ Simple example of a module with a background task and a callback
 			void callback(sol::menucallbackinfo_t &);//your UI callback
 			void task();//Your background task
 		};
-		void setup();//setup the module.
+	
+		void setup();
 	}//end of namespace
 
 ###### mod/example/MyModule.cpp
 	#include "MyModule.h"
 	namespace example_module {
-		MyModule::MyModule() {
+		MyModule::MyModule() :UIcallbackTimer(1000) /*pass the refresh rate to the UI callback mixin*/ {
 			ui.PushItem(F("MyModule"));//push a line with text into the menu
-			ui.PushItem(F("says: "), this);//push a line with a static label and a dynamic label written by the callback.
+			ui.PushItem(F("says "), this);//push a line with a static label and a dynamic label written by the callback.
+			alloc(10);//allocate a 10 char string for the UI callback
 		}
 		void MyModule::task() {
 			//this will be called over and over in a loop
 			//do NOT use delay(), use Timer instead!!!
+		}
+		void MyModule::callback(sol::menucallbackinfo_t &) {//UIcallback
+			text_store = "hello";//set the dynamic label text
+			ui.UpdateLine(); //tell the ui to update the line
 		}
 		void setup() {
 			//this is the setup function for the whole module.
 			//It creates an instance of the module class and runs other setup code. All we do in this example is create an instance of the module class though.
 			MyModule *mod = new MyModule();//create an instance of the module that won't go away after this function exits.
 		}
+
 	}//ns end
 ###### mod/modulemanifest.h
 	//...
