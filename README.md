@@ -1,7 +1,7 @@
-# Solaneae
-Solaneae (solan-ee-I) is a modular open source firmware for Arduino. It features a dynamic menu system, and a task management system. It is designed for a text based display, for example the common 2x16 text display. It comes packaged with the excellent LiquidCrystal replacement library by Francisco Malpartida allowing the usage of I2C displays. It also used the excellent stl avr port by Andy Brown.
+# Celenei
+Celenei is a modular open source firmware for Arduino, featuring a dynamic menu system and a task management system. It is designed for a text based display like the common 2x16 text display. It comes packaged with a couple of excellent libraries -- the LiquidCrystal replacement library by Francisco Malpartida allowing the usage of I2C displays and the stl avr port by Andy Brown.
 
-Solaneae is not a library, it's a framework that includes _your_ code, as opposed to a library that is included into your code. This is called an inversion of control. Solaneae works by including modules into the main program and running them. Each module can have one or more background task that is always running, and optionally UI menu entries and interactive UI entries.
+Celenei is not a library itself; instead, it's a framework that includes _your_ code, as opposed to a library that is included into your code. This is called an inversion of control. Celenei works by including modules into the main program and running the functions you define for each project you design. 
 
 ### Feature highlights
 
@@ -13,7 +13,7 @@ Solaneae is not a library, it's a framework that includes _your_ code, as oppose
 * Interactive menu items using UI callbacks.
 * Each menu line can be interactive
 
-## planned
+## Planned
 * On-demand submenus to save ram usage.
 * Wifi support
 * Settings registry
@@ -39,6 +39,8 @@ Currently the license is GPL, this is subject to change however. By contributing
 ## Modules
 
 Modules are where you write all your code, they are located in the `mod` folder and included into the `modulemanifest.h` file. Each module should have a class (or more) and a non-member setup function that instantiates the class(es) in the module. A module can contain many module classes making a module pack see `examplemodule.h`.
+
+Modules can have tasks running in the background, similar to the `loop()` function in a typical Arduino sketch. You can also add callbacks to the menu system allowing you to have dynamicly changing text or just react to button presses on the entries in the menu. For example, you can create a settings submenu full of interactive lines display variables that allow you to change them.
 
 ####Module example 2
 Example of a module with a background task and a callback mixin
@@ -123,7 +125,7 @@ For most situations you only need to use the Every() method in Timer, however th
 
 These are just shortcuts if you have many debugging print statements
 
-	#define P(thing) Serial.print(thing) //print thing
-	#define PL(thing) Serial.println(thing) //print line
-	#define PF(string) Serial.print(F(string)) //print flash string
-	#define PLF(string) Serial.println(F(string)) //print flash string with newline
+	P(thing) //print thing
+	PL(thing) //print thing on line
+	PF(string) //print flash string
+	PLF(string) //print flash string with newline
