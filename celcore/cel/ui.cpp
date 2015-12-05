@@ -106,9 +106,8 @@ UI& UI::PushMenu(char name) {
 	menu.parent = 'root';//default root, even for root
 	//check for conflicting ids
 	PLF("Checking for conflicts...");
-	if (FindMenuIt(name) == menus.end()) {
+	if (FindMenuIt(name) != menus.end())
 		PLF("[warning] Menu name conflict!");//complain
-	}
 	else
 		menus.push_back(menu);
 	return *this;
@@ -233,7 +232,7 @@ list<Menu>::iterator UI::FindMenuIt(char id) {
 	}
 	//fail
 	PLF("failed");
-	return menus.begin();
+	return menus.end();
 }
 
 void UI::EraseItem(const __FlashStringHelper *label, char parent) {

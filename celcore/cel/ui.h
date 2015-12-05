@@ -9,7 +9,8 @@
 #include "timer.h"
 #include "controls.h"
 #include "cel/spin.h"
-#include "../mod/base/modulebase.h"
+//#include "../mod/base/modulebase.h"
+#include "uitypes.h"
 class Module;//forward declaration
 class UIcallback; //ditto
 
