@@ -1,7 +1,7 @@
 #include "timer.h"
 #include "arduino.h" //used for millis(), should be replace with something else
 
-using namespace sol;
+using namespace cel;
 
 Timer::Timer()
 	:lastTime(millis())

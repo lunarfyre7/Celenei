@@ -10,11 +10,11 @@
 #include <iterator>
 #include <list>
 #include "config.h"
-//#include "sol/ui.h"
-#include "sol/controls.h"
-#include "sol/spin.h"
-#include "sol/timer.h"
-#include "sol/uitypes.h"
+//#include "cel/ui.h"
+#include "cel/controls.h"
+#include "cel/spin.h"
+#include "cel/timer.h"
+#include "cel/uitypes.h"
 //#include "Modulereg.h"
 //extern sol::UI ui;
 //using namespace sol;
@@ -31,15 +31,15 @@ protected:
 public:
 	UIcallback();
 	virtual ~UIcallback();
-	virtual void callback (sol::menucallbackinfo_t& info) =0;//implement your UI callback as this
-	virtual void proxy(sol::menucallbackinfo_t& info, char** text);//called by the UI system
+	virtual void callback (cel::menucallbackinfo_t& info) =0;//implement your UI callback as this
+	virtual void proxy(cel::menucallbackinfo_t& info, char** text);//called by the UI system
 };
 class UIcallbackTimer : public UIcallback {//adds auto refresh timing to the callback
-	sol::Timer u_timer;//update timer
+	cel::Timer u_timer;//update timer
 	uint16_t period;
 public:
 	UIcallbackTimer(uint16_t);//pass the refresh time here
-	void proxy(sol::menucallbackinfo_t& info, char** text);
+	void proxy(cel::menucallbackinfo_t& info, char** text);
 };
 
 class Module { //TODO add non ui background callbacks

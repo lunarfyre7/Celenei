@@ -8,12 +8,12 @@
 #include <list>
 #include "timer.h"
 #include "controls.h"
-#include "sol/spin.h"
+#include "cel/spin.h"
 #include "../mod/base/modulebase.h"
 class Module;//forward declaration
 class UIcallback; //ditto
 
-namespace sol {
+namespace cel {
 //	namespace UI_t {
 //		struct menucallbackinfo_t {
 //			bool _new; //menu entry has just been selected
@@ -112,5 +112,5 @@ namespace sol {
 		};
 	};
 }
-extern sol::UI ui;
+extern cel::UI ui;
 #endif

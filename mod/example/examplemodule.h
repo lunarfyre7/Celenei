@@ -9,10 +9,10 @@
 #define EXAMPLEMODULE_H_
 
 #include "../base/modulebase.h"
-#include "sol/ui.h"
+#include "cel/ui.h"
 
 ///module declaration///
-using namespace sol;
+using namespace cel;
 
 namespace example_module {
 

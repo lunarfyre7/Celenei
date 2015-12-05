@@ -5,10 +5,10 @@
  *      Author: Jake
  */
 #include "examplemodule.h"
-#include "sol/timer.h"
+#include "cel/timer.h"
 #include <MemoryFree.h>
 #include "Arduino.h"
-#include "sol/persist.h"
+#include "cel/persist.h"
 
 using namespace example_module;
 

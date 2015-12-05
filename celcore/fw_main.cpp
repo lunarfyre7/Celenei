@@ -1,9 +1,9 @@
 #include "fw_main.h"
-#include "sol/spin.h"
-#include "sol/timer.h"
+#include "cel/spin.h"
+#include "cel/timer.h"
 #include <pnew.h>
 #include <avr/wdt.h>
-#include "sol/ui.h"
+#include "cel/ui.h"
 #include "../../mod/modulemanifest.h"
 #include "../../mod/base/modulebase.h"
 #include <stdio.h>
@@ -46,7 +46,7 @@ class WatchdogReset : public Spin::Task {
 
 //setup the UI task
 // UI ui(LCD_PINS);
-sol::UI ui(LCD_I2C_ADDR);
+cel::UI ui(LCD_I2C_ADDR);
 
 /*
 --------------------------------------

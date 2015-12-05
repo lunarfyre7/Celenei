@@ -4,7 +4,7 @@
 #include "controls.h"
 //#include "../mod/base/modulebase.h"
 
-using namespace sol;
+using namespace cel;
 //using namespace UI_t;
 using namespace std;
 

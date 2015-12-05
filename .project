@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Solaneae</name>
+	<name>Celenei</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -30,6 +30,11 @@
 			<name>Libraries/EEPROM</name>
 			<type>2</type>
 			<locationURI>ArduinoHardwareLibPath/EEPROM</locationURI>
+		</link>
+		<link>
+			<name>Libraries/LiquidCrystal</name>
+			<type>2</type>
+			<location>C:/Users/Jake/Programs/eclipseArduino/workspace/Celenei/Libraries/LiquidCrystal</location>
 		</link>
 		<link>
 			<name>Libraries/Wire</name>

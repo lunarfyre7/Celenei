@@ -9,7 +9,7 @@
 #define UITYPES_H_
 
 
-namespace sol {
+namespace cel {
 	struct menucallbackinfo_t {
 		bool _new; //menu entry has just been selected
 		bool isSelected; //is the current menu item;

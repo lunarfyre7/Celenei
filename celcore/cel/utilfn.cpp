@@ -5,7 +5,7 @@
 #include "arduino.h"
 #include <LiquidCrystal_I2C.h>
 
-using namespace sol;
+using namespace cel;
 
 void ClearSection(uint8_t X, uint8_t Y, uint8_t len, LiquidCrystal_I2C lcd) {
 	lcd.setCursor(X, Y);

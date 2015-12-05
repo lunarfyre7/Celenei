@@ -19,25 +19,25 @@
 							<builder buildPath="${workspace_loc:/Bean_FW}/Release" id="it.baeyens.arduino.sketch.builder.298155805" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Arduino sketch builder" superClass="it.baeyens.arduino.sketch.builder"/>
 							<tool commandLinePattern="${A.RECIPE.CPP.O.PATTERN.1} ${FLAGS} -D__IN_ECLIPSE__=1 -x c++ ${INPUTS} ${A.RECIPE.CPP.O.PATTERN.2} ${OUTPUT} ${A.RECIPE.CPP.O.PATTERN.3} ${JANTJE.WARNING_LEVEL} ${JANTJE.EXTRA.COMPILE} ${JANTJE.EXTRA.CPP.COMPILE}" id="it.baeyens.arduino.tool.sketch.compiler.cpp.1341088353" name="Arduino C++ Compiler" superClass="it.baeyens.arduino.tool.sketch.compiler.cpp">
 								<option id="it.baeyens.arduino.compiler.cpp.sketch.option.incpath.1943588254" name="Include Paths (-I)" superClass="it.baeyens.arduino.compiler.cpp.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/arduino/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/arduino/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/EEPROM}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/arduino/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/Wire/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/stl}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/LiquidCrystal}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/vendor}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/solcore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/arduino/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/Wire/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/stl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/LiquidCrystal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/vendor}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/celcore}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.860180727" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
 							</tool>
 							<tool id="it.baeyens.arduino.tool.compiler.c.2146258062" name="Arduino C Compiler" superClass="it.baeyens.arduino.tool.compiler.c">
 								<option id="it.baeyens.arduino.compiler.c.sketch.option.incpath.699800890" name="Include Paths (-I)" superClass="it.baeyens.arduino.compiler.c.sketch.option.incpath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/arduino/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/arduino/variant}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/Wire}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/Libraries/Wire/utility}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Solaneae/solcore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/arduino/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/arduino/variant}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/Wire}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/Libraries/Wire/utility}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Celenei/celcore}&quot;"/>
 								</option>
 								<inputType id="it.baeyens.arduino.compiler.c.sketch.input.1044558172" name="C Source Files" superClass="it.baeyens.arduino.compiler.c.sketch.input"/>
 							</tool>
@@ -47,6 +47,22 @@
 							<tool id="it.baeyens.arduino.tool.objcopy.eep.1487262931" name="Arduino tool Create eeprom" superClass="it.baeyens.arduino.tool.objcopy.eep"/>
 							<tool id="it.baeyens.arduino.tool.objcopy.flash.2006764129" name="Arduino tool Create hex" superClass="it.baeyens.arduino.tool.objcopy.flash"/>
 							<tool id="it.baeyens.arduino.tool.size.258350132" name="Arduino tool Print Size" superClass="it.baeyens.arduino.tool.size"/>
+						</toolChain>
+					</folderInfo>
+					<folderInfo id="it.baeyens.arduino.core.toolChain.release.1714856798.2050364986" name="/" resourcePath="Libraries/LiquidCrystal">
+						<toolChain id="it.baeyens.arduino.core.toolChain.release.988511212" name="Arduino Toolchain" superClass="it.baeyens.arduino.core.toolChain.release" unusedChildren="">
+							<tool id="it.baeyens.arduino.tool.sketch.compiler.cpp.1514892166" name="Arduino C++ Compiler" superClass="it.baeyens.arduino.tool.sketch.compiler.cpp.1341088353">
+								<inputType id="it.baeyens.arduino.compiler.cpp.sketch.input.1760971842" name="CPP source files" superClass="it.baeyens.arduino.compiler.cpp.sketch.input"/>
+							</tool>
+							<tool id="it.baeyens.arduino.tool.compiler.c.1455933577" name="Arduino C Compiler" superClass="it.baeyens.arduino.tool.compiler.c.2146258062">
+								<inputType id="it.baeyens.arduino.compiler.c.sketch.input.1205268459" name="C Source Files" superClass="it.baeyens.arduino.compiler.c.sketch.input"/>
+							</tool>
+							<tool id="it.baeyens.arduino.tool.sketch.compiler.s.1630087908" name="Arduino Assembler" superClass="it.baeyens.arduino.tool.sketch.compiler.s.1267991295"/>
+							<tool id="it.baeyens.arduino.tool.ar.727176362" name="Arduino archiver" superClass="it.baeyens.arduino.tool.ar.944629967"/>
+							<tool id="it.baeyens.arduino.tool.combine.591607789" name="Arduino combiner" superClass="it.baeyens.arduino.tool.combine.1762429976"/>
+							<tool id="it.baeyens.arduino.tool.objcopy.eep.1303753464" name="Arduino tool Create eeprom" superClass="it.baeyens.arduino.tool.objcopy.eep.1487262931"/>
+							<tool id="it.baeyens.arduino.tool.objcopy.flash.234306697" name="Arduino tool Create hex" superClass="it.baeyens.arduino.tool.objcopy.flash.2006764129"/>
+							<tool id="it.baeyens.arduino.tool.size.2084262887" name="Arduino tool Print Size" superClass="it.baeyens.arduino.tool.size.258350132"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
@@ -66,7 +82,7 @@
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Release">
-			<resource resourceType="PROJECT" workspacePath="/Bean_FW"/>
+			<resource resourceType="PROJECT" workspacePath="/Celenei"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>

@@ -1,7 +1,7 @@
 #ifndef GUARD_timer
 #define GUARD_timer
 
-namespace sol {
+namespace cel {
 class Timer {
 public:
 	Timer();

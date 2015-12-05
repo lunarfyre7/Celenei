@@ -9,7 +9,7 @@
 #define README_EXAMPLES_H_
 
 #include "../base/modulebase.h"//include the base classes
-#include "sol/ui.h"//include the UI class
+#include "cel/ui.h"//include the UI class
 
 namespace example_module_1 {
 
@@ -20,7 +20,7 @@ namespace example_module_1 {
 			{
 	public:
 		MyModule();
-		void callback(sol::menucallbackinfo_t &);//your UI callback
+		void callback(cel::menucallbackinfo_t &);//your UI callback
 		void task();//Your background task
 	};
 

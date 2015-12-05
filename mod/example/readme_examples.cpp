@@ -18,7 +18,7 @@ namespace example_module_1 {
 		//this will be called over and over in a loop
 		//do NOT use delay(), use Timer instead!!!
 	}
-	void MyModule::callback(sol::menucallbackinfo_t &) {//UIcallback
+	void MyModule::callback(cel::menucallbackinfo_t &) {//UIcallback
 		text_store = "hello";//set the dynamic label text
 		ui.UpdateLine(); //tell the ui to update the line
 	}

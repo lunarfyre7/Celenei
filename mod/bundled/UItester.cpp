@@ -6,7 +6,7 @@
  */
 
 #include "UItester.h"
-#include "sol/ui.h"
+#include "cel/ui.h"
 #include "MemoryFree.h"
 
 namespace selfTest {
@@ -24,9 +24,9 @@ void UItester::testSize() {
 	int before, after, beforeMenu, afterMenu;
 	PLF("UItester::testSize");
 	PF("Size of UI MenuItem class: ");
-	PL(sizeof(sol::MenuItem));
+	PL(sizeof(cel::MenuItem));
 	PF("Size of UI class: ");
-	PL(sizeof(sol::UI));
+	PL(sizeof(cel::UI));
 
 	//ram size test
 	beforeMenu = freeMemory();

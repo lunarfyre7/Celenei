@@ -47,7 +47,7 @@ Example of a module with a background task and a callback mixin
 ###### mod/example/MyModule.h
 ```C++	
 #include "../base/modulebase.h"//include the base classes
-#include "sol/ui.h"//include the UI class
+#include "cel/ui.h"//include the UI class
 
 namespace example_module { //it's best if module headers are in their own namespace
 	class MyModule:
@@ -108,7 +108,7 @@ void module_setup() {
 ####Basic usage
 
 
-	#include "sol/timer.h" //include the timer
+	#include "cel/timer.h" //include the timer
 	
 	Timer timer; //timer object
 	//assume this function is called repeatedly in a loop
