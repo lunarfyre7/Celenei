@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Celenei by lunarfyre7</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/lunarfyre7/Celenei">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/lunarfyre7/Celenei/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/lunarfyre7/Celenei/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Celenei</h1>
+          <p>Open source Arduino firmware framework</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/lunarfyre7">lunarfyre7</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="celenei" class="anchor" href="#celenei" aria-hidden="true"><span class="octicon octicon-link"></span></a>Celenei</h1>
+
+<p>Celenei is a modular open source firmware for Arduino, featuring a dynamic menu system and a task management system. It is designed for a text based display like the common 2x16 text display. It comes packaged with a couple of excellent libraries -- the LiquidCrystal replacement library by Francisco Malpartida allowing the usage of I2C displays and the stl avr port by Andy Brown.</p>
+
+<p>Celenei is not a library itself; instead, it's a framework that includes <em>your</em> code, as opposed to a library that is included into your code. This is called an inversion of control. Celenei works by including modules into the main program and running the functions you define for each project you design. </p>
+
+<h3>
+<a id="feature-highlights" class="anchor" href="#feature-highlights" aria-hidden="true"><span class="octicon octicon-link"></span></a>Feature highlights</h3>
+
+<ul>
+<li>Object oriented and modular design.</li>
+<li>Run multiple tasks in the background.</li>
+<li>"Functioniod" based callback system allowing you to mix callback into classes.</li>
+<li>Dynamic UI system with easy to use syntax slightly inspired by jquery.</li>
+<li>Submenus.</li>
+<li>Interactive menu items using UI callbacks.</li>
+<li>Each menu line can be interactive</li>
+</ul>
+
+<h2>
+<a id="planned" class="anchor" href="#planned" aria-hidden="true"><span class="octicon octicon-link"></span></a>Planned</h2>
+
+<ul>
+<li>On-demand submenus to save ram usage.</li>
+<li>Wifi support</li>
+<li>Settings registry</li>
+<li>Serial/internet settings tether</li>
+<li>Dynanic module enable/disable at runtime!</li>
+<li>Widgets</li>
+</ul>
+
+<p><strong>This readme is under construction. Solaneae is currently in an alpha state!</strong></p>
+
+<h1>
+<a id="building" class="anchor" href="#building" aria-hidden="true"><span class="octicon octicon-link"></span></a>Building</h1>
+
+<p>Use the eclipse arduino plugin (v2.3 only), follow the setup instructions, and finally clone the project into your workspace.
+<em>only tested on an Arduino UNO</em></p>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p>Currently the license is GPL, this is subject to change however. By contributing to this repository you give me permission to change the license with or without permission.</p>
+
+<h1>
+<a id="apireference" class="anchor" href="#apireference" aria-hidden="true"><span class="octicon octicon-link"></span></a>API/reference</h1>
+
+<p><em>WARNING this documentation is incomplete</em>
+<em>Please refer to the modules in /mod/example/ for examples on usage</em></p>
+
+<h2>
+<a id="modules" class="anchor" href="#modules" aria-hidden="true"><span class="octicon octicon-link"></span></a>Modules</h2>
+
+<p>Modules are where you write all your code, they are located in the <code>mod</code> folder and included into the <code>modulemanifest.h</code> file. Each module should have a class (or more) and a non-member setup function that instantiates the class(es) in the module. A module can contain many module classes making a module pack see <code>examplemodule.h</code>.</p>
+
+<p>Modules can have tasks running in the background, similar to the <code>loop()</code> function in a typical Arduino sketch. You can also add callbacks to the menu system allowing you to have dynamicly changing text or just react to button presses on the entries in the menu. For example, you can create a settings submenu full of interactive lines display variables that allow you to change them.</p>
+
+<h4>
+<a id="module-example-2" class="anchor" href="#module-example-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Module example 2</h4>
+
+<p>Example of a module with a background task and a callback mixin</p>
+
+<h6>
+<a id="modexamplemymoduleh" class="anchor" href="#modexamplemymoduleh" aria-hidden="true"><span class="octicon octicon-link"></span></a>mod/example/MyModule.h</h6>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>../base/modulebase.h<span class="pl-pds">"</span></span><span class="pl-c">//include the base classes</span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>cel/ui.h<span class="pl-pds">"</span></span><span class="pl-c">//include the UI class</span>
+
+<span class="pl-k">namespace</span> <span class="pl-en">example_module</span> { <span class="pl-c">//it's best if module headers are in their own namespace</span>
+    <span class="pl-k">class</span> <span class="pl-en">MyModule</span>:
+            public Module,<span class="pl-c">//include the module base</span>
+            public UIcallbackTimer,<span class="pl-c">//include a mixin for adding a UI callback(optional)</span>
+            public Spin::Task <span class="pl-c">//include the background task base(optional)</span>
+            {
+    <span class="pl-k">public:</span>
+        <span class="pl-en">MyModule</span>();
+        <span class="pl-k">void</span> <span class="pl-en">callback</span>(sol::<span class="pl-c1">menucallbackinfo_t</span> &amp;);<span class="pl-c">//your UI callback</span>
+        <span class="pl-k">void</span> <span class="pl-en">task</span>();<span class="pl-c">//Your background task</span>
+    };
+
+    <span class="pl-k">void</span> <span class="pl-en">setup</span>();
+}<span class="pl-c">//end of namespace</span></pre></div>
+
+<h6>
+<a id="modexamplemymodulecpp" class="anchor" href="#modexamplemymodulecpp" aria-hidden="true"><span class="octicon octicon-link"></span></a>mod/example/MyModule.cpp</h6>
+
+<div class="highlight highlight-source-c++"><pre>#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>MyModule.h<span class="pl-pds">"</span></span>
+<span class="pl-k">namespace</span> <span class="pl-en">example_module</span> {
+    <span class="pl-en">MyModule::MyModule</span>() :UIcallbackTimer(<span class="pl-c1">1000</span>) <span class="pl-c">/*pass the refresh rate to the UI callback mixin*/</span> {
+        ui.<span class="pl-c1">PushItem</span>(<span class="pl-c1">F</span>(<span class="pl-s"><span class="pl-pds">"</span>MyModule<span class="pl-pds">"</span></span>));<span class="pl-c">//push a line with text into the menu</span>
+        ui.<span class="pl-c1">PushItem</span>(<span class="pl-c1">F</span>(<span class="pl-s"><span class="pl-pds">"</span>says <span class="pl-pds">"</span></span>), <span class="pl-v">this</span>);<span class="pl-c">//push a line with a static label and a dynamic label written by the callback.</span>
+        <span class="pl-c1">alloc</span>(<span class="pl-c1">10</span>);<span class="pl-c">//allocate a 10 char string for the UI callback</span>
+    }
+    <span class="pl-k">void</span> <span class="pl-en">MyModule::task</span>() {
+        <span class="pl-c">//this will be called over and over in a loop</span>
+        <span class="pl-c">//do NOT use delay(), use Timer instead!!!</span>
+    }
+    <span class="pl-k">void</span> <span class="pl-en">MyModule::callback</span>(sol::<span class="pl-c1">menucallbackinfo_t</span> &amp;) {<span class="pl-c">//UIcallback</span>
+        text_store = <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>;<span class="pl-c">//set the dynamic label text</span>
+        ui.<span class="pl-c1">UpdateLine</span>(); <span class="pl-c">//tell the ui to update the line</span>
+    }
+    <span class="pl-k">void</span> <span class="pl-en">setup</span>() {
+        <span class="pl-c">//this is the setup function for the whole module.</span>
+        <span class="pl-c">//It creates an instance of the module class and runs other setup code. All we do in this example is create an instance of the module class though.</span>
+        MyModule *mod = <span class="pl-k">new</span> <span class="pl-c1">MyModule</span>();<span class="pl-c">//create an instance of the module that won't go away after this function exits.</span>
+    }
+
+}<span class="pl-c">//ns end</span></pre></div>
+
+<h6>
+<a id="modmodulemanifesth" class="anchor" href="#modmodulemanifesth" aria-hidden="true"><span class="octicon octicon-link"></span></a>mod/modulemanifest.h</h6>
+
+<div class="highlight highlight-source-c++"><pre><span class="pl-c">//...</span>
+#<span class="pl-k">include</span> <span class="pl-s"><span class="pl-pds">"</span>example/MyModule.h<span class="pl-pds">"</span></span><span class="pl-c">//include the module</span>
+<span class="pl-k">void</span> <span class="pl-en">module_setup</span>() {
+    <span class="pl-c">//...</span>
+    <span class="pl-c">//call the setup function from the included module</span>
+    <span class="pl-c1">example_module::setup</span>();
+}</pre></div>
+
+<h2>
+<a id="utilities" class="anchor" href="#utilities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Utilities</h2>
+
+<h3>
+<a id="timer" class="anchor" href="#timer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Timer</h3>
+
+<h4>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h4>
+
+<pre><code>#include "cel/timer.h" //include the timer
+
+Timer timer; //timer object
+//assume this function is called repeatedly in a loop
+void examplecallback() {
+    if (timer.Every(100)) {
+        //this will be called every 100ms
+    }
+}
+</code></pre>
+
+<p>For most situations you only need to use the Every() method in Timer, however there are other methods available. Check timer.h for details.</p>
+
+<h3>
+<a id="print-macros" class="anchor" href="#print-macros" aria-hidden="true"><span class="octicon octicon-link"></span></a>Print macros</h3>
+
+<p>These are just shortcuts if you have many debugging print statements</p>
+
+<pre><code>P(thing) //print thing
+PL(thing) //print thing on line
+PF(string) //print flash string
+PLF(string) //print flash string with newline
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
