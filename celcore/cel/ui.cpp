@@ -57,6 +57,8 @@ void UI::task() {
 	//fps throttle
 	if(!dispRefreshTimer.Every(LCD_REFRESH_TIME))
 		return;
+	if(frozen)//stop if frozen
+		return;
 	CheckButtons(currentMenu->list, menuIt);
 	DrawDisplay(menuIt);
 
