@@ -55,6 +55,9 @@ cel::UI ui(LCD_I2C_ADDR);
 */
 
 void setup() {
+#if __cplusplus > 199711L
+	PLF("C++11 enabled");
+#endif
 #ifdef DIRECT_5WAY_BUTTONS //if using buttons
 	pinMode(BUTTON_PIN_U, INPUT_PULLUP);
 	pinMode(BUTTON_PIN_D, INPUT_PULLUP);

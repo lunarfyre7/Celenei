@@ -21,7 +21,7 @@ const int height = 16;
 
 
 struct Coord {
-	Coord(): x(0), y(0), en(true) {}
+	Coord(): x(0), y(0), en(false) {}
 	uint8_t x;
 	uint8_t y;
 	bool en;
@@ -44,6 +44,7 @@ private:
 	unsigned char tile4[8];//x2y2
 	Coord snake[snakeLen];
 	btndir_t direction;
+	btndir_t lastDirection;
 	cel::Timer loopT;
 	cel::Timer timer2;
 

@@ -127,7 +127,7 @@ void Mod_lag::task() {//background task
 
 //setup code for the whole module
 void example_module::setup() {
-	ui.PushItem(F("Solaneae"));
+	ui.PushItem(F("Celenei"));
 	//ui.PushMenu('example');
 //	ui.PushItem(F("example module")).LinkTo('example');
 	//add something like ui.setcontext('menuname') here

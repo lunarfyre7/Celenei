@@ -7,6 +7,7 @@
 #include "snake.h"
 #include "cel/ui.h"
 #include <string.h>
+#include "cel/utilfn.h"
 namespace mod_snake {
 
 template <class T>
@@ -23,7 +24,8 @@ Snake::Snake():
 	loopT(),
 	timer2(),
 	snake(),
-	direction(right)
+	direction(right),
+	lastDirection(right)
 	{
 		setup();
 	}
@@ -52,30 +54,28 @@ void Snake::start() {
 	//init char tiles
 	resetTiles();
 
-	//TEST CODE -- Delete later
-//	placeDot(0,0,1);
-//	placeDot(4,1,1);
-//	placeDot(3,4,1);
-//	placeDot(7,3,1);
-//	placeDot(3,10,1);
-//	placeDot(9,12,1);
-//	drawGame();
 
 	////setup display////
+	//clear display
+	ClearSection(0, 0, 16, ui.lcd);
+	ClearSection(0, 1, 16, ui.lcd);
 	//draw game tiles
 	ui.lcd.setCursor(0,0);
+	ui.lcd.write(0xff);//wall
 	ui.lcd.write(byte(0));//x1y1
 	ui.lcd.write(byte(1));//x2y1
-	ui.lcd.print('H');//wall
+	ui.lcd.write(0xff);//wall
 	ui.lcd.setCursor(0,1);
+	ui.lcd.write(0xff);//wall
 	ui.lcd.write(byte(2));//x1y2
 	ui.lcd.write(byte(3));//x2y2
-	ui.lcd.print('H');//wall
+	ui.lcd.write(0xff);//wall
 
 }
 void Snake::exit() {
 	hijackUI = false;//stop drawing
 	ui.frozen = false;//tell ui to start again
+	ui.UpdateScreen(); //tell the ui to refresh
 }
 void Snake::task() {
 	if(hijackUI)
@@ -83,13 +83,22 @@ void Snake::task() {
 }
 
 void Snake::game() {
-	if (loopT.Every(1500)) {
+	if (loopT.Every(200)) {
 		//snake thingy section
 		btndir_t dpad = DPad();
 		Coord head;
-		if (dpad != none || dpad != center) {
+		if (dpad == center)
+			exit();//quit game
+		if (dpad != none && dpad != center) {
 			direction = dpad;
+			lastDirection = direction;
+		} else {
+			direction = lastDirection;
 		}
+		//remove end end of snake
+//		Coord &end = snake[snakeLen-1];
+//		placeDot(end.x, end.y, false);
+		resetTiles();
 		shiftBack(snake, snakeLen);//inch snake array forward
 		if (direction == right) //direction handling
 			if(snake[0].x < width-1)//bounds check
@@ -112,7 +121,7 @@ void Snake::game() {
 			else
 				die();
 		//print snake
-		for(uint8_t i=snakeLen-1;i>=0;i--)
+		for(uint8_t i=0; i<snakeLen; i++)
 			placeDot(snake[i].x, snake[i].y, snake[0].en);
 
 		drawGame();
@@ -168,7 +177,7 @@ void Snake::resetTiles() {
 void Snake::drawGame() {
 }
 void Snake::die() {
-
+	exit();
 }
 void setup() {
 	Snake* snake = new Snake;
