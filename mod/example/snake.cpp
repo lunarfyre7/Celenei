@@ -98,22 +98,22 @@ void Snake::resetGame() {
 }
 
 void Snake::game() {
+	btndir_t dpad = DPad();
+	if (dpad != none && dpad != center) {
+		direction = dpad;
+		lastDirection = direction;
+	} else {
+		direction = lastDirection;
+		}
 	if (loopT.Every(200)) {
-		//snake thingy section
-		btndir_t dpad = DPad();
 		Coord head;
+		//snake thingy section
 		if (dpad == center)
 			exit();//quit game
-		if (dpad != none && dpad != center) {
-			direction = dpad;
-			lastDirection = direction;
-		} else {
-			direction = lastDirection;
-		}
+//		resetTiles();
 		//remove end end of snake
-//		Coord &end = snake[snakeLen-1];
-//		placeDot(end.x, end.y, false);
-		resetTiles();
+		Coord &end = (len < snakeMaxLen) ? snake[len-1] : snake[snakeMaxLen-1];
+		placeDot(end.x, end.y, 0);
 		shiftBack(snake, snakeMaxLen);//inch snake array forward
 		if (direction == right) //direction handling
 			if(snake[0].x < width-1)//bounds check
@@ -144,8 +144,8 @@ void Snake::game() {
 		}
 		placeDot(food.x, food.y, true);//print the tasty dot
 		//print snake
-		for(uint8_t i=0; i<snakeMaxLen && i<=len; i++) {
-			placeDot(snake[i].x, snake[i].y, snake[0].en);
+		for(uint8_t i=0; i<snakeMaxLen && i<len; i++) {
+			placeDot(snake[i].x, snake[i].y, 1);
 			if(i != 0 && snake[i] == snake[0])//did the snake crash into itself?
 				die();
 		}
@@ -162,7 +162,9 @@ void Snake::game() {
 	}
 }
 void Snake::placeDot(uint8_t x, uint8_t y, bool s) {
-	uint8_t dot = B10000;//create dot var. dot is shifted to the rightmost space
+	uint8_t dot = B0010000;//create dot var. dot is shifted to the rightmost space
+//	if(!s)
+//		dot = ~dot;//inverse mask
 	if (x >= 10 || y >= 18) {
 		//out of bounds check
 		PLF("Snake::placeDot | error out of bounds");
@@ -172,12 +174,18 @@ void Snake::placeDot(uint8_t x, uint8_t y, bool s) {
 		dot = dot >> uint8_t(x);//shift dot to the correct x pos
 		if (y < 8) {
 			//tile1
-			tile1[y] = tile1[y] | dot;//add dot to tile
+			if(s)
+				tile1[y] = tile1[y] | dot;//add dot to tile
+			else
+				tile1[y] = tile1[y] & ~dot;//remove dot
 			ui.lcd.createChar(0,tile1);
 		} else {
 			y = y-8;
 			//tile3
-			tile3[y] = tile3[y] | dot;
+			if(s)
+				tile3[y] = tile3[y] | dot;
+			else
+				tile3[y] = tile3[y] & ~dot;
 			ui.lcd.createChar(2,tile3);
 		}
 	} else {
@@ -185,12 +193,18 @@ void Snake::placeDot(uint8_t x, uint8_t y, bool s) {
 		dot = dot >> x;
 		if (y < 8) {
 			//tile2
-			tile2[y] = tile2[y] | dot;
+			if(s)
+				tile2[y] = tile2[y] | dot;
+			else
+				tile2[y] = tile2[y] & ~dot;
 			ui.lcd.createChar(1,tile2);
 		} else {
 			y = y-8;
 			//tile4
-			tile4[y] = tile4[y] | dot;
+			if(s)
+				tile4[y] = tile4[y] | dot;
+			else
+				tile4[y] = tile4[y] & ~dot;
 			ui.lcd.createChar(3,tile4);
 		}
 	}
