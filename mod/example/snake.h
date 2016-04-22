@@ -17,7 +17,7 @@ namespace mod_snake {
 
 const int width = 10;//don't change w/h without changing the placedot code
 const int height = 16;
-#define snakeLen 10
+#define snakeMaxLen 20
 
 
 struct Coord {
@@ -25,6 +25,9 @@ struct Coord {
 	uint8_t x;
 	uint8_t y;
 	bool en;
+	bool inline operator==(Coord& b) {
+		return (x == b.x && y == b.y);
+	}
 };
 class Snake: public Module, public UIcallback, Spin::Task {
 public:
@@ -42,7 +45,9 @@ private:
 	unsigned char tile2[8];//x2y1
 	unsigned char tile3[8];//x1y2
 	unsigned char tile4[8];//x2y2
-	Coord snake[snakeLen];
+	Coord snake[snakeMaxLen];
+	Coord food;
+	uint8_t len; //the actual length of the snake
 	btndir_t direction;
 	btndir_t lastDirection;
 	cel::Timer loopT;
@@ -57,6 +62,7 @@ private:
 	//the bool arg is the color (true for black)
 	//works as a 10x16 grid with 0 index.
 	void resetTiles();//reset tiles
+	void resetGame();//reset the game state
 	void drawGame();//draw the game
 	void die();
 };

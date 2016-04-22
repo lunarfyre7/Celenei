@@ -11,7 +11,7 @@
 
 void module_setup() {
 	//add setup calls here
-	mod_snake::setup();
 	example_module::setup();
+	mod_snake::setup();
 
 }

@@ -25,7 +25,9 @@ Snake::Snake():
 	timer2(),
 	snake(),
 	direction(right),
-	lastDirection(right)
+	lastDirection(right),
+	food(),
+	len(0)
 	{
 		setup();
 	}
@@ -53,7 +55,8 @@ void Snake::start() {
 
 	//init char tiles
 	resetTiles();
-
+	//prep game
+	resetGame();
 
 	////setup display////
 	//clear display
@@ -81,6 +84,18 @@ void Snake::task() {
 	if(hijackUI)
 		game();
 }
+void Snake::resetGame() {
+	//reset the snake
+	for(uint8_t i=0;i<snakeMaxLen;i++)
+		snake[i] = Coord();//copy new blank Coord objects onto the array
+	//reset the directions
+	direction = right;
+	lastDirection = right;
+	//other
+	len = 3;//starting length
+	food.x = random(9);
+	food.y = random(17);
+}
 
 void Snake::game() {
 	if (loopT.Every(200)) {
@@ -99,7 +114,7 @@ void Snake::game() {
 //		Coord &end = snake[snakeLen-1];
 //		placeDot(end.x, end.y, false);
 		resetTiles();
-		shiftBack(snake, snakeLen);//inch snake array forward
+		shiftBack(snake, snakeMaxLen);//inch snake array forward
 		if (direction == right) //direction handling
 			if(snake[0].x < width-1)//bounds check
 				snake[0].x++;
@@ -120,10 +135,29 @@ void Snake::game() {
 				snake[0].y--;
 			else
 				die();
+		//did we get food?
+		if (snake[0] == food){
+			len++;//grow
+			//move the food
+			food.x = random(9);
+			food.y = random(17);
+		}
+		placeDot(food.x, food.y, true);//print the tasty dot
 		//print snake
-		for(uint8_t i=0; i<snakeLen; i++)
+		for(uint8_t i=0; i<snakeMaxLen && i<=len; i++) {
 			placeDot(snake[i].x, snake[i].y, snake[0].en);
-
+			if(i != 0 && snake[i] == snake[0])//did the snake crash into itself?
+				die();
+		}
+		//print score
+		ui.lcd.setCursor(5, 1);
+		ui.lcd.print(F("score "));
+		ui.lcd.print(len-3);//assuming starting len is 3
+		//did you win?
+		if (len >= snakeMaxLen) {
+			ui.lcd.setCursor(5, 0);
+			ui.lcd.print(F("You Win!"));
+		}
 		drawGame();
 	}
 }
