@@ -34,17 +34,22 @@
 		<link>
 			<name>core/core</name>
 			<type>2</type>
-			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/cores/arduino</location>
+			<location>/home/lunar/Documents/arduino_eclipse/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/cores/arduino</location>
 		</link>
 		<link>
 			<name>core/variant</name>
 			<type>2</type>
-			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/variants/standard</location>
+			<location>/home/lunar/Documents/arduino_eclipse/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/variants/standard</location>
+		</link>
+		<link>
+			<name>libraries/LiquidCrystal</name>
+			<type>2</type>
+			<location>/home/lunar/Documents/arduino_eclipse/arduinoPlugin/libraries/LiquidCrystal/1.0.4</location>
 		</link>
 		<link>
 			<name>libraries/Wire</name>
 			<type>2</type>
-			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/libraries/Wire</location>
+			<location>/home/lunar/Documents/arduino_eclipse/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/libraries/Wire</location>
 		</link>
 	</linkedResources>
 </projectDescription>
