@@ -32,11 +32,6 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Libraries/StandardCplusplus</name>
-			<type>2</type>
-			<location>/home/lunar/Documents/elcipse_arduino/workspace/stl</location>
-		</link>
-		<link>
 			<name>core/core</name>
 			<type>2</type>
 			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/cores/arduino</location>

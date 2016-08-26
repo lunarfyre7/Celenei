@@ -1,0 +1,3 @@
+[submodule "libraries/stl"]
+	path = libraries/stl
+	url = git@github.com:lunarfyre7/arduino_stl_cel.git
