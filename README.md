@@ -25,7 +25,7 @@ Celenei is not a library itself; instead, it's a framework that includes _your_ 
 **This readme is under construction. Solaneae is currently in an alpha state!**
 
 # Building
-Use the eclipse arduino plugin (v2.3 only), follow the setup instructions, and finally clone the project into your workspace.
+Currently this project is using the Arduino eclipse v3 plugin. YOu may wish to check the paths in the C++ include settings after cloning the project.
 *only tested on an Arduino UNO*
 
 # License 
