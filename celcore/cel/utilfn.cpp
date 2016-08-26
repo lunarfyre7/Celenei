@@ -2,7 +2,7 @@
 #include "config.h"
 #include "timer.h"
 #include "spin.h"
-#include "arduino.h"
+#include "Arduino.h"
 #include <LiquidCrystal_I2C.h>
 
 using namespace cel;

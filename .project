@@ -6,6 +6,11 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+			<name>it.baeyens.arduino.core.inoToCpp</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
 			<triggers>clean,full,incremental,</triggers>
 			<arguments>
@@ -27,48 +32,24 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Libraries/EEPROM</name>
+			<name>Libraries/StandardCplusplus</name>
 			<type>2</type>
-			<locationURI>ArduinoHardwareLibPath/EEPROM</locationURI>
+			<location>/home/lunar/Documents/elcipse_arduino/workspace/stl</location>
 		</link>
 		<link>
-			<name>Libraries/LiquidCrystal</name>
+			<name>core/core</name>
 			<type>2</type>
-			<location>C:/Users/Jake/Programs/eclipseArduino/workspace/Celenei/Libraries/LiquidCrystal</location>
+			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/cores/arduino</location>
 		</link>
 		<link>
-			<name>Libraries/Wire</name>
+			<name>core/variant</name>
 			<type>2</type>
-			<locationURI>ArduinoHardwareLibPath/Wire</locationURI>
+			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/variants/standard</location>
 		</link>
 		<link>
-			<name>Libraries/stl</name>
+			<name>libraries/Wire</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/STL/stl</locationURI>
-		</link>
-		<link>
-			<name>arduino/core</name>
-			<type>2</type>
-			<locationURI>ArduinoPlatformPath/cores/arduino</locationURI>
-		</link>
-		<link>
-			<name>arduino/variant</name>
-			<type>2</type>
-			<locationURI>ArduinoPinPath/standard</locationURI>
+			<location>/home/lunar/Documents/elcipse_arduino/arduinoPlugin/packages/arduino/hardware/avr/1.6.12/libraries/Wire</location>
 		</link>
 	</linkedResources>
-	<variableList>
-		<variable>
-			<name>ArduinoHardwareLibPath</name>
-			<value>file:/C:/Users/Jake/Programs/arduino-1.5.5-r2/hardware/arduino/avr/libraries</value>
-		</variable>
-		<variable>
-			<name>ArduinoPinPath</name>
-			<value>file:/C:/Users/Jake/Programs/arduino-1.5.5-r2/hardware/arduino/avr/variants</value>
-		</variable>
-		<variable>
-			<name>ArduinoPlatformPath</name>
-			<value>file:/C:/Users/Jake/Programs/arduino-1.5.5-r2/hardware/arduino/avr</value>
-		</variable>
-	</variableList>
 </projectDescription>

@@ -261,7 +261,7 @@ MenuItem::~MenuItem() {
 //linking callback
 UI::Linker::Linker(UI &ui, char id) :UIcallback(), id(id), ui(ui) {}
 void UI::Linker::callback(menucallbackinfo_t &info) {
-	if (info.button == right || info.button == center) {
+	if (info.button == btndir_t::right || info.button == center) {
 		PLF("Link activated");
 		for (list<Menu>::iterator i=ui.menus.begin(); i != ui.menus.end(); i++) {
 			if (i->id == id) {

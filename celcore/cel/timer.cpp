@@ -1,5 +1,5 @@
 #include "timer.h"
-#include "arduino.h" //used for millis(), should be replace with something else
+#include "Arduino.h" //used for millis(), should be replace with something else
 
 using namespace cel;
 

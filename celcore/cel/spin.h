@@ -1,7 +1,7 @@
 #ifndef GUARD_spin
 #define GUARD_spin
 
-#include "arduino.h"
+#include "Arduino.h"
 #include "config.h"
 #include <iterator> //TODO: replace <vector> with something with less sram usage.
 #include <list> //TODO: use arrays instead of vectors
